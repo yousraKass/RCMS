@@ -22,6 +22,8 @@ private:
             insert(R, ROOT->leftChild);
         else if (R.getId() > ROOT->getId())
             insert(R, ROOT->rightChild);
+        
+        cout<<"inserted"<<endl;
 
     }
     void insert(Restaurant &&R, Restaurant *&ROOT)

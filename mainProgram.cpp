@@ -104,6 +104,7 @@ int main()
         Date d(stoi(year), stoi(month), stoi(day));
         Restaurant r(type, name, stoi(ID), d, stoi(employeeNum));
 
+    
         // inserting the restaurants in our data structures
 
         // reading sales and costs of each restaurant
@@ -132,7 +133,6 @@ int main()
         }*/
 
         rcms.insert(r);
-        r.showRestaurantData();
         Algeria.addRestaurant(wilaya, city, district, stoi(ID));
     }
 

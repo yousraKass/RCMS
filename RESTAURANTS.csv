@@ -1,0 +1,275 @@
+ID,Name,Type,Creation date,employee number,country,city,district
+12345678,Chez Omar,owned,2018-01-04,12345,Algeria,Algiers,Alger Centre
+98765432,Le Palais Oriental,owned,2016-05-15,14235,Algeria,Algiers,Alger Centre
+23456789,Le Bistrot Gourmand,franchised,2014-07-03,78901,Algeria,Algiers,Alger Centre
+45678901,L'Olivier,franchised,2023-10-04,34567,Algeria,Algiers,Hydra
+67890123,Le Grand Bleu,franchised,2016-05-15,24235,Algeria,Algiers,Hydra
+56789012,Les Dunes d'Or,owned,2022-11-15,65432,Algeria,Oran,Sidi El Houari
+14235678,Le Jardin,franchised,2022-11-15,54321,Algeria,Oran,Sidi El Houari
+35678901,Les Délices d'Orient,franchised,2021-12-26,67890,Algeria,Oran,Sidi El Houari
+78901234,La Tagine Gourmande,owned,2020-01-09,13765,Algeria,Oran,Bahia
+90123456,Le Soleil d'Orient,franchised,2021-12-26,02876,Algeria,Oran,Bahia
+23456781,La Crêperie Bretonne,owned,2015-06-24,35678,Algeria,Oran,Misserghin
+45678902,Le Grill des Saveurs,franchised,2019-02-18,54210,Algeria,Oran,Misserghin
+67890124,Le Sirocco,franchised,2014-07-03,01923,Algeria,Oran,Misserghin
+56789034,Pizza Pasta,owned,2020-01-09,98765,Algeria,Constantine,Sidi Mabrouk
+14235679,Le Tajine Royale,owned,2018-03-27,29876,Algeria,Constantine,Sidi Mabrouk
+35678903,Salamandre,owned,2015-06-24,76589,Algeria,Constantine,Sidi Mabrouk
+78901245,Le Couscous d'Or,franchised,2021-12-26,90876,Algeria,Constantine,Souk El Khemis
+90123457,Les Saveurs d'Italie,owned,2017-04-06,56789,Algeria,Constantine,Souk El Khemis
+23456790,Le Pacha,franchised,2018-03-27,53876,Algeria,Constantine,Souk El Khemis
+45678904,Le Grillardin,owned,2019-02-18,43210,Algeria,Constantine,Sidi Rashid
+54219876,Le Tajine,Owned,2022-05-10,25,Algeria,Algiers,El Harrach
+67123480,Couscous Palace,Owned,2021-08-15,15,Algeria,Oran,Haï El Yasmine
+89071652,Kabob Haven,Franchised,2023-01-03,30,Algeria,Constantine,Aïn El Bey
+12576934,Spice Oasis,Owned,2022-11-20,18,Algeria,Setif,El Eulma
+39807124,Cafe Sahara,Franchised,2021-04-12,12,Algeria,Tizi Ouzou,Draâ Ben Khedda
+64230817,Hummus Hideaway,Owned,2023-02-28,20,Algeria,Annaba,Sidi Amar
+23985671,Shawarma Delight,Franchised,2022-06-08,22,Algeria,Batna,Batna Centre
+78541230,Falafel Express,Franchised,2021-10-17,17,Algeria,Biskra,Beskra City
+51249786,Mediterranean Flavors,Owned,2023-03-15,28,Algeria,Bejaia,Souk El Thenine
+69817345,Saharan Grill,Franchised,2022-09-05,24,Algeria,Blida,Bir Mourad Raïs
+37109842,Zaitoun Zest,Owned,2021-12-19,21,Algeria,Chlef,Chlef Centre
+92847561,Tagine Twist,Franchised,2022-04-02,26,Algeria,Oran,Haï El Yasmine
+54328901,Falafel Fusion,Owned,2023-01-10,16,Algeria,Setif,El Eulma
+67012894,Sahara Spice,Franchised,2021-07-05,19,Algeria,Tizi Ouzou,Draâ Ben Khedda
+12039485,Algerian Delights,Owned,2022-10-18,23,Algeria,Annaba,Sidi Amar
+87654321,Harrisa Haven,Owned,2021-05-25,29,Algeria,Batna,Batna Centre
+45982316,Pita Paradise,Franchised,2022-03-08,14,Algeria,Biskra,Beskra City
+65439087,Couscous Corner,Owned,2023-02-01,27,Algeria,Bejaia,Souk El Thenine
+23456789,Grill & Greens,Franchised,2021-09-12,13,Algeria,Blida,Bir Mourad Raïs
+98765432,Desert Rose,Owned,2022-07-14,18,Algeria,Chlef,Chlef Centre
+87651234,Sumac & Saffron,Franchised,2023-04-22,24,Algeria,Oran,Haï El Yasmine
+34129876,Kabob Kingdom,Owned,2021-11-30,20,Algeria,Constantine,Aïn El Bey
+56782341,Savory Souk,Franchised,2022-08-03,17,Algeria,Setif,El Eulma
+12345678,Golden Olive,Owned,2021-06-16,22,Algeria,Tizi Ouzou,Draâ Ben Khedda
+78901234,Saffron Square,Franchised,2023-03-25,26,Algeria,Annaba,Sidi Amar
+45678901,Persian Palate,Owned,2022-01-15,19,Algeria,Batna,Batna Centre
+23456780,Kunafa Corner,Franchised,2021-04-29,23,Algeria,Biskra,Beskra City
+89012345,Minty Mirage,Owned,2022-12-12,28,Algeria,Bejaia,Souk El Thenine
+56789012,Caravan Grill,Franchised,2022-09-19,15,Algeria,Blida,Bir Mourad Raïs
+12345679,Sahara Breeze,Owned,2021-08-02,21,Algeria,Chlef,Chlef Centre
+67890123,The Kebab Korner,Franchised,2022-05-05,16,Algeria,Oran,Haï El Yasmine
+34567890,Baba Ganoush,Owned,2023-01-20,30,Algeria,Constantine,Aïn El Bey
+78901234,Cedar Delight,Franchised,2022-11-12,14,Algeria,Setif,El Eulma
+56782341,Harissa House,Owned,2021-06-28,25,Algeria,Tizi Ouzou,Draâ Ben Khedda
+34129876,Citrus Souk,Franchised,2023-04-05,19,Algeria,Annaba,Sidi Amar
+87651234,Kabylie Kitchen,Owned,2021-02-18,22,Algeria,Batna,Batna Centre
+45982316,Falafel Fiesta,Franchised,2022-07-23,28,Algeria,Biskra,Beskra City
+65439087,Saharan Sizzlers,Owned,2021-12-05,17,Algeria,Bejaia,Souk El Thenine
+23456789,Grand Couscous,Franchised,2022-10-10,23,Algeria,Blida,Bir Mourad Raïs
+98765432,Charmoula Corner,Owned,2021-03-15,26,Algeria,Chlef,Chlef Centre
+12345678,Silk Road Spice,Franchised,2022-09-10,20,Algeria,Oran,Haï El Yasmine
+87654321,Falafel Fantasy,Owned,2023-02-15,15,Algeria,Constantine,Aïn El Bey
+45982316,Sahara Sweets,Franchised,2021-11-02,24,Algeria,Setif,El Eulma
+65439087,Mint Tea Terrace,Owned,2022-06-25,18,Algeria,Tizi Ouzou,Draâ Ben Khedda
+10000001,Annaba Eats,Owned,2022-03-01,15,Algeria,Annaba,Centre
+10000002,Seafront Grill,Franchised,2021-10-12,22,Algeria,Annaba,El Bouni
+10000003,Medina Delights,Owned,2023-01-18,18,Algeria,Annaba,Seybouse
+10000004,Citadel Cuisine,Owned,2022-08-05,20,Algeria,Annaba,El Hadjar
+10000005,Blue Horizon,Franchised,2021-12-08,25,Algeria,Annaba,Sidi Amar
+10000006,Sunset Bistro,Owned,2022-06-20,16,Algeria,Annaba,Aïn Berda
+10000007,Portside Grill,Franchised,2021-05-02,28,Algeria,Annaba,Berrahal
+10000008,Harbor House,Owned,2023-02-10,21,Algeria,Annaba,Aïn El Berda
+10000009,Golden Sands,Franchised,2022-09-15,19,Algeria,Annaba,El Bouni
+10000010,Marina Munchies,Owned,2021-04-15,23,Algeria,Annaba,Seybouse
+10000011,Castle Cuisine,Owned,2022-11-28,27,Algeria,Annaba,El Hadjar
+10000012,Sunrise Grill,Franchised,2021-07-22,17,Algeria,Annaba,Sidi Amar
+10000013,Seaview Eats,Owned,2023-03-05,24,Algeria,Annaba,Aïn Berda
+10000014,Citrus Harbor,Franchised,2022-01-30,26,Algeria,Annaba,Berrahal
+10000015,Beachside Bites,Owned,2021-06-10,30,Algeria,Annaba,Aïn El Berda
+10000016,Sahara Seafood,Owned,2022-04-25,18,Algeria,Annaba,El Bouni
+10000017,Coastal Cafe,Franchised,2023-01-08,22,Algeria,Annaba,Seybouse
+10000018,Portside Pita,Owned,2022-10-01,15,Algeria,Annaba,El Hadjar
+10000019,Sunset Spices,Owned,2021-08-16,28,Algeria,Annaba,Sidi Amar
+10000020,Harbor Heights,Franchised,2023-04-18,20,Algeria,Annaba,Aïn Berda
+10000021,Seafront Sizzlers,Owned,2022-05-15,26,Algeria,Annaba,Berrahal
+10000022,Sunrise Sweets,Owned,2021-12-03,19,Algeria,Annaba,Aïn El Berda
+10000023,Marina Munch,Franchised,2022-07-28,24,Algeria,Annaba,El Bouni
+10000024,Seaside Savor,Owned,2021-03-20,21,Algeria,Annaba,Seybouse
+10000025,Blue Bayou,Franchised,2022-09-25,23,Algeria,Annaba,El Hadjar
+10000026,Portside Palate,Owned,2022-04-12,16,Algeria,Annaba,Sidi Amar
+10000027,Harbor Haven,Owned,2021-11-05,30,Algeria,Annaba,Aïn Berda
+10000028,Golden Gate Grill,Franchised,2023-02-28,17,Algeria,Annaba,Berrahal
+10000029,Marine Morsels,Owned,2022-08-15,22,Algeria,Annaba,Aïn El Berda
+10000030,Sunset Savory,Owned,2021-05-10,26,Algeria,Annaba,El Bouni
+20000001,Mosta Bites,Owned,2022-03-15,18,Algeria,Mostaganem,Centre
+20000002,Seafront Delight,Franchised,2021-10-22,25,Algeria,Mostaganem,Sour
+20000003,Medina Grill,Owned,2023-01-25,21,Algeria,Mostaganem,Hadjadj
+20000004,Citadel Cuisine,Owned,2022-08-12,19,Algeria,Mostaganem,Aïn Nouïssy
+20000005,Blue Horizon,Franchised,2021-12-18,24,Algeria,Mostaganem,Mansourah
+20000006,Sunset Bistro,Owned,2022-06-30,17,Algeria,Mostaganem,Khadra
+20000007,Portside Grill,Franchised,2021-05-10,23,Algeria,Mostaganem,Achaâcha
+20000008,Harbor House,Owned,2023-03-01,20,Algeria,Mostaganem,Mesra
+20000009,Golden Sands,Franchised,2022-09-10,22,Algeria,Mostaganem,Sidi Lakhdar
+20000010,Marina Munchies,Owned,2021-04-20,27,Algeria,Mostaganem,Aïn Tédelès
+20000011,Castle Cuisine,Owned,2022-11-15,16,Algeria,Mostaganem,Fornaka
+20000012,Sunrise Grill,Franchised,2021-07-28,30,Algeria,Mostaganem,Benabdelmalek Ramdane
+20000013,Seaview Eats,Owned,2023-03-12,26,Algeria,Mostaganem,Tazgait
+20000014,Citrus Harbor,Franchised,2022-02-08,18,Algeria,Mostaganem,Bouguirat
+20000015,Beachside Bites,Owned,2021-06-25,24,Algeria,Mostaganem,Stidia
+20000016,Sahara Seafood,Owned,2022-05-02,19,Algeria,Mostaganem,Sidi Ali
+20000017,Coastal Cafe,Franchised,2023-01-15,21,Algeria,Mostaganem,Achaâcha
+20000018,Portside Pita,Owned,2022-10-20,28,Algeria,Mostaganem,El Hassiane
+20000019,Sunset Spices,Owned,2021-09-05,23,Algeria,Mostaganem,Bouhadjar
+20000020,Harbor Heights,Franchised,2023-04-05,17,Algeria,Mostaganem,Abdelmalek Ramdane
+20000021,Seafront Sizzlers,Owned,2022-06-05,20,Algeria,Mostaganem,Sidi Belaïd
+20000022,Sunrise Sweets,Owned,2021-12-20,26,Algeria,Mostaganem,Khalouia
+20000023,Marina Munch,Franchised,2022-08-08,15,Algeria,Mostaganem,Beni Saf
+20000024,Seaside Savor,Owned,2021-03-25,29,Algeria,Mostaganem,Mazagran
+20000025,Blue Bayou,Franchised,2022-11-10,18,Algeria,Mostaganem,Ain Sefra
+20000026,Portside Palate,Owned,2022-04-18,22,Algeria,Mostaganem,Aïn Boudinar
+20000027,Harbor Haven,Owned,2021-11-15,27,Algeria,Mostaganem,Tijdit
+20000028,Golden Gate Grill,Franchised,2023-03-20,16,Algeria,Mostaganem,Aïn Nada
+20000029,Marine Morsels,Owned,2022-09-10,19,Algeria,Mostaganem,Sidi Lakhdar
+20000030,Sunset Savory,Owned,2021-05-15,25,Algeria,Mostaganem,Mansourah
+30000001,Beskra Bites,Owned,2022-03-15,18,Algeria,Beskra,Centre
+30000002,Saharan Spice,Franchised,2021-10-22,25,Algeria,Beskra,Beskra Centre
+30000003,Oasis Grill,Owned,2023-01-25,21,Algeria,Beskra,El Hadjeb
+30000004,Desert Delight,Owned,2022-08-12,19,Algeria,Beskra,Ouled Djellal
+30000005,Sands Sizzlers,Franchised,2021-12-18,24,Algeria,Beskra,Ksar El Boukhari
+30000006,Golden Oasis,Owned,2022-06-30,17,Algeria,Beskra,Djemorah
+30000007,Sunset Grill,Franchised,2021-05-10,23,Algeria,Beskra,Oued El Khil
+30000008,Sahara House,Owned,2023-03-01,20,Algeria,Beskra,Hassi Bahbah
+30000009,Palm Palace,Franchised,2022-09-10,22,Algeria,Beskra,El Kantara
+30000010,Mirage Munchies,Owned,2021-04-20,27,Algeria,Beskra,El Outaya
+30000011,Sands Sweets,Owned,2022-11-15,16,Algeria,Beskra,Tolga
+30000012,Sunrise Spice,Franchised,2021-07-28,30,Algeria,Beskra,Boudouaou
+30000013,Oasis Eats,Owned,2023-03-12,26,Algeria,Beskra,Khanguet Sidinadji
+30000014,Saharan Harbor,Franchised,2022-02-08,18,Algeria,Beskra,Boussouf
+30000015,Desert Bites,Owned,2021-06-25,24,Algeria,Beskra,Mchouneche
+30000016,Sands Souk,Owned,2022-05-02,19,Algeria,Beskra,Oued Taga
+30000017,Mirage Morsels,Franchised,2023-01-15,21,Algeria,Beskra,Ouled Yaïch
+30000018,Palm Pita,Owned,2022-10-20,28,Algeria,Beskra,Belazougui
+30000019,Sunset Spices,Owned,2021-09-05,23,Algeria,Beskra,Tassoust
+30000020,Sahara Savor,Franchised,2023-04-05,17,Algeria,Beskra,Megarine
+30000021,Sands Street,Owned,2022-06-05,20,Algeria,Beskra,Belkheir
+30000022,Sunrise Sweets,Owned,2021-12-20,26,Algeria,Beskra,Besbes
+30000023,Mirage Munch,Franchised,2022-08-08,15,Algeria,Beskra,El Feidh
+30000024,Saharan Savor,Owned,2021-03-25,29,Algeria,Beskra,El Gor
+30000025,Golden Glow,Franchised,2022-11-10,18,Algeria,Beskra,Oumache
+30000026,Palm Palate,Owned,2022-04-18,22,Algeria,Beskra,Tilatou
+30000027,Sunset Souk,Owned,2021-11-15,27,Algeria,Beskra,Benaceur
+30000028,Sahara Street,Franchised,2023-03-20,16,Algeria,Beskra,Oued El Khil
+30000029,Sands Sweets,Owned,2022-09-10,19,Algeria,Beskra,Berrihane
+30000030,Mirage Market,Owned,2021-05-15,25,Algeria,Beskra,Megarine
+40000001,Jijel Eats,Owned,2022-03-20,18,Algeria,Jijel,Centre
+40000002,Seaside Delight,Franchised,2021-10-28,25,Algeria,Jijel,El Aouana
+40000003,Mediterranean Grill,Owned,2023-01-30,21,Algeria,Jijel,Taher
+40000004,Citadel Cuisine,Owned,2022-08-15,19,Algeria,Jijel,El Milia
+40000005,Blue Horizon,Franchised,2021-12-25,24,Algeria,Jijel,Emir Abdelkader
+40000006,Sunset Bistro,Owned,2022-07-05,17,Algeria,Jijel,Kaous
+40000007,Portside Grill,Franchised,2021-05-15,23,Algeria,Jijel,Bordj T'har
+40000008,Harbor House,Owned,2023-03-05,20,Algeria,Jijel,Ziama Mansouriah
+40000009,Golden Sands,Franchised,2022-09-20,22,Algeria,Jijel,El Ancer
+40000010,Marina Munchies,Owned,2021-04-25,27,Algeria,Jijel,Ouled Rabah
+40000011,Castle Cuisine,Owned,2022-11-18,16,Algeria,Jijel,Sidi Abdelaziz
+40000012,Sunrise Grill,Franchised,2021-08-02,30,Algeria,Jijel,Bir El Ater
+40000013,Seaview Eats,Owned,2023-03-15,26,Algeria,Jijel,Achouat
+40000014,Citrus Harbor,Franchised,2022-02-12,18,Algeria,Jijel,Boucif Ouled Askeur
+40000015,Beachside Bites,Owned,2021-06-28,24,Algeria,Jijel,Boumahra Ahmed
+40000016,Sahara Seafood,Owned,2022-05-10,19,Algeria,Jijel,El Kennar Nouchfi
+40000017,Coastal Cafe,Franchised,2023-01-20,21,Algeria,Jijel,El Malah
+40000018,Portside Pita,Owned,2022-10-05,28,Algeria,Jijel,Bouraoui Belhadef
+40000019,Sunset Spices,Owned,2021-09-10,23,Algeria,Jijel,Kemir Oued Adjoul
+40000020,Harbor Heights,Franchised,2023-04-10,17,Algeria,Jijel,Sidi Maarouf
+40000021,Seafront Sizzlers,Owned,2022-06-10,20,Algeria,Jijel,Bekkouche Lakhdar
+40000022,Sunrise Sweets,Owned,2021-12-03,26,Algeria,Jijel,Bordj T'har
+40000023,Marina Munch,Franchised,2022-08-15,15,Algeria,Jijel,Ouled Yahia Khedrouche
+40000024,Seaside Savor,Owned,2021-03-28,29,Algeria,Jijel,Bordj Ben Azzouz
+40000025,Blue Bayou,Franchised,2022-11-15,18,Algeria,Jijel,Ben Yahi
+40000026,Portside Palate,Owned,2022-04-20,22,Algeria,Jijel,Tassoust
+40000027,Harbor Haven,Owned,2021-11-10,27,Algeria,Jijel,Oued Z'hor
+40000028,Golden Gate Grill,Franchised,2023-03-25,16,Algeria,Jijel,Boussif
+40000029,Marine Morsels,Owned,2022-09-15,19,Algeria,Jijel,Bordj T'har
+40000030,Sunset Savory,Owned,2021-05-20,25,Algeria,Jijel,El Milia
+51023789,Le Petit Bistro,Owned,2022-03-20,18,Algeria,Algiers,Bab El Oued
+51014567,La Brasserie Parisienne,Franchised,2021-10-28,25,Algeria,Oran,Es-Senia
+51038912,Chez Marie,Owned,2023-01-30,21,Algeria,Constantine,Hauts Plateaux
+51047658,Le Jardin Secret,Owned,2022-08-15,19,Algeria,Annaba,Seybouse
+51059234,La Belle Époque,Franchised,2021-12-25,24,Algeria,Bejaia,Sidi Aich
+51012456,Le Café des Artistes,Owned,2022-07-05,17,Algeria,Setif,Ain El Kebira
+51023567,Le Panier Gourmand,Franchised,2021-05-15,23,Algeria,Blida,Chrea
+51038765,L'Auberge Provençale,Owned,2023-03-05,20,Algeria,Batna,Hassi Messaoud
+51023546,Le P'tit Paris,Franchised,2022-09-20,22,Algeria,Oran,Ain Turk
+51074892,La Table du Chef,Owned,2021-04-25,27,Algeria,Constantine,Mila
+51034978,Le Charmant Bistrot,Owned,2022-11-18,16,Algeria,Batna,Arris
+51056423,Au Coin du Pont,Franchised,2021-08-02,30,Algeria,Algiers,Bir Mourad Raïs
+51023987,La Maison du Terroir,Owned,2023-03-15,26,Algeria,Bejaia,Tichy
+51076890,Le Comptoir des Saveurs,Franchised,2022-02-12,18,Algeria,Annaba,Ain Berda
+51023456,La Petite Auberge,Owned,2021-06-28,24,Algeria,Setif,Bir El Arch
+51056934,Au Bord de l'Eau,Owned,2022-05-10,19,Algeria,Oran,Ain El Turk
+51034256,Le Petit Café,Franchised,2023-01-20,21,Algeria,Algiers,Bir Mourad Raïs
+51087543,Le Bouchon Lyonnais,Owned,2022-10-05,28,Algeria,Constantine,Didouche Mourad
+51049234,La Guinguette,Owned,2021-09-10,23,Algeria,Bejaia,Amizour
+51087903,Le Café de la Place,Franchised,2023-04-10,17,Algeria,Setif,Ain Oulmene
+51037589,Le Jardin de Provence,Owned,2022-06-10,20,Algeria,Batna,Timgad
+51023560,Le Petit Gourmet,Owned,2021-12-03,26,Algeria,Oran,Bir El Djir
+51038456,Au Cœur du Vieux Lyon,Franchised,2022-08-15,15,Algeria,Algiers,Bab El Oued
+51023421,La Boulangerie Parisienne,Owned,2021-03-28,29,Algeria,Oran,Sidi Chami
+51028943,Le Bistrot du Coin,Franchised,2022-11-10,18,Algeria,Blida,Oued El Alleug
+51098576,Au Cœur de Montmartre,Owned,2022-04-20,22,Algeria,Algiers,El Madania
+51045678,Le Café du Marché,Owned,2021-11-10,27,Algeria,Setif,Ain Lahdjar
+51023876,La Petite Crêperie,Franchised,2023-03-25,16,Algeria,Oran,Ain Turk
+51045789,Au Fil de l'Eau,Owned,2022-09-15,19,Algeria,Annaba,Seybouse
+51056789,Le Vieux Quartier,Owned,2021-05-20,25,Algeria,Setif,Bir El Djir
+61023789,Grill Master,Owned,2022-03-20,18,Algeria,Algiers,Bab El Oued
+61014567,Southwest Sizzle,Franchised,2021-10-28,25,Algeria,Oran,Es-Senia
+61038912,Southern Comfort,Owned,2023-01-30,21,Algeria,Constantine,Hauts Plateaux
+61047658,Liberty Diner,Owned,2022-08-15,19,Algeria,Annaba,Seybouse
+61059234,Bay Area Bites,Franchised,2021-12-25,24,Algeria,Bejaia,Sidi Aich
+61012456,Capitol Cuisine,Owned,2022-07-05,17,Algeria,Setif,Ain El Kebira
+61023567,Golden Gate Grub,Franchised,2021-05-15,23,Algeria,Blida,Chrea
+61038765,Lone Star Grill,Owned,2023-03-05,20,Algeria,Batna,Hassi Messaoud
+61023546,Big Apple Bistro,Franchised,2022-09-20,22,Algeria,Oran,Ain Turk
+61074892,Windy City Eats,Owned,2021-04-25,27,Algeria,Constantine,Mila
+61034978,Seafood Shack,Owned,2022-11-18,16,Algeria,Batna,Arris
+61056423,Texan Tastes,Franchised,2021-08-02,30,Algeria,Algiers,Bir Mourad Raïs
+61023987,Liberty Lounge,Owned,2023-03-15,26,Algeria,Bejaia,Tichy
+61076890,City Lights Cafe,Franchised,2022-02-12,18,Algeria,Annaba,Ain Berda
+61023456,Philly Flavor,Owned,2021-06-28,24,Algeria,Setif,Bir El Arch
+61056934,Golden Gate Grill,Owned,2022-05-10,19,Algeria,Oran,Ain El Turk
+61034256,Southern Spice,Franchised,2023-01-20,21,Algeria,Algiers,Bir Mourad Raïs
+61087543,Lone Star BBQ,Owned,2022-10-05,28,Algeria,Constantine,Didouche Mourad
+61049234,Georgia Grillhouse,Owned,2021-09-10,23,Algeria,Bejaia,Amizour
+61087903,City Sizzle,Franchised,2023-04-10,17,Algeria,Setif,Ain Oulmene
+61037589,Sunny State Grill,Owned,2022-06-10,20,Algeria,Batna,Timgad
+61023560,Big Apple Bites,Owned,2021-12-03,26,Algeria,Oran,Bir El Djir
+61038456,Windy City Tavern,Franchised,2022-08-15,15,Algeria,Algiers,Bab El Oued
+61023421,South Beach Bistro,Owned,2021-03-28,29,Algeria,Oran,Sidi Chami
+61028943,Tex-Mex Junction,Franchised,2022-11-10,18,Algeria,Blida,Oued El Alleug
+61098576,Mile High Eats,Owned,2022-04-20,22,Algeria,Algiers,El Madania
+61045678,Starlight Steakhouse,Owned,2021-11-10,27,Algeria,Setif,Ain Lahdjar
+61023876,San Fran Sushi,Franchised,2023-03-25,16,Algeria,Oran,Ain Turk
+61045789,Eagle State Eats,Owned,2022-09-15,19,Algeria,Annaba,Seybouse
+61056789,Liberty Lounge,Owned,2021-05-20,25,Algeria,Setif,Bir El Djir
+71023789,Sands Grill,Owned,2022-03-20,18,Algeria,Algiers,Bab El Oued
+71014567,Arabian Delight,Franchised,2021-10-28,25,Algeria,Oran,Es-Senia
+71038912,Souk Spice,Owned,2023-01-30,21,Algeria,Constantine,Hauts Plateaux
+71047658,Skyline Bistro,Owned,2022-08-15,19,Algeria,Annaba,Seybouse
+71059234,Desert Oasis,Franchised,2021-12-25,24,Algeria,Bejaia,Sidi Aich
+71012456,Palm Palace,Owned,2022-07-05,17,Algeria,Setif,Ain El Kebira
+71023567,Sunset Serenity,Franchised,2021-05-15,23,Algeria,Blida,Chrea
+71038765,Gold Souk Grill,Owned,2023-03-05,20,Algeria,Batna,Hassi Messaoud
+71023546,Downtown Dine,Franchised,2022-09-20,22,Algeria,Oran,Ain Turk
+71074892,Mirage Munchies,Owned,2021-04-25,27,Algeria,Constantine,Mila
+71034978,Oceanfront Eats,Owned,2022-11-18,16,Algeria,Batna,Arris
+71056423,Spice Souq,Franchised,2021-08-02,30,Algeria,Algiers,Bir Mourad Raïs
+71023987,Dunes Diner,Owned,2023-03-15,26,Algeria,Bejaia,Tichy
+71076890,Marina Morsels,Franchised,2022-02-12,18,Algeria,Annaba,Ain Berda
+71023456,Dubai Delicacies,Owned,2021-06-28,24,Algeria,Setif,Bir El Arch
+71056934,Sunset Oasis,Owned,2022-05-10,19,Algeria,Oran,Ain El Turk
+71034256,Souk Sizzle,Franchised,2023-01-20,21,Algeria,Algiers,Bir Mourad Raïs
+71087543,Palm Panache,Owned,2022-10-05,28,Algeria,Constantine,Didouche Mourad
+71049234,Miracle Mile Grill,Owned,2021-09-10,23,Algeria,Bejaia,Amizour
+71087903,Emirates Eats,Franchised,2023-04-10,17,Algeria,Setif,Ain Oulmene
+71037589,Marina Magic,Owned,2022-06-10,20,Algeria,Batna,Timgad
+71023560,Golden Sands Grill,Owned,2021-12-03,26,Algeria,Oran,Bir El Djir
+71038456,Souk Spice,Franchised,2022-08-15,15,Algeria,Algiers,Bab El Oued
+71023421,Dubai Dining,Owned,2021-03-28,29,Algeria,Oran,Sidi Chami
+71028943,Skyline Savor,Franchised,2022-11-10,18,Algeria,Blida,Oued El Alleug
+71098576,Desert Delights,Owned,2022-04-20,22,Algeria,Algiers,El Madania
+71045678,Majestic Marina,Owned,2021-11-10,27,Algeria,Setif,Ain Lahdjar
+71023876,Palm Pavilion,Franchised,2023-03-25,16,Algeria,Oran,Ain Turk
+71045789,Sands of Spice,Owned,2022-09-15,19,Algeria,Annaba,Seybouse
+71056789,Dubai Dine-In,Owned,2021-05-20,25,Algeria,Setif,Bir El Djir

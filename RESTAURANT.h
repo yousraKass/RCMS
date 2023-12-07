@@ -13,7 +13,6 @@ class RestaurantTree;
 class Restaurant
 {
     friend class RestaurantTree;
-
     friend class Sales_and_Costs;
     friend class Rating;
     friend class AVLRestaurantTree;
@@ -39,7 +38,7 @@ private:
 public:
     // SALES AND COSTS TREATED IN THEIR CLASSES
     // SALES AND COSTS TREATED IN THEIR CLASSES
-    Restaurant(string T, string Name, int id, const Date &creation, const int &employee) : ID(id), creationDate(creation), employee_num(employee), heightNode(0)
+    Restaurant(string T, string Name, int id, const Date &creation, const int &employee) : ID(id), name(Name), creationDate(creation), employee_num(employee), heightNode(0)
     {
         if (T == "Owned")
         {
