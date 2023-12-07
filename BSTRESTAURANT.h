@@ -1,68 +1,60 @@
-#ifndef BSTRESTAURANT_H
-#define BSTRESTAURANT_H
+#ifndef RESTAURANT_H
+#define RESTAURANT_H
 #include <iostream>
 #include "RESTAURANT.h"
 
 class RestaurantTree
 {
 private:
+
     Restaurant *root;
     int totalRestaurants;
     //--> Insert x
-    void insert(const restaurant R, restaurant *&root)
+    void insert(const Restaurant R, Restaurant *&ROOT)
     {
-        if (root == nullptr)
+        if (ROOT == nullptr)
         {
             Restaurant *newnode = new Restaurant(R);
-            root = newnode;
+            ROOT = newnode;
             totalRestaurants++;
         }
-        else if (!contains(R))
+        else if (!contains(R.getId(), ROOT))
         {
-            if (x < *root)
-                insert(R, root);
-            else if (R > *root)
-                insert(R, root);
+            if (R.getId() < ROOT->getId())
+                insert(R, ROOT);
+            else if (R.getId() > ROOT->getId())
+                insert(R, ROOT);
         }
 
-        else
-        {
-            return;
-        } // do nothing duplicate
     }
-    void insert(restaurant &&R, restaurant *&root)
+    void insert(Restaurant &&R, Restaurant *&ROOT)
     {
-        if (root == nullptr)
+        if (ROOT == nullptr)
         {
             Restaurant *newnode = new Restaurant(R);
-            root = newnode;
+            ROOT = newnode;
             totalRestaurants++;
         }
-        else if (!contains(R))
+        else if (!contains(R.getId(), ROOT))
         {
-            if (x < *root)
-                insert(R, root);
-            else if (R > *root)
-                insert(R, root);
+            if (R < *ROOT)
+                insert(R, ROOT);
+            else if (R > *ROOT)
+                insert(R, ROOT);
         }
-
-        else
-        {
-            return;
-        } // do nothing duplicate
     }
 
-    bool contains(const int &key, restaurant *&ROOT) const
+    Restaurant *contains(const int &key, Restaurant *&ROOT) const
     {
 
         if (ROOT == nullptr)
-            return false;
+            return nullptr;
         else if (ROOT->getId() == key)
-            return true;
-        else if (key < root->getId())
+            return ROOT;
+        else if (key < ROOT->getId())
             return contains(key, ROOT->leftChild);
         else
-            return contains(key, ROOT->rightChild)
+            return contains(key, ROOT->rightChild);
     }
 
     // show data of all restaurants
@@ -85,15 +77,23 @@ private:
         else if (key < root->getId())
             return contains(key, ROOT->leftChild);
         else
-            return contains(key, ROOT->rightChild)
+            return contains(key, ROOT->rightChild);
     }
-    void makeEmpty(Restaurant *&ROOT) if (!isEmpty())
+    void makeEmpty(Restaurant *&ROOT)
     {
-        makeEmpty(ROOT->leftChild);
-        makeEmpty(ROOT->rightChild);
-        delete root;
+        if (!IsEmpty())
+        {
+            makeEmpty(ROOT->leftChild);
+            makeEmpty(ROOT->rightChild);
+            delete ROOT;
+        }
+        ROOT = nullptr;
     }
-    root = nullptr;
+
+   
+
+   
+
 
 public:
     // default constructor
@@ -108,13 +108,13 @@ public:
 
     bool contains(const int &key)
     {
-        return contains(root, key);
+        return contains(key, root) != nullptr;
     }
 
     void insert(const Restaurant &R)
     {
 
-        insertHelper(root, R);
+        insert(R, root);
     }
     int getTotalRestaurants() const
     {
@@ -130,8 +130,9 @@ public:
 
         return getRestauranthelper(key, root);
     }
+
     //--> Remove all restaurants
-    void makeEmpty() const
+    void makeEmpty()
     {
         makeEmpty(root);
     }
@@ -139,25 +140,25 @@ public:
     {
         makeEmpty();
     }
-    void ReportOnsales(vector<int> restaurants, Date date)
+
+    void reportOnsales(vector<int> restaurants, Date date)
     {
         for (auto ID : restaurants)
         {
             Restaurant *R = getRestaurant(ID);
-            if (R != nullptr){
-                            R->reposrtOnsales(date.getMonth(), date.getYear());
-
+            if (R != nullptr)
+            {
+                R->reportOnsales(date.getMonth(), date.getYear());
             }
-            //add exception in case restaurant not found
-
+            // add exception in case restaurant not found
         }
     }
-    void ReportOnsales(int ID, Date start, Date end)
+    void reportOnsales(int ID, Date start, Date end)
     {
         Restaurant *R = getRestaurant(ID);
         if (R != nullptr)
         {
-            R->ReportOnsales(start, end);
+            R->reportOnsales(start, end);
         }
     }
 };
