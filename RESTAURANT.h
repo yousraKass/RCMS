@@ -1,183 +1,189 @@
-#ifndef RESTAURANT_H 
-#define RESTAURANT_H 
-#include <string> 
+#ifndef RESTAURANT_H
+#define RESTAURANT_H
+#include <string>
 #include "DailySalesAndCosts.h"
-#include "date.h" 
-#include <fstream> 
-#include <iostream>
 #include "Rating.h"
-using namespace std; 
+#include "date.h"
+#include <fstream>
+#include <iostream>
+using namespace std;
 
-class Sales_and_Costs;
-class Rating;
- 
-class Restaurant 
-{ 
+class Restaurant
+{
     friend class Sales_and_Costs;
     friend class Rating;
-private: 
-    enum Type 
-    { 
-        owned, 
-        Franchised 
+
+private:
+    enum Type
+    {
+        owned,
+        Franchised
     };
-     
-    Type info; 
-    string name; 
-    int ID; 
-    Sales_and_Costs SalesAndCosts; 
-    Rating rating; 
-    Date creationDate; 
+
+    Type info;
+    string name;
+    int ID;
+    Sales_and_Costs SalesAndCosts;
+    Rating rating;
+    Date creationDate;
     int employee_num;
-    Restaurant*leftChild; 
-    Restaurant*rightChild; 
- 
-public: 
-//SALES AND COSTS TREATED IN THEIR CLASSES 
-    //SALES AND COSTS TREATED IN THEIR CLASSES  
-    Restaurant(Type T, string Name, int id,const Date &creation,const int& employee) :info(T), ID(id), creationDate(creation),employee_num(employee) {  
-        leftChild=nullptr;  
-        rightChild=nullptr;  
-    }  
-    
-    void addRating(int month,int year,float rA,float rS,float rC, float rI, float rE)
+    Restaurant *leftChild;
+    Restaurant *rightChild;
+    int heightNode;
+
+public:
+    // SALES AND COSTS TREATED IN THEIR CLASSES
+    // SALES AND COSTS TREATED IN THEIR CLASSES
+    Restaurant(Type T, string Name, int id, const Date &creation, const int &employee) : info(T), ID(id), creationDate(creation), employee_num(employee), heightNode(0)
     {
-        int sYear = creationDate.getYear();
-        rating.AddRating(month, year, rA, rS, rC, rI, rE,sYear);
+        leftChild = nullptr;
+        rightChild = nullptr;
     }
 
-    float getRestaurantRating(int month,int year)
+    // have to check what it will return (to be done while testing)
+    Type getType() const
     {
-        int sYear = creationDate.getYear();
-        return rating.GetRestaurantRating(month,year,sYear);
+        return info;
+    }
+    int getEmployeeNumber() const
+    {
+        return employee_num;
+    }
+    string getName() const
+    {
+        return name;
+    }
+    int getId() const
+    {
+        return ID;
+    }
+    Sales_and_Costs  getSalesCosts() const
+    {
+        return SalesAndCosts;
+    }
+    Rating getRating() const
+    {
+        return rating;
     }
 
-    void getAmountOfPrize(int month,int year,float &aA,float &aS,float &aC,float &aI,float &aE)
+    Date getCreationDate() const
     {
-        int sYear = creationDate.getYear();
-        rating.GetAmountOfPrize(month,year,aA,aS,aC,aI,aE,sYear);
-
+        return creationDate;
     }
 
-    void getMonthlySales(int month,int year,float &A, float &S, float &C, float &I, float &E) const
+    /* to be discussed
+    //  used to add restaurant to the file
+    // what abt country , city... how to include them
+    void addRestaurantFile()
     {
-        int sYear = creationDate.getYear();
-        SalesAndCosts.GetMonthlySales(month,year,A,S,C,I,E,sYear);
+
+        fstream RestaurantFile;
+        string fileName = "Restaurants.csv ";
+        RestaurantFile.open(fileName, ios::out | ios::app);
+        // RestaurantFile << "ID,Name,Type,Creation date,employee number,country,city,district" << endl;
+
+        if (RestaurantDataBase.is_open())
+        {
+            RestaurantFile << to_string(getId()) << ",";
+
+            RestaurantFile << getName() << ",";
+            RestaurantFile << getType() << "," << getCreationDate().TextFormat() << to_string(getEmployeeNumber()) << "\n";
+
+            cout << "\nInformation saved successfully \n";
+        }
+        // ask about
+        system("pause");
+        system("cls");
+        RestaurantDataBase.close();
+    }
+*/
+    // show the restaurant 's data
+    void showRestaurantData() const
+    {
+        cout << "Name : " << getName() << endl;
+        cout << "Id : " << getId() << endl;
+        cout << "Type : " << getType() << endl;
+        cout << "Creation date " ;
+        creationDate.DisplayDate();
     }
 
-    float getMonthlySalesOfRestaurant(int month,int year)const
+    bool operator==(const Restaurant &R)
     {
-        int sYear = creationDate.getYear();
-        return SalesAndCosts.GetMonthlySalesOfRestaurant(month,year,sYear);
+        return this->getId() == R.getId();
     }
 
-    void reportOnsales(int month,int year) const
+    bool operator<(const Restaurant &R)
     {
-        int sYear = creationDate.getYear();
-        SalesAndCosts.reportOnsales(month,year,sYear);
+        return this->getId() < R.getId();
+    }
+    bool operator>(const Restaurant &R)
+    {
+        return this->getId() > R.getId();
+    }
+    void reportOnsales(int month, int year)
+    {
+        this->SalesAndCosts.reportOnsales(month, year,creationDate.getYear());
+    }
+    void reportOnsales(Date start, Date end)
+    {
+        this->SalesAndCosts.reportOnsales(start.getDay(), start.getMonth(), start.getYear(), end.getDay(), end.getMonth(), end.getYear(),creationDate.getYear());
     }
 
-    void reportOnsales(int day1,int month1,int year1,int day2,int month2,int year2) const
+    void addRating(int month, int year, float rA, float rS, float rC, float rI, float rE)
     {
         int sYear = creationDate.getYear();
-        SalesAndCosts.reportOnsales(day1,month1,year1,day2,month2,year2,sYear);
+        rating.AddRating(month, year, rA, rS, rC, rI, rE, sYear);
     }
 
-    void add_Sales_and_Costs(int year,int month,int day,float sA,float sS,float sC,float sI,float sE,float pub_Cost,float gen_Cost)
+    float getRestaurantRating(int month, int year)
     {
         int sYear = creationDate.getYear();
-        SalesAndCosts.Add_Sales_and_Costs(year,month,day,sA,sS,sC,sI,sE,pub_Cost,gen_Cost,sYear);
+        return rating.GetRestaurantRating(month, year, sYear);
     }
 
+    void getAmountOfPrize(int month, int year, float &aA, float &aS, float &aC, float &aI, float &aE)
+    {
+        int sYear = creationDate.getYear();
+        rating.GetAmountOfPrize(month, year, aA, aS, aC, aI, aE, sYear);
+    }
+
+    void getMonthlySales(int month, int year, float &A, float &S, float &C, float &I, float &E) const
+    {
+        int sYear = creationDate.getYear();
+        SalesAndCosts.GetMonthlySales(month, year, A, S, C, I, E, sYear);
+    }
+
+    float getMonthlySalesOfRestaurant(int month, int year) const
+    {
+        int sYear = creationDate.getYear();
+        return SalesAndCosts.GetMonthlySalesOfRestaurant(month, year, sYear);
+    }
+
+    void reportOnsales(int month, int year) const
+    {
+        int sYear = creationDate.getYear();
+        SalesAndCosts.reportOnsales(month, year, sYear);
+    }
+
+    void reportOnsales(int day1, int month1, int year1, int day2, int month2, int year2) const
+    {
+        int sYear = creationDate.getYear();
+        SalesAndCosts.reportOnsales(day1, month1, year1, day2, month2, year2, sYear);
+    }
+
+    void add_Sales_and_Costs(int year, int month, int day, float sA, float sS, float sC, float sI, float sE, float pub_Cost, float gen_Cost)
+    {
+        int sYear = creationDate.getYear();
+        SalesAndCosts.Add_Sales_and_Costs(year, month, day, sA, sS, sC, sI, sE, pub_Cost, gen_Cost, sYear);
+    }
+
+    /*void displayRatio(int ID , Date date);
+    void displayRatio(int ID, Date start, Date end);
 
 
 
-
-
-
-    // have to check what it will return (to be done while testing) 
-    Type getType() const 
-    { 
-        return info; 
-    } 
-    int getEmployeeNumber()const{ 
-        return employee_num; 
-    } 
-    string getName() const 
-    { 
-        return name; 
-    } 
-    int getId() const 
-    { 
-        return ID; 
-    } 
-    Sales_and_Costs getSalesCosts() const 
-    { 
-        return SalesAndCosts; 
-    } 
-    Rating getRating() const 
-    { 
-        return rating; 
-    } 
- 
-    Date getCreationDate() const 
-    { 
-        return creationDate; 
-    } 
- 
-    // to be discussed 
-    //  used to add restaurant to the file 
-    //what abt country , city... how to include them 
-    /*void addRestaurantFile() 
-    { 
- 
-        fstream RestaurantFile; 
-        string fileName = "Restaurants.csv "; 
-        RestaurantFile.open(fileName, ios::out | ios::app); 
-        //RestaurantFile << "ID,Name,Type,Creation date,employee number,country,city,district" << endl; 
- 
-        if (RestaurantDataBase.is_open()) 
-        { 
-            RestaurantFile << to_string(getId()) << ","; 
- 
-            RestaurantFile << getName() << ","; 
-            RestaurantFile << getType() << "," << getCreationDate().TextFormat() <<to_string(getEmployeeNumber())<< "\n"; 
- 
-            cout << "\nInformation saved successfully \n"; 
-        } 
-        // ask about 
-        system("pause"); 
-        system("cls"); 
-        RestaurantDataBase.close(); 
-    } */
- 
-    // show the restaurant 's data 
-   /* void showRestaurantData() const 
-    { 
-        cout << "Name : " << getName() << endl; 
-        cout << "Id : " << getId() << endl; 
-        cout << "Type : " << getType() << endl; 
-        cout << "Creation date " << getCreationDate() << endl; 
-    } 
- 
-    bool operator=(const Restaurant &R) 
-    { 
-        return this->getId() == R.getId(); 
-    } 
- 
-    bool operator<(const Restaurant &R) 
-    { 
-        return this->getId() < R.getId(); 
-    } 
-    bool operator>(const Restaurant &R) 
-    { 
-        return this->getId() > R.getId(); 
-    } 
-    void reportOnsales(Date date){ 
-        SalesAndCosts.reportOnsales(month,year); 
-    } 
-    void reportOnsales(Date date1,Date date2){ 
-         SalesAndCosts.reportOnsales(int day1, int month1, int year1, int day2, int month2, int year2); 
-    }*/ 
-}; 
+    void displayRatio(vector<int> restaurants , Date date);
+    void displayRatio(vector<int> restaurants, Date start, Date end);
+    */
+};
 #endif
