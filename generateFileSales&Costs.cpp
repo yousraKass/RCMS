@@ -44,7 +44,7 @@ int main()
         int startYear, startMonth, startDay;
         extractTokens(line, ID, startYear, startMonth, startDay);
 
-        string filePath = ID + "salesAndCosts.txt";
+        string filePath = ID + "salesCosts.csv";
         ofstream outputFile(filePath);
         outputFile << "year,month,day,sales1,sales2,sales3,sales4,sales5,publicity_costs,costs" << endl;
 
