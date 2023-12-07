@@ -1,12 +1,11 @@
-#ifndef RESTAURANT_H
-#define RESTAURANT_H
+#ifndef BSTRESTAURANT_H
+#define BSTRESTAURANT_H
 #include <iostream>
 #include "RESTAURANT.h"
-
+using namespace std;
 class RestaurantTree
 {
 private:
-
     Restaurant *root;
     int totalRestaurants;
     //--> Insert x
@@ -18,13 +17,11 @@ private:
             ROOT = newnode;
             totalRestaurants++;
         }
-        else if (!contains(R.getId(), ROOT))
-        {
-            if (R.getId() < ROOT->getId())
-                insert(R, ROOT);
-            else if (R.getId() > ROOT->getId())
-                insert(R, ROOT);
-        }
+
+        else if (R.getId() < ROOT->getId())
+            insert(R, ROOT->leftChild);
+        else if (R.getId() > ROOT->getId())
+            insert(R, ROOT->rightChild);
 
     }
     void insert(Restaurant &&R, Restaurant *&ROOT)
@@ -90,11 +87,6 @@ private:
         ROOT = nullptr;
     }
 
-   
-
-   
-
-
 public:
     // default constructor
     RestaurantTree() : root(nullptr)
@@ -122,7 +114,7 @@ public:
     }
     void printRestaurantsData() const
     {
-        cout << "Total number of restaurants is: " << getTotalRestaurants << endl;
+        cout << "Total number of restaurants is: " << getTotalRestaurants() << endl;
         printHelper(root);
     }
     Restaurant *getRestaurant(const int &key) const

@@ -8,9 +8,12 @@
 #include <iostream>
 using namespace std;
 class AVLRestaurantTree;
+class RestaurantTree;
 
 class Restaurant
 {
+    friend class RestaurantTree;
+
     friend class Sales_and_Costs;
     friend class Rating;
     friend class AVLRestaurantTree;
@@ -38,11 +41,13 @@ public:
     // SALES AND COSTS TREATED IN THEIR CLASSES
     Restaurant(string T, string Name, int id, const Date &creation, const int &employee) : ID(id), creationDate(creation), employee_num(employee), heightNode(0)
     {
-        if(T=="Owned"){
-            info=owned;
+        if (T == "Owned")
+        {
+            info = owned;
         }
-        else{
-            info=Franchised;
+        else
+        {
+            info = Franchised;
         }
         leftChild = nullptr;
         rightChild = nullptr;
@@ -65,7 +70,7 @@ public:
     {
         return ID;
     }
-    Sales_and_Costs  getSalesCosts() const
+    Sales_and_Costs getSalesCosts() const
     {
         return SalesAndCosts;
     }
@@ -111,7 +116,7 @@ public:
         cout << "Name : " << getName() << endl;
         cout << "Id : " << getId() << endl;
         cout << "Type : " << getType() << endl;
-        cout << "Creation date " ;
+        cout << "Creation date ";
         creationDate.DisplayDate();
     }
 
@@ -130,11 +135,11 @@ public:
     }
     void reportOnsales(int month, int year)
     {
-        this->SalesAndCosts.reportOnsales(month, year,creationDate.getYear());
+        this->SalesAndCosts.reportOnsales(month, year, creationDate.getYear());
     }
     void reportOnsales(Date start, Date end)
     {
-        this->SalesAndCosts.reportOnsales(start.getDay(), start.getMonth(), start.getYear(), end.getDay(), end.getMonth(), end.getYear(),creationDate.getYear());
+        this->SalesAndCosts.reportOnsales(start.getDay(), start.getMonth(), start.getYear(), end.getDay(), end.getMonth(), end.getYear(), creationDate.getYear());
     }
 
     void addRating(int month, int year, float rA, float rS, float rC, float rI, float rE)
