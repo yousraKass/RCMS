@@ -3,11 +3,7 @@
 #include "BSTRESTAURANT.h"
 #include <date.h>
 
-using namespace std;
 
-int main()
-{
-}
 using namespace std;
 
 int main()
@@ -42,52 +38,53 @@ int main()
         switch (choice)
         {
 
-        case 1:
-        {
-            // add a restaurant to the system add it to the ADT plus in the file
-            string name, id, location, type;
-            int numEmployees;
+        // case 1:
+        // {
+        //     // add a restaurant to the system add it to the ADT plus in the file
+        //     string name, id, location, type;
+        //     int numEmployees;
 
-            cout << "Enter the type of the restaurant (owned or franchised): ";
-            cin >> type;
-            cout << "Enter the name of the restaurant: ";
-            cin >> name;
-            cout << "Enter the ID of the restaurant: ";
-            cin >> id;
+        //     cout << "Enter the type of the restaurant (owned or franchised): ";
+        //     cin >> type;
+        //     cout << "Enter the name of the restaurant: ";
+        //     cin >> name;
+        //     cout << "Enter the ID of the restaurant: ";
+        //     cin >> id;
 
-            // creation date is today
-            //  Get the current time point
-            std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
+        //     // creation date is today
+        //     //  Get the current time point
+        //     //std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
 
-            // Convert the time point to a time since epoch (std::time_t)
-            std::time_t currentTime = std::chrono::system_clock::to_time_t(now);
+        //     // Convert the time point to a time since epoch (std::time_t)
+        //     std::time_t currentTime = std::chrono::system_clock::to_time_t(now);
 
-            // Convert the time since epoch to a struct tm
-            struct std::tm *timeInfo = std::localtime(&currentTime);
+        //     // Convert the time since epoch to a struct tm
+        //     struct std::tm *timeInfo = std::localtime(&currentTime);
 
-            // Extract year, month, and day
-            int year = timeInfo->tm_year + 1900; // Years since 1900
-            int month = timeInfo->tm_mon + 1;    // Months are zero-based
-            int day = timeInfo->tm_mday;
-            Date creationDate(year, month, date);
+        //     // Extract year, month, and day
+        //     int year = timeInfo->tm_year + 1900; // Years since 1900
+        //     int month = timeInfo->tm_mon + 1;    // Months are zero-based
+        //     int day = timeInfo->tm_mday;
+        //     Date creationDate(year, month, date);
 
-            cout << "Enter the number of employees: ";
-            cin >> numEmployees;
-            cout << "Enter the location of the restaurant (it should be detailed and separated by , (country,city,district)): ";
-            getline(cin, location);
-            // add to file ID,Name,Type,Creation date,employee number,country,city,districtf
+        //     cout << "Enter the number of employees: ";
+        //     cin >> numEmployees;
+        //     cout << "Enter the location of the restaurant (it should be detailed and separated by , (country,city,district)): ";
+        //     getline(cin, location);
+        //     // add to file ID,Name,Type,Creation date,employee number,country,city,districtf
 
-            Restaurant newRestaurant(type, name, id, creationDate, numEmployees);
-            rcms.insert(newRestaurant);
+        //     Restaurant newRestaurant(type, name, id, creationDate, numEmployees);
+        //     rcms.insert(newRestaurant);
 
-            break;
-        }
+        //     break;
+        // }
         case 2:
         {
             // display the list of restaurants
             rcms.printRestaurantsData();
             break;
         }
+        
         case 3:
         {
             // display the monthly sales report for a specific restaurant

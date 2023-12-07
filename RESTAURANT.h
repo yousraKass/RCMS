@@ -7,11 +7,13 @@
 #include <fstream>
 #include <iostream>
 using namespace std;
+class AVLRestaurantTree;
 
 class Restaurant
 {
     friend class Sales_and_Costs;
     friend class Rating;
+    friend class AVLRestaurantTree;
 
 private:
     enum Type

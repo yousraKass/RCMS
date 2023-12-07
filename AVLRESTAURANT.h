@@ -1,9 +1,9 @@
-#ifndef BSTRESTAURANT_H
-#define BSTRESTAURANT_H
+#ifndef AVLRESTAURANT_H
+#define AVLRESTAURANT_H
 #include <iostream>
 #include "RESTAURANT.h"
 
-class RestaurantTree
+class AVLRestaurantTree
 {
 private:
     static const int ALLOWED_IMBALANCE = 1;
@@ -11,7 +11,7 @@ private:
     Restaurant *root;
     int totalRestaurants;
     //--> Insert x
-    void insert(const restaurant R, restaurant *&ROOT)
+    void insert(const Restaurant R, Restaurant *&ROOT)
     {
         if (ROOT == nullptr)
         {
@@ -19,17 +19,17 @@ private:
             ROOT = newnode;
             totalRestaurants++;
         }
-        else if (!contains(R))
+        else if (!contains(R.getId(), ROOT))
         {
-            if (x < *ROOT)
+            if (R.getId() < ROOT->getId())
                 insert(R, ROOT);
-            else if (R > *ROOT)
+            else if (R.getId() > ROOT->getId())
                 insert(R, ROOT);
         }
 
         balance(ROOT);
     }
-    void insert(restaurant &&R, restaurant *&ROOT)
+    void insert(Restaurant &&R, Restaurant *&ROOT)
     {
         if (ROOT == nullptr)
         {
@@ -37,9 +37,9 @@ private:
             ROOT = newnode;
             totalRestaurants++;
         }
-        else if (!contains(R))
+        else if (!contains(R.getId(), ROOT))
         {
-            if (x < *ROOT)
+            if (R < *ROOT)
                 insert(R, ROOT);
             else if (R > *ROOT)
                 insert(R, ROOT);
@@ -47,17 +47,17 @@ private:
         balance(ROOT);
     }
 
-    bool contains(const int &key, restaurant *&ROOT) const
+    Restaurant *contains(const int &key, Restaurant *&ROOT) const
     {
 
         if (ROOT == nullptr)
-            return false;
+            return nullptr;
         else if (ROOT->getId() == key)
-            return true;
-        else if (key < root->getId())
+            return ROOT;
+        else if (key < ROOT->getId())
             return contains(key, ROOT->leftChild);
         else
-            return contains(key, ROOT->rightChild)
+            return contains(key, ROOT->rightChild);
     }
 
     // show data of all restaurants
@@ -80,17 +80,17 @@ private:
         else if (key < root->getId())
             return contains(key, ROOT->leftChild);
         else
-            return contains(key, ROOT->rightChild)
+            return contains(key, ROOT->rightChild);
     }
     void makeEmpty(Restaurant *&ROOT)
     {
-        if (!isEmpty())
+        if (!IsEmpty())
         {
             makeEmpty(ROOT->leftChild);
             makeEmpty(ROOT->rightChild);
-            delete root;
+            delete ROOT;
         }
-        root = nullptr;
+        ROOT = nullptr;
     }
 
     // utility function that counts a height of the AVL
@@ -99,13 +99,6 @@ private:
         if (temp == NULL)
             return -1;
         return 1 + max(height(temp->leftChild), height(temp->rightChild));
-    }
-    int Balancefactor(const Restaurant *&temp)
-    {
-        if (temp == nullptr)
-            return -1;
-        else
-            return (height(temp->leftChild) - height(temp->rightChild));
     }
 
     void rotateWithLeftChild(Restaurant *&k2)
@@ -140,7 +133,7 @@ private:
         rotateWithRightChild(k1);
     }
 
-    void balance(BinaryNode<comparable> *&t)
+    void balance(Restaurant *&t)
     {
         if (t == nullptr)
             return;
@@ -170,7 +163,7 @@ private:
 
 public:
     // default constructor
-    RestaurantTree() : root(nullptr)
+    AVLRestaurantTree() : root(nullptr)
     {
         totalRestaurants = 0;
     }
@@ -181,13 +174,13 @@ public:
 
     bool contains(const int &key)
     {
-        return contains(root, key);
+        return contains(key, root) != nullptr;
     }
 
     void insert(const Restaurant &R)
     {
 
-        insertHelper(root, R);
+        insert(R, root);
     }
     int getTotalRestaurants() const
     {
@@ -204,40 +197,34 @@ public:
         return getRestauranthelper(key, root);
     }
 
-    // get balance factor
-    int getBalancefactor() const
-    {
-        return Balancefactor(root);
-    }
     //--> Remove all restaurants
-    void makeEmpty() const
+    void makeEmpty()
     {
         makeEmpty(root);
     }
-    ~RestaurantTree()
+    ~AVLRestaurantTree()
     {
         makeEmpty();
     }
 
-    void ReportOnsales(vector<int> restaurants, Date date)
+    void reportOnsales(vector<int> restaurants, Date date)
     {
         for (auto ID : restaurants)
         {
             Restaurant *R = getRestaurant(ID);
-            if (R != nullptr){
-                            R->reposrtOnsales(date.getMonth(), date.getYear());
-
+            if (R != nullptr)
+            {
+                R->reportOnsales(date.getMonth(), date.getYear());
             }
-            //add exception in case restaurant not found
-
+            // add exception in case restaurant not found
         }
     }
-    void ReportOnsales(int ID, Date start, Date end)
+    void reportOnsales(int ID, Date start, Date end)
     {
         Restaurant *R = getRestaurant(ID);
         if (R != nullptr)
         {
-            R->ReportOnsales(start, end);
+            R->reportOnsales(start, end);
         }
     }
 };
