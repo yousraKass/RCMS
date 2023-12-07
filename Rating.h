@@ -38,7 +38,7 @@ void Rating::AddRating(int month,int year,float rA,float rS,float rC, float rI, 
     Years[year-startYear]->months[month-1]->Rating[2] = rC;
     Years[year-startYear]->months[month-1]->Rating[3] = rI;
     Years[year-startYear]->months[month-1]->Rating[4] = rE;
-    Years[year-startYear]->months[month-1]->Rating[5] = rA + rS + rC + rI + rE;
+    Years[year-startYear]->months[month-1]->Rating[5] = (rA + rS + rC + rI + rE)/5;
 
     if(year == startYear && month == 1)
     {

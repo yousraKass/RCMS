@@ -23,7 +23,6 @@ private:
         else if (R.getId() > ROOT->getId())
             insert(R, ROOT->rightChild);
         
-        cout<<"inserted"<<endl;
 
     }
     void insert(Restaurant &&R, Restaurant *&ROOT)
@@ -73,7 +72,7 @@ private:
             return nullptr;
         else if (ROOT->getId() == key)
             return ROOT;
-        else if (key < root->getId())
+        else if (key < ROOT->getId())
             return contains(key, ROOT->leftChild);
         else
             return contains(key, ROOT->rightChild);

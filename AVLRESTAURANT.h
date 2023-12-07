@@ -11,7 +11,7 @@ private:
     Restaurant *root;
     int totalRestaurants;
     //--> Insert x
-    void insert(const Restaurant R, Restaurant *&ROOT)
+   void insert(const Restaurant R, Restaurant *&ROOT)
     {
         if (ROOT == nullptr)
         {
@@ -19,15 +19,15 @@ private:
             ROOT = newnode;
             totalRestaurants++;
         }
-        else if (!contains(R.getId(), ROOT))
-        {
-            if (R.getId() < ROOT->getId())
-                insert(R, ROOT);
-            else if (R.getId() > ROOT->getId())
-                insert(R, ROOT);
-        }
 
+        else if (R.getId() < ROOT->getId())
+            insert(R, ROOT->leftChild);
+        else if (R.getId() > ROOT->getId())
+            insert(R, ROOT->rightChild);
+        
         balance(ROOT);
+        
+
     }
     void insert(Restaurant &&R, Restaurant *&ROOT)
     {
@@ -77,7 +77,7 @@ private:
             return nullptr;
         else if (ROOT->getId() == key)
             return ROOT;
-        else if (key < root->getId())
+        else if (key < ROOT->getId())
             return contains(key, ROOT->leftChild);
         else
             return contains(key, ROOT->rightChild);
@@ -167,7 +167,7 @@ public:
     {
         totalRestaurants = 0;
     }
-    bool IsEmpty() const
+     bool IsEmpty() const
     {
         return (root == nullptr);
     }
@@ -188,7 +188,7 @@ public:
     }
     void printRestaurantsData() const
     {
-        cout << "Total number of restaurants is: " << getTotalRestaurants << endl;
+        cout << "Total number of restaurants is: " << getTotalRestaurants() << endl;
         printHelper(root);
     }
     Restaurant *getRestaurant(const int &key) const

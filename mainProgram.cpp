@@ -1,13 +1,12 @@
 #include <iostream>
 #include "RESTAURANT.h"
 #include "BSTRESTAURANT.h"
-#include"Country.h"
-
+#include"AVLRESTAURANT.h"
+#include "Country.h"
 #include "date.h"
-#include<fstream>
-#include<sstream>
+#include <fstream>
+#include <sstream>
 using namespace std;
-
 
 void extractTokensRestaurant(const string &line, string &ID, string &name, string &type, string &year, string &month, string &day, string &employeeNum, string &wilaya, string &city, string &district)
 {
@@ -73,19 +72,15 @@ void extractTokensRatings(string &lineRatings, string &r1, string &r2, string &r
     getline(ss, year_R);
 }
 
-
-    
-
-
 int main()
 {
-    // reading the files 
+    // reading the files
     // the set of restaurants
     ifstream input("RESTAURANTS.csv");
 
     // variable to store each line each time
     string line;
-    RestaurantTree rcms;
+    AVLRestaurantTree rcms;
     Country Algeria;
 
     // skipping the first line
@@ -104,7 +99,6 @@ int main()
         Date d(stoi(year), stoi(month), stoi(day));
         Restaurant r(type, name, stoi(ID), d, stoi(employeeNum));
 
-    
         // inserting the restaurants in our data structures
 
         // reading sales and costs of each restaurant
@@ -135,6 +129,13 @@ int main()
         rcms.insert(r);
         Algeria.addRestaurant(wilaya, city, district, stoi(ID));
     }
+    rcms.printRestaurantsData();
+    vector<int> rs = Algeria.getRestaurantsAllWilayas();
+    cout << rcms.getTotalRestaurants() << endl;
+    cout << rcms.IsEmpty() << endl;
+    cout << rcms.contains(98765432) << endl;
+    cout << rcms.getTotalRestaurants() << endl;
+    //rcms.printRestaurantsData() ;
 
     // display the menu
     /*int choice;
@@ -209,7 +210,7 @@ int main()
             rcms.printRestaurantsData();
             break;
         }
-        
+
         case 3:
         {
             // display the monthly sales report for a specific restaurant
@@ -275,7 +276,6 @@ int main()
         }
         }
     } while (choice != 11);*/
-
 
     return 0;
 }

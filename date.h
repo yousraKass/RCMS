@@ -14,24 +14,11 @@ private:
 public: 
     Date(int y, int m = 0, int d = 0) 
     { 
-        if (m == 0 && d == 0) 
-        { 
-            year = y; 
-        } 
-        else if (d == 0) 
-        { 
-            year = y; 
-            day = d; 
-        } 
-        else 
-        { 
-            if (isValidDate(y, m, d)) 
-            { 
-                this->year = y; 
-                this->month = m; 
-                this->day = d; 
-            } 
-        } 
+        
+                year = y; 
+               month = m; 
+               day=d;
+          
     } 
     bool isValidDate(int y, int m, int d) const 
     { 
