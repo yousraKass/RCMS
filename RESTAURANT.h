@@ -36,8 +36,14 @@ private:
 public:
     // SALES AND COSTS TREATED IN THEIR CLASSES
     // SALES AND COSTS TREATED IN THEIR CLASSES
-    Restaurant(Type T, string Name, int id, const Date &creation, const int &employee) : info(T), ID(id), creationDate(creation), employee_num(employee), heightNode(0)
+    Restaurant(string T, string Name, int id, const Date &creation, const int &employee) : ID(id), creationDate(creation), employee_num(employee), heightNode(0)
     {
+        if(T=="Owned"){
+            info=owned;
+        }
+        else{
+            info=Franchised;
+        }
         leftChild = nullptr;
         rightChild = nullptr;
     }
