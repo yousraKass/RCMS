@@ -72,6 +72,9 @@ void extractTokensRatings(string &lineRatings, string &r1, string &r2, string &r
     getline(ss, year_R);
 }
 
+
+
+
 int main()
 {
     // reading the files
@@ -99,8 +102,7 @@ int main()
         Date d(stoi(year), stoi(month), stoi(day));
         Restaurant r(type, name, stoi(ID), d, stoi(employeeNum));
 
-        // inserting the restaurants in our data structures
-
+        
         // reading sales and costs of each restaurant
         // year,month,day,sales1,sales2,sales3,sales4,sales5,publicity_costs,costs
         /*
@@ -126,6 +128,8 @@ int main()
             r.addRating(stof(month_R), stof(year_R), stof(r1), stof(r2), stof(r3), stof(r4), stof(r5));
         }*/
 
+
+        // inserting the restaurants in our data structures
         rcms.insert(r);
         Algeria.addRestaurant(wilaya, city, district, stoi(ID));
     }
