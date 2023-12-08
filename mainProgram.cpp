@@ -85,7 +85,7 @@ int main()
     string line;
     AVLRestaurantTree rcms;
     Country Algeria;
-
+    int i = 0;
     // skipping the first line
     getline(input, line);
     string ID, name, type, year, month, day, employeeNum, wilaya, city, district;
@@ -126,13 +126,15 @@ int main()
         {
             extractTokensRatings(lineRatings, r1, r2, r3, r4, r5, month_R, year_R);
             r.addRating(stof(month_R), stof(year_R), stof(r1), stof(r2), stof(r3), stof(r4), stof(r5));
+            
         }
 
-        r.getRestaurantRating(4,2018);
+        cout << r.getRestaurantRating(4,2018);
+        i++;
         // inserting the restaurants in our data structures
-        rcms.insert(r);
+        //rcms.insert(r);
         Algeria.addRestaurant(wilaya, city, district, stoi(ID));
-        break;
+        if(i== 2)break;
     }
     
     

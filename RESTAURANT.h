@@ -145,12 +145,13 @@ public:
     {
         int sYear = creationDate.getYear();
         rating.AddRating(month, year, rA, rS, rC, rI, rE, sYear);
-    }
+    } 
 
     float getRestaurantRating(int month, int year)
     {
         int sYear = creationDate.getYear();
         return rating.GetRestaurantRating(month, year, sYear);
+        
     }
 
     void getAmountOfPrize(int month, int year, float &aA, float &aS, float &aC, float &aI, float &aE)

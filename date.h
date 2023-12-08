@@ -18,6 +18,7 @@ public:
         month = m;
         day = d;
     }
+    
     bool isValidDate(int y, int m, int d) const
     {
         if (y < 0 || m < 1 || m > 12 || d < 1)
