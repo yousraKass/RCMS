@@ -114,7 +114,7 @@ int main()
         {
             extractTokensSalesCosts(lineSalesCosts, year_SC, month_SC, day_SC, sales1, sales2, sales3, sales4, sales5, publicity, costs);
             r.add_Sales_and_Costs(stoi(year_SC), stoi(month_SC), stoi(day_SC), stof(sales1), stof(sales2), stof(sales3), stof(sales4), stof(sales5), stof(publicity), stof(costs));
-        }
+        }*/
 
         // reading ratings
         // rating 1, 2, 3, 4, 5, month, year
@@ -126,20 +126,16 @@ int main()
         {
             extractTokensRatings(lineRatings, r1, r2, r3, r4, r5, month_R, year_R);
             r.addRating(stof(month_R), stof(year_R), stof(r1), stof(r2), stof(r3), stof(r4), stof(r5));
-        }*/
+        }
 
-
+        r.getRestaurantRating(4,2018);
         // inserting the restaurants in our data structures
         rcms.insert(r);
         Algeria.addRestaurant(wilaya, city, district, stoi(ID));
+        break;
     }
-    rcms.printRestaurantsData();
-    vector<int> rs = Algeria.getRestaurantsAllWilayas();
-    cout << rcms.getTotalRestaurants() << endl;
-    cout << rcms.IsEmpty() << endl;
-    cout << rcms.contains(98765432) << endl;
-    cout << rcms.getTotalRestaurants() << endl;
-    //rcms.printRestaurantsData() ;
+    
+    
 
     // display the menu
     /*int choice;
