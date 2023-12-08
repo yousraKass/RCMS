@@ -4,20 +4,20 @@
 #include <vector>
 using std::vector;
 
+
 class Rating
 {
 public:
-    void AddRating(int month, int year, float rA, float rS, float rC, float rI, float rE, int startYear);
+    void AddRating(int month, int year, float rA, float rS, float rC, float rI, float rE, int startYear, int startMonth);
     float GetRestaurantRating(int month, int year, int startYear) const;
     void GetAmountOfPrize(int month, int year, float &aA, float &aS, float &aC, float &aI, float &aE, int startYear) const;
 
-    Rating() : Years(20, 0) {
-
+    Rating() : Years(20, 0)
+    {
     }
-    
 
 private:
-    struct Rating_and_AOP
+struct Rating_and_AOP
     {
         float Rating[6];
         float Amount_of_Prize[5];
@@ -27,12 +27,13 @@ private:
     {
         Rating_and_AOP *months[12];
     };
+    
     std::vector<Months *> Years;
 };
 
 // Implementation
 
-void Rating::AddRating(int month, int year, float rA, float rS, float rC, float rI, float rE, int startYear)
+void Rating::AddRating(int month, int year, float rA, float rS, float rC, float rI, float rE, int startYear, int startMonth)
 {
     cout << "added 1" << endl;
     if (Years.size() < 20)
@@ -45,7 +46,7 @@ void Rating::AddRating(int month, int year, float rA, float rS, float rC, float 
         Years[year - startYear] = new Months;
 
     if (!Years[year - startYear]->months[month - 1])
-        Years[year - startYear]->months[month - 1] = new Rating_and_AOP;
+       Years[year - startYear]->months[month - 1] = new Rating_and_AOP;
 
     Years[year - startYear]->months[month - 1]->Rating[0] = rA;
     Years[year - startYear]->months[month - 1]->Rating[1] = rS;
@@ -54,13 +55,13 @@ void Rating::AddRating(int month, int year, float rA, float rS, float rC, float 
     Years[year - startYear]->months[month - 1]->Rating[4] = rE;
     Years[year - startYear]->months[month - 1]->Rating[5] = (rA + rS + rC + rI + rE) / 5;
 
-    if (year == startYear && month == 1)
+    if (year == startYear && month == startMonth)
     {
-        Years[0]->months[0]->Amount_of_Prize[0] = rA / 100;
-        Years[0]->months[0]->Amount_of_Prize[1] = rS / 100;
-        Years[0]->months[0]->Amount_of_Prize[2] = rC / 100;
-        Years[0]->months[0]->Amount_of_Prize[3] = rI / 100;
-        Years[0]->months[0]->Amount_of_Prize[4] = rE / 100;
+        Years[0]->months[startMonth - 1]->Amount_of_Prize[0] = rA / 100;
+        Years[0]->months[startMonth - 1]->Amount_of_Prize[1] = rS / 100;
+        Years[0]->months[startMonth - 1]->Amount_of_Prize[2] = rC / 100;
+        Years[0]->months[startMonth - 1]->Amount_of_Prize[3] = rI / 100;
+        Years[0]->months[startMonth - 1]->Amount_of_Prize[4] = rE / 100;
     }
 
     else if (month == 1)

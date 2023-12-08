@@ -144,7 +144,8 @@ public:
     void addRating(int month, int year, float rA, float rS, float rC, float rI, float rE)
     {
         int sYear = creationDate.getYear();
-        rating.AddRating(month, year, rA, rS, rC, rI, rE, sYear);
+        int sMonth = creationDate.getMonth();
+        rating.AddRating(month, year, rA, rS, rC, rI, rE, sYear, sMonth);
     } 
 
     float getRestaurantRating(int month, int year)
