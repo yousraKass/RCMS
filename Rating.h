@@ -11,8 +11,10 @@ public:
     float GetRestaurantRating(int month, int year, int startYear) const;
     void GetAmountOfPrize(int month, int year, float &aA, float &aS, float &aC, float &aI, float &aE, int startYear) const;
 
-    Rating() : Years(20, 0) {}
-    // ~Rating();
+    Rating() : Years(20, 0) {
+
+    }
+    
 
 private:
     struct Rating_and_AOP
@@ -30,27 +32,16 @@ private:
 
 // Implementation
 
-// Rating::~Rating()
-// {
-//     for (auto year : Years)
-//     {
-//         for (auto month : year->months)
-//         {
-//             delete month;
-//         }
-//         delete year;
-//     }
-// }
-
 void Rating::AddRating(int month, int year, float rA, float rS, float rC, float rI, float rE, int startYear)
 {
+    cout << "added 1" << endl;
     if (Years.size() < 20)
     {
         Years.resize(2 * Years.size(), nullptr);
     }
 
     if (!Years[year - startYear])
-    
+
         Years[year - startYear] = new Months;
 
     if (!Years[year - startYear]->months[month - 1])
@@ -88,6 +79,7 @@ void Rating::AddRating(int month, int year, float rA, float rS, float rC, float 
         Years[year - startYear]->months[month - 1]->Amount_of_Prize[3] = Years[year - startYear]->months[month - 2]->Amount_of_Prize[3] + (rI / 100);
         Years[year - startYear]->months[month - 1]->Amount_of_Prize[4] = Years[year - startYear]->months[month - 2]->Amount_of_Prize[4] + (rE / 100);
     }
+    cout << "added 2" << endl;
 }
 
 float Rating::GetRestaurantRating(int month, int year, int startYear) const
