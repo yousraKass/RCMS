@@ -37,6 +37,7 @@ int main()
     ifstream inputFile("RESTAURANTS.csv");
 
     std::string line;
+    getline(inputFile, line);
     while (getline(inputFile, line))
     {
         string ID;
