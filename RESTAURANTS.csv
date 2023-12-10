@@ -1,13 +1,13 @@
 ID,Name,Type,Creation date,employee number,country,city,district
 12345678,Chez Omar,owned,2018-01-04,12345,Algeria,Algiers,Alger Centre
 23456789,Le Bistrot Gourmand,franchised,2014-07-03,78901,Algeria,Algiers,Alger Centre
-98765432,Le Palais Oriental,owned,2016-05-15,14235,Algeria,Algiers,Alger Centre
+70801020,Le Palais Oriental,owned,2016-05-15,14235,Algeria,Algiers,Alger Centre
 45678901,L'Olivier,franchised,2023-10-04,34567,Algeria,Algiers,Hydra
-67890123,Le Grand Bleu,franchised,2016-05-15,24235,Algeria,Algiers,Hydra
+63547822,Le Grand Bleu,franchised,2016-05-15,24235,Algeria,Algiers,Hydra
 56789012,Les Dunes d'Or,owned,2022-11-15,65432,Algeria,Oran,Sidi El Houari
 14235678,Le Jardin,franchised,2022-11-15,54321,Algeria,Oran,Sidi El Houari
 35678901,Les Délices d'Orient,franchised,2021-12-26,67890,Algeria,Oran,Sidi El Houari
-78901234,La Tagine Gourmande,owned,2020-01-09,13765,Algeria,Oran,Bahia
+30101005,La Tagine Gourmande,owned,2020-01-09,13765,Algeria,Oran,Bahia
 90123456,Le Soleil d'Orient,franchised,2021-12-26,02876,Algeria,Oran,Bahia
 23456781,La Crêperie Bretonne,owned,2015-06-24,35678,Algeria,Oran,Misserghin
 45678902,Le Grill des Saveurs,franchised,2019-02-18,54210,Algeria,Oran,Misserghin
@@ -35,30 +35,25 @@ ID,Name,Type,Creation date,employee number,country,city,district
 67012894,Sahara Spice,Franchised,2021-07-05,19,Algeria,Tizi Ouzou,Draâ Ben Khedda
 12039485,Algerian Delights,Owned,2022-10-18,23,Algeria,Annaba,Sidi Amar
 87654321,Harrisa Haven,Owned,2021-05-25,29,Algeria,Batna,Batna Centre
-45982316,Pita Paradise,Franchised,2022-03-08,14,Algeria,Biskra,Beskra City
 65439087,Couscous Corner,Owned,2023-02-01,27,Algeria,Bejaia,Souk El Thenine
-98765432,Desert Rose,Owned,2022-07-14,18,Algeria,Chlef,Chlef Centre
-87651234,Sumac & Saffron,Franchised,2023-04-22,24,Algeria,Oran,Haï El Yasmine
+77778542,Grill & Greens,Franchised,2021-09-12,13,Algeria,Blida,Bir Mourad Raïs
+27985603,Desert Rose,Owned,2022-07-14,18,Algeria,Chlef,Chlef Centre
 34129876,Kabob Kingdom,Owned,2021-11-30,20,Algeria,Constantine,Aïn El Bey
-56782341,Savory Souk,Franchised,2022-08-03,17,Algeria,Setif,El Eulma
-78901234,Saffron Square,Franchised,2023-03-25,26,Algeria,Annaba,Sidi Amar
-45678901,Persian Palate,Owned,2022-01-15,19,Algeria,Batna,Batna Centre
+96872341,Golden Olive,Owned,2021-06-16,22,Algeria,Tizi Ouzou,Draâ Ben Khedda
+56420081,Saffron Square,Franchised,2023-03-25,26,Algeria,Annaba,Sidi Amar
+13605099,Persian Palate,Owned,2022-01-15,19,Algeria,Batna,Batna Centre
 23456780,Kunafa Corner,Franchised,2021-04-29,23,Algeria,Biskra,Beskra City
 89012345,Minty Mirage,Owned,2022-12-12,28,Algeria,Bejaia,Souk El Thenine
-56789012,Caravan Grill,Franchised,2022-09-19,15,Algeria,Blida,Bir Mourad Raïs
+96354708,Caravan Grill,Franchised,2022-09-19,15,Algeria,Blida,Bir Mourad Raïs
 12345679,Sahara Breeze,Owned,2021-08-02,21,Algeria,Chlef,Chlef Centre
 67890123,The Kebab Korner,Franchised,2022-05-05,16,Algeria,Oran,Haï El Yasmine
 34567890,Baba Ganoush,Owned,2023-01-20,30,Algeria,Constantine,Aïn El Bey
 78901234,Cedar Delight,Franchised,2022-11-12,14,Algeria,Setif,El Eulma
-56782341,Harissa House,Owned,2021-06-28,25,Algeria,Tizi Ouzou,Draâ Ben Khedda
 34129876,Citrus Souk,Franchised,2023-04-05,19,Algeria,Annaba,Sidi Amar
-87651234,Kabylie Kitchen,Owned,2021-02-18,22,Algeria,Batna,Batna Centre
-45982316,Falafel Fiesta,Franchised,2022-07-23,28,Algeria,Biskra,Beskra City
-65439087,Saharan Sizzlers,Owned,2021-12-05,17,Algeria,Bejaia,Souk El Thenine
+12131415,Grand Couscous,Franchised,2022-10-10,23,Algeria,Blida,Bir Mourad Raïs
 98765432,Charmoula Corner,Owned,2021-03-15,26,Algeria,Chlef,Chlef Centre
+66666689,Silk Road Spice,Franchised,2022-09-10,20,Algeria,Oran,Haï El Yasmine
 87654321,Falafel Fantasy,Owned,2023-02-15,15,Algeria,Constantine,Aïn El Bey
-45982316,Sahara Sweets,Franchised,2021-11-02,24,Algeria,Setif,El Eulma
-65439087,Mint Tea Terrace,Owned,2022-06-25,18,Algeria,Tizi Ouzou,Draâ Ben Khedda
 10000001,Annaba Eats,Owned,2022-03-01,15,Algeria,Annaba,Centre
 10000002,Seafront Grill,Franchised,2021-10-12,22,Algeria,Annaba,El Bouni
 10000003,Medina Delights,Owned,2023-01-18,18,Algeria,Annaba,Seybouse
@@ -269,3 +264,12 @@ ID,Name,Type,Creation date,employee number,country,city,district
 71023876,Palm Pavilion,Franchised,2023-03-25,16,Algeria,Oran,Ain Turk
 71045789,Sands of Spice,Owned,2022-09-15,19,Algeria,Annaba,Seybouse
 71056789,Dubai Dine-In,Owned,2021-05-20,25,Algeria,Setif,Bir El Djir
+56782341,Savory Souk,Franchised,2022-08-03,17,Algeria,Setif,El Eulma
+50096325,Harissa House,Owned,2021-06-28,25,Algeria,Tizi Ouzou,Draâ Ben Khedda
+45982316,Pita Paradise,Franchised,2022-03-08,14,Algeria,Biskra,Beskra City
+50306985,Falafel Fiesta,Franchised,2022-07-23,28,Algeria,Biskra,Beskra City
+50128796,Sahara Sweets,Franchised,2021-11-02,24,Algeria,Setif,El Eulma
+65439087,Saharan Sizzlers,Owned,2021-12-05,17,Algeria,Bejaia,Souk El Thenine
+50963548,Mint Tea Terrace,Owned,2022-06-25,18,Algeria,Tizi Ouzou,Draâ Ben Khedda
+87651234,Sumac & Saffron,Franchised,2023-04-22,24,Algeria,Oran,Haï El Yasmine
+50405691,Kabylie Kitchen,Owned,2021-02-18,22,Algeria,Batna,Batna Centre
