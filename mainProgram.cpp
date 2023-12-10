@@ -134,7 +134,7 @@ int main()
 
         // reading ratings
         // rating 1, 2, 3, 4, 5, month, year
-        /*ifstream ratingsInput(ID + "ratings.csv");
+        /*ifstream ratingsInput("Ratings/" + ID + "ratings.csv");
         string lineRatings;
         i++;
         getline(ratingsInput, lineRatings);

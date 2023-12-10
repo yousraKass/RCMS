@@ -73,7 +73,7 @@ int main()
                 }
             }
         }
-        if(i == 30) break;
+        
     }
 
     return 0;
