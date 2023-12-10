@@ -11,7 +11,7 @@ class Sales_and_Costs{
     public:
 
     void GetMonthlySales(int month,int year,float &A, float &S, float &C, float &I, float &E,int startYear) const;
-    float GetMonthlySalesOfRestaurant(int month,int year,int startYear)const;
+    float GetMonthlySalesOfRestaurant(int month,int year,int startYear);
     void reportOnsales(int month,int year,int startYear) const;
     void reportOnsales(int day1,int month1,int year1,int day2,int month2,int year2,int startYear) const;
     void Add_Sales_and_Costs(int year,int month,int day,float sA,float sS,float sC,float sI,float sE,float pub_Cost,float gen_Cost,int startYear);
@@ -128,7 +128,12 @@ void Sales_and_Costs::Add_Sales_and_Costs(int year,int month,int day,float sA,fl
     Years[year-startYear].months[month-1].days[day-1].sales[5] = sA + sS + sC + sI + sE;
     Years[year-startYear].months[month-1].days[day-1].publicity_costs = pub_Cost;
     Years[year-startYear].months[month-1].days[day-1].general_costs = gen_Cost;
-    int sum1 = 0,sum2 = 0,sum3 = 0, sum4 = 0, sum5 = 0;
+    
+}
+
+
+float Sales_and_Costs::GetMonthlySalesOfRestaurant(int month,int year,int startYear){
+    float sum1 = 0,sum2 = 0,sum3 = 0, sum4 = 0, sum5 = 0;
     for (int i = 0; i < 31; i++)
             {
                 sum1+= Years[year-startYear].months[month-1].days[i].sales[0];
@@ -142,10 +147,7 @@ void Sales_and_Costs::Add_Sales_and_Costs(int year,int month,int day,float sA,fl
         Years[year-startYear].months[month-1].MonthlySales[2] = sum3;
         Years[year-startYear].months[month-1].MonthlySales[3] = sum4;
         Years[year-startYear].months[month-1].MonthlySales[4] = sum5;
-}
 
-
-float Sales_and_Costs::GetMonthlySalesOfRestaurant(int month,int year,int startYear)const{
     return Years[year-startYear].months[month-1].MonthlySales[0]  +  Years[year-startYear].months[month-1].MonthlySales[1]  +  Years[year-startYear].months[month-1].MonthlySales[2]  +  Years[year-startYear].months[month-1].MonthlySales[3]  +  Years[year-startYear].months[month-1].MonthlySales[4];
 }
 
