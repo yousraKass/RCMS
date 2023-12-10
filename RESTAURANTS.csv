@@ -37,12 +37,10 @@ ID,Name,Type,Creation date,employee number,country,city,district
 87654321,Harrisa Haven,Owned,2021-05-25,29,Algeria,Batna,Batna Centre
 45982316,Pita Paradise,Franchised,2022-03-08,14,Algeria,Biskra,Beskra City
 65439087,Couscous Corner,Owned,2023-02-01,27,Algeria,Bejaia,Souk El Thenine
-23456789,Grill & Greens,Franchised,2021-09-12,13,Algeria,Blida,Bir Mourad Raïs
 98765432,Desert Rose,Owned,2022-07-14,18,Algeria,Chlef,Chlef Centre
 87651234,Sumac & Saffron,Franchised,2023-04-22,24,Algeria,Oran,Haï El Yasmine
 34129876,Kabob Kingdom,Owned,2021-11-30,20,Algeria,Constantine,Aïn El Bey
 56782341,Savory Souk,Franchised,2022-08-03,17,Algeria,Setif,El Eulma
-12345678,Golden Olive,Owned,2021-06-16,22,Algeria,Tizi Ouzou,Draâ Ben Khedda
 78901234,Saffron Square,Franchised,2023-03-25,26,Algeria,Annaba,Sidi Amar
 45678901,Persian Palate,Owned,2022-01-15,19,Algeria,Batna,Batna Centre
 23456780,Kunafa Corner,Franchised,2021-04-29,23,Algeria,Biskra,Beskra City
@@ -57,9 +55,7 @@ ID,Name,Type,Creation date,employee number,country,city,district
 87651234,Kabylie Kitchen,Owned,2021-02-18,22,Algeria,Batna,Batna Centre
 45982316,Falafel Fiesta,Franchised,2022-07-23,28,Algeria,Biskra,Beskra City
 65439087,Saharan Sizzlers,Owned,2021-12-05,17,Algeria,Bejaia,Souk El Thenine
-23456789,Grand Couscous,Franchised,2022-10-10,23,Algeria,Blida,Bir Mourad Raïs
 98765432,Charmoula Corner,Owned,2021-03-15,26,Algeria,Chlef,Chlef Centre
-12345678,Silk Road Spice,Franchised,2022-09-10,20,Algeria,Oran,Haï El Yasmine
 87654321,Falafel Fantasy,Owned,2023-02-15,15,Algeria,Constantine,Aïn El Bey
 45982316,Sahara Sweets,Franchised,2021-11-02,24,Algeria,Setif,El Eulma
 65439087,Mint Tea Terrace,Owned,2022-06-25,18,Algeria,Tizi Ouzou,Draâ Ben Khedda

@@ -12,6 +12,7 @@ void extractTokens(const std::string &line, std::string &firstToken, int &year, 
     std::stringstream ss(line);
 
     string temp;
+    
     // Use getline with ',' as the delimiter to extract tokens
     std::getline(ss, firstToken, ','); // 12345678
     std::getline(ss, temp, ',');       // Chez Omar (skipping the second token)
@@ -38,6 +39,7 @@ int main()
 
     std::string line;
     getline(inputFile, line);
+    int i = 0;
     while (getline(inputFile, line))
     {
         string ID;
@@ -46,6 +48,7 @@ int main()
 
         string filePath = ID + "salesCosts.csv";
         ofstream outputFile(filePath);
+        i++;
         outputFile << "year,month,day,sales1,sales2,sales3,sales4,sales5,publicity_costs,costs" << endl;
 
         for (int year = startYear; year <= 2023; ++year)
@@ -70,7 +73,7 @@ int main()
                 }
             }
         }
-        break;
+        if(i == 30) break;
     }
 
     return 0;

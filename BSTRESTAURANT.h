@@ -84,8 +84,9 @@ private:
             makeEmpty(ROOT->leftChild);
             makeEmpty(ROOT->rightChild);
             delete ROOT;
+            ROOT = nullptr;
         }
-        ROOT = nullptr;
+        
     }
 
 public:
