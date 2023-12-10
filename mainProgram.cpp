@@ -146,8 +146,9 @@ int main()
         
         // inserting the restaurants in our data structures
         //rcms.insert(r);
-        r.reportOnsales(11,2023);
+        cout << r.getMonthlySalesOfRestaurant(6,2023) << endl;
         Algeria.addRestaurant(wilaya, city, district, stoi(ID));
+        break;
     }
     
 
