@@ -120,7 +120,7 @@ int main()
         
         // reading sales and costs of each restaurant
         // year,month,day,sales1,sales2,sales3,sales4,sales5,publicity_costs,costs
-        
+        /*
         ifstream salesCostsInput(ID + "salesCosts.csv");
         string lineSalesCosts;
         i++;
@@ -130,11 +130,11 @@ int main()
         {
             extractTokensSalesCosts(lineSalesCosts, year_SC, month_SC, day_SC, sales1, sales2, sales3, sales4, sales5, publicity, costs);
             r.add_Sales_and_Costs(year_SC,month_SC, day_SC, sales1, sales2, sales3, sales4, sales5, publicity, costs);
-        }
+        }*/
 
         // reading ratings
         // rating 1, 2, 3, 4, 5, month, year
-        /*ifstream ratingsInput("Ratings/" + ID + "ratings.csv");
+        ifstream ratingsInput("Ratings/" + ID + "ratings.csv");
         string lineRatings;
         i++;
         getline(ratingsInput, lineRatings);
@@ -143,17 +143,16 @@ int main()
         {
             extractTokensRatings(lineRatings, r1, r2, r3, r4, r5, month_R, year_R);
             r.addRating(stof(month_R), stof(year_R), stof(r1), stof(r2), stof(r3), stof(r4), stof(r5));
-            
-        }*/
-        r.reportOnsales(stoi(month), stof(year));
+        }
         
         // inserting the restaurants in our data structures
         //rcms.insert(r);
+        cout << r.getRestaurantRating(12,2023) << endl;
         Algeria.addRestaurant(wilaya, city, district, stoi(ID));
-        break;
+        cout << i << endl;
+
     }
     
-
 
     return 0;
 }
