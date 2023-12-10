@@ -83,15 +83,16 @@ private:
             return contains(key, ROOT->rightChild);
     }
     void makeEmpty(Restaurant *&ROOT)
+{
+    if (ROOT != nullptr)
     {
-        if (!IsEmpty())
-        {
-            makeEmpty(ROOT->leftChild);
-            makeEmpty(ROOT->rightChild);
-            delete ROOT;
-        }
-        ROOT = nullptr;
+        makeEmpty(ROOT->leftChild);
+        makeEmpty(ROOT->rightChild);
+        delete ROOT;
+        ROOT = nullptr;  // Set the pointer to null after deletion
     }
+}
+
 
     // utility function that counts a height of the AVL
     int height(Restaurant *temp)

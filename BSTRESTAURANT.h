@@ -78,15 +78,16 @@ private:
             return contains(key, ROOT->rightChild);
     }
     void makeEmpty(Restaurant *&ROOT)
+{
+    if (ROOT != nullptr)
     {
-        if (!IsEmpty())
-        {
-            makeEmpty(ROOT->leftChild);
-            makeEmpty(ROOT->rightChild);
-            delete ROOT;
-        }
-        ROOT = nullptr;
+        makeEmpty(ROOT->leftChild);
+        makeEmpty(ROOT->rightChild);
+        delete ROOT;
+        ROOT = nullptr;  // Set the pointer to null after deletion
     }
+}
+
 
 public:
     // default constructor
