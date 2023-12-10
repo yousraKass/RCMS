@@ -6,6 +6,7 @@
 using namespace std;
 
 
+
 void extractTokens(const std::string &line, std::string &firstToken, int &year, int &month, int &day)
 {
     // Create a stringstream to parse the line
