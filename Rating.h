@@ -38,8 +38,6 @@ struct Rating_and_AOP
 
 void Rating::AddRating(int month, int year, float rA, float rS, float rC, float rI, float rE, int startYear, int startMonth)
 {
-    cout << "added 1" << endl;
-
     Years[year - startYear].months[month - 1].Rating[0] = rA;
     Years[year - startYear].months[month - 1].Rating[1] = rS;
     Years[year - startYear].months[month - 1].Rating[2] = rC;
@@ -72,7 +70,7 @@ void Rating::AddRating(int month, int year, float rA, float rS, float rC, float 
         Years[year - startYear].months[month - 1].Amount_of_Prize[3] = Years[year - startYear].months[month - 2].Amount_of_Prize[3] + (rI / 100);
         Years[year - startYear].months[month - 1].Amount_of_Prize[4] = Years[year - startYear].months[month - 2].Amount_of_Prize[4] + (rE / 100);
     }
-    cout << "added 2" << endl;
+
 }
 
 float Rating::GetRestaurantRating(int month, int year, int startYear) const

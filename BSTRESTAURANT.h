@@ -81,10 +81,12 @@ private:
 {
     if (ROOT != nullptr)
     {
-        makeEmpty(ROOT->leftChild);
-        makeEmpty(ROOT->rightChild);
-        delete ROOT;
-        ROOT = nullptr;  // Set the pointer to null after deletion
+        
+            makeEmpty(ROOT->leftChild);
+            makeEmpty(ROOT->rightChild);
+            delete ROOT;
+            ROOT = nullptr;
+        
     }
 }
 

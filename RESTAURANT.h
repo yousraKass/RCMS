@@ -57,22 +57,27 @@ public:
     {
         return info;
     }
+
     int getEmployeeNumber() const
     {
         return employee_num;
     }
+
     string getName() const
     {
         return name;
     }
+
     int getId() const
     {
         return ID;
     }
+
     Sales_and_Costs getSalesCosts() const
     {
         return SalesAndCosts;
     }
+
     Rating getRating() const
     {
         return rating;
@@ -128,14 +133,17 @@ public:
     {
         return this->getId() < R.getId();
     }
+
     bool operator>(const Restaurant &R)
     {
         return this->getId() > R.getId();
     }
+
     void reportOnsales(int month, int year)
     {
         this->SalesAndCosts.reportOnsales(month, year, creationDate.getYear());
     }
+
     void reportOnsales(Date start, Date end)
     {
         this->SalesAndCosts.reportOnsales(start.getDay(), start.getMonth(), start.getYear(), end.getDay(), end.getMonth(), end.getYear(), creationDate.getYear());
@@ -191,13 +199,5 @@ public:
         SalesAndCosts.Add_Sales_and_Costs(year, month, day, sA, sS, sC, sI, sE, pub_Cost, gen_Cost, sYear);
     }
 
-    /*void displayRatio(int ID , Date date);
-    void displayRatio(int ID, Date start, Date end);
-
-
-
-    void displayRatio(vector<int> restaurants , Date date);
-    void displayRatio(vector<int> restaurants, Date start, Date end);
-    */
 };
 #endif
