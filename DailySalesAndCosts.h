@@ -127,6 +127,7 @@ void Sales_and_Costs::Add_Sales_and_Costs(int year,int month,int day,float sA,fl
     Years[year-startYear].months[month-1].days[day-1].sales[2] = sC;
     Years[year-startYear].months[month-1].days[day-1].sales[3] = sI;
     Years[year-startYear].months[month-1].days[day-1].sales[4] = sE;
+    Years[year-startYear].months[month-1].days[day-1].sales[5] = sE + sA + sS + sC + sI;
     Years[year-startYear].months[month-1].days[day-1].publicity_costs = pub_Cost;
     Years[year-startYear].months[month-1].days[day-1].general_costs = gen_Cost;
 }
