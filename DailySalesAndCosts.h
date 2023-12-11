@@ -237,7 +237,7 @@ void Sales_and_Costs::Add_Sales_and_Costs(int year, int month, int day, float sA
     }
 }
 
-float Sales_and_Costs::GetMonthlySalesOfRestaurant(int month, int year, int startYear) 
+float Sales_and_Costs::GetMonthlySalesOfRestaurant(int month, int year, int startYear) const
 {
 
     return Years[year - startYear].months[month - 1].MonthlySales[5];
