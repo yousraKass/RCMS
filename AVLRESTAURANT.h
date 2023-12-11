@@ -14,7 +14,7 @@ private:
     void insert(const Restaurant R, Restaurant *&ROOT);
     void insert(Restaurant &&R, Restaurant *&ROOT);
 
-    Restaurant *contains(const int &key, Restaurant *&ROOT) const;
+    bool contains(const int &key, Restaurant *&ROOT) const;
     // show data of all restaurants
     void printHelper(Restaurant *ROOT) const;
     // utility function to find a restaurant with an ID
@@ -63,11 +63,13 @@ void AVLRestaurantTree::insert(const Restaurant R, Restaurant *&ROOT)
         totalRestaurants++;
     }
 
-    else if (R.getId() < ROOT->getId())
-        insert(R, ROOT->leftChild);
-    else if (R.getId() > ROOT->getId())
-        insert(R, ROOT->rightChild);
-
+    else if (!contains(R.getId(), ROOT))
+    {
+        if (R.getId() < ROOT->getId())
+            insert(R, ROOT);
+        else if (R.getId() > ROOT->getId())
+            insert(R, ROOT);
+    }
     balance(ROOT);
 }
 void AVLRestaurantTree::insert(Restaurant &&R, Restaurant *&ROOT)
@@ -80,21 +82,21 @@ void AVLRestaurantTree::insert(Restaurant &&R, Restaurant *&ROOT)
     }
     else if (!contains(R.getId(), ROOT))
     {
-        if (R < *ROOT)
-            insert(R, ROOT);
-        else if (R > *ROOT)
-            insert(R, ROOT);
+        if (R.getId() < ROOT->getId())
+            insert(R, ROOT->leftChild);
+        else if (R.getId() > ROOT->getId())
+            insert(R, ROOT->rightChild);
     }
     balance(ROOT);
 }
 
-Restaurant *AVLRestaurantTree::contains(const int &key, Restaurant *&ROOT) const
+bool AVLRestaurantTree::contains(const int &key, Restaurant *&ROOT) const
 {
 
     if (ROOT == nullptr)
-        return nullptr;
+        return false;
     else if (ROOT->getId() == key)
-        return ROOT;
+        return true;
     else if (key < ROOT->getId())
         return contains(key, ROOT->leftChild);
     else
@@ -121,9 +123,9 @@ Restaurant *AVLRestaurantTree::getRestauranthelper(const int &key, Restaurant *R
     else if (ROOT->getId() == key)
         return ROOT;
     else if (key < ROOT->getId())
-        return contains(key, ROOT->leftChild);
+        return getRestauranthelper(key, ROOT->leftChild);
     else
-        return contains(key, ROOT->rightChild);
+        return getRestauranthelper(key, ROOT->rightChild);
 }
 void AVLRestaurantTree::makeEmpty(Restaurant *&ROOT)
 {
@@ -216,7 +218,7 @@ bool AVLRestaurantTree::IsEmpty() const
 
 bool AVLRestaurantTree::contains(const int &key)
 {
-    return contains(key, root) != nullptr;
+    return contains(key, root);
 }
 
 void AVLRestaurantTree::insert(const Restaurant &R)

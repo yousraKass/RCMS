@@ -12,11 +12,11 @@ private:
     int day;
 
 public:
-    Date(int y, int m = 0, int d = 0)
+    Date(int y, int m = 0, int d = 0): year (y),
+        month (m),
+        day (d)
     {
-        year = y;
-        month = m;
-        day = d;
+       
     }
     
     bool isValidDate(int y, int m, int d) const
