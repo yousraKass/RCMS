@@ -67,7 +67,7 @@ public:
     float getRestaurantRating(int month, int year);
     void getAmountOfPrize(int month, int year, float &aA, float &aS, float &aC, float &aI, float &aE);
     void getMonthlySales(int month, int year, float &A, float &S, float &C, float &I, float &E) const;
-    float getMonthlySalesOfRestaurant(int month, int year) const;
+    float getMonthlySalesOfRestaurant(int month, int year) ;
     void reportOnsales(int month, int year) const;
     void reportOnsales(int day1, int month1, int year1, int day2, int month2, int year2) const;
     void add_Sales_and_Costs(int year, int month, int day, float sA, float sS, float sC, float sI, float sE, float pub_Cost, float gen_Cost);
@@ -76,7 +76,7 @@ void Restaurant::getMonthlyRatioPeriod(int startMonth, int startYear, int endMon
 {
     SalesAndCosts.Ratio(startMonth, startYear, endMonth, endYear, creationDate.getYear());
 }
-void Restaurant::getMonthlyRatio(int month, int year, int startyear)
+void Restaurant::getMonthlyRatio(int month, int year, int startyear) const
 {
     SalesAndCosts.Ratio(month, year, creationDate.getYear());
 }
@@ -191,10 +191,10 @@ void Restaurant::getMonthlySales(int month, int year, float &A, float &S, float 
     SalesAndCosts.GetMonthlySales(month, year, A, S, C, I, E, sYear);
 }
 
-float Restaurant::getMonthlySalesOfRestaurant(int month, int year) const
+float Restaurant::getMonthlySalesOfRestaurant(int month, int year) 
 {
     int sYear = creationDate.getYear();
-    return SalesAndCosts.GetMonthlySalesOfRestaurant(month, year, sYear);
+    return SalesAndCosts.GetMonthlySalesOfRestaurant(month,year,sYear);
 }
 
 void Restaurant::reportOnsales(int month, int year) const
