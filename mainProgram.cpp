@@ -149,8 +149,10 @@ int main()
         fillRating(stoi(ID), r);
 
         // inserting the restaurants in our data structures
+        r.reportOnsales(10,2023);
         // rcms.insert(r);
         // Algeria.addRestaurant(wilaya, city, district, stoi(ID));
+        break;
     }
 
 /*
@@ -235,6 +237,7 @@ int main()
             cout << "enter the restaurant ID: ";
             int restaurant_ID;
             cin >> restaurant_ID;
+            Restaurant *r = rcms.getRestaurant(restaurant_ID);
             cout << endl;
 
             cout << "do you want it for a period or a specific month: ";
@@ -251,7 +254,6 @@ int main()
                 int month, year;
                 cin >> month >> year;
                 Date d(year, month);
-                Restaurant *r = rcms.getRestaurant(restaurant_ID);
                 if (!r)
                 {
                     float amount = r->getMonthlySalesOfRestaurant(d.getMonth(), d.getYear());
@@ -280,64 +282,314 @@ int main()
                 Date start(year1, month1, day1);
                 Date end(year2, month2, day2);
 
+                if (!r)
+                {
+                    r->reportOnsales(start.getDay(), start.getMonth(), start.getYear(), end.getDay(), end.getMonth(), end.getYear());
+                }
+                else
+                {
+                    cout << "this restaurant does not exist" << endl;
+                }
+
                 break;
             }
-            string id, month, year;
-            cout << "Enter the ID of the restaurant: ";
-            cin >> id;
-            cout << "Enter the month (a number): ";
-            cin >> month;
-            cout << "Enter the year: ";
-            cin >> year;
-            rcms.getRestaurant(id)->reportOnsales(month, year);
             break;
         }
         case 4:
         {
-            // display the monthly sales report for a specific restaurant
-            string id, month, year, day;
-            cout << "Enter the ID of the restaurant: ";
-            cin >> id;
-            cout << "enter the first date " << endl;
-            cout << "Enter the day (a number): ";
-            cin >> day;
-            cout << "Enter the month (a number): ";
-            cin >> month;
-            cout << "Enter the year: ";
-            cin >> year;
-            Date date1(year, month, day);
-            cout << "enter the second date " << endl;
-            cout << "Enter the day (a number): ";
-            cin >> day;
-            cout << "Enter the month (a number): ";
-            cin >> month;
-            cout << "Enter the year: ";
-            cin >> year;
-            Date date2(year, month, day);
-            rcms.getRestaurant(id)->repotOnsales(date1, date2);
+            // Display the monthly sales report for all restaurants in a specific district
+            
             break;
         }
         // still not done
         case 5:
         {
-            // display the prize winners for each cuisine on a specific month            string month;
-            cout << "Enter the month (in the format MMMM YYYY): ";
-            cin >> month;
-            rcms.displayPrizeWinners(month);
-            break;
+            
         }
         case 11:
         {
-            // exit the program            cout << "Exiting the program..." << endl;
-            break;
         }
         default:
         {
-            // invalid choice            cout << "Invalid choice. Please try again." << endl;
-            break;
+            
         }
         }
-    } while (choice != 11);*/
+    } while ();*/
 
     return 0;
 }
+
+
+/*
+
+8.49534e+06
+7.52052e+06
+7.69615e+06
+0
+7.8634e+06
+7.71604e+06
+7.97874e+06
+7.80434e+06
+7.76131e+06
+7.94022e+06
+7.764e+06
+8.5523e+06
+7.80956e+06
+7.66228e+06
+7.66315e+06
+7.77564e+06
+8.07638e+06
+8.25934e+06
+7.51848e+06
+7.91691e+06
+7.10204e+06
+7.73141e+06
+7.53395e+06
+7.61077e+06
+7.46321e+06
+8.36894e+06
+7.30923e+06
+7.90141e+06
+7.63913e+06
+7.40383e+06
+8.03814e+06
+8.11017e+06
+8.06579e+06
+7.80088e+06
+7.46703e+06
+7.59032e+06
+7.67292e+06
+7.74755e+06
+7.54756e+06
+7.83904e+06
+6.96119e+06
+7.84783e+06
+7.44523e+06
+7.31329e+06
+7.58359e+06
+7.96386e+06
+7.98076e+06
+7.67292e+06
+8.01825e+06
+8.22076e+06
+7.15508e+06
+8.00745e+06
+8.31572e+06
+7.98547e+06
+8.50514e+06
+7.30713e+06
+7.01916e+06
+8.25698e+06
+7.84247e+06
+7.9765e+06
+8.21801e+06
+7.87157e+06
+8.17033e+06
+7.84612e+06
+8.04514e+06
+8.13764e+06
+7.86498e+06
+7.57528e+06
+6.9265e+06
+8.20558e+06
+7.98785e+06
+7.06998e+06
+8.0713e+06
+7.34224e+06
+7.74089e+06
+7.62389e+06
+7.45116e+06
+7.79206e+06
+7.57462e+06
+7.89184e+06
+7.46618e+06
+7.98307e+06
+7.23553e+06
+7.35808e+06
+7.36239e+06
+7.49123e+06
+8.09295e+06
+7.95738e+06
+7.83957e+06
+7.46968e+06
+7.74521e+06
+7.64941e+06
+7.84761e+06
+7.42135e+06
+7.93066e+06
+7.53985e+06
+8.12138e+06
+7.70504e+06
+7.75294e+06
+7.48082e+06
+7.93088e+06
+7.56916e+06
+7.95867e+06
+6.82374e+06
+7.52007e+06
+7.24938e+06
+7.30849e+06
+7.91216e+06
+7.59964e+06
+7.53976e+06
+7.74254e+06
+7.25405e+06
+7.85195e+06
+7.92597e+06
+7.61306e+06
+7.44527e+06
+8.17901e+06
+7.95738e+06
+7.83957e+06
+7.46968e+06
+7.74521e+06
+7.64941e+06
+7.84761e+06
+7.42135e+06
+7.93066e+06
+7.53985e+06
+8.12138e+06
+7.70504e+06
+7.75294e+06
+7.48082e+06
+7.93088e+06
+7.56916e+06
+7.95867e+06
+6.82374e+06
+7.52007e+06
+7.24938e+06
+7.30849e+06
+7.91216e+06
+7.59964e+06
+7.53976e+06
+7.74254e+06
+7.25405e+06
+7.39454e+06
+7.38496e+06
+7.66055e+06
+7.59738e+06
+7.90975e+06
+8.05586e+06
+7.99133e+06
+7.27981e+06
+7.73444e+06
+8.22979e+06
+8.03317e+06
+7.95126e+06
+7.85306e+06
+8.74578e+06
+7.63418e+06
+7.98488e+06
+7.8148e+06
+7.91396e+06
+7.99871e+06
+7.94223e+06
+8.04182e+06
+7.25818e+06
+8.35279e+06
+8.01304e+06
+7.56534e+06
+7.54791e+06
+7.07749e+06
+7.67354e+06
+7.38541e+06
+7.5341e+06
+7.82027e+06
+8.50787e+06
+7.58951e+06
+7.8728e+06
+7.66856e+06
+8.05586e+06
+7.99133e+06
+7.27981e+06
+7.73444e+06
+8.22979e+06
+8.03317e+06
+7.95126e+06
+7.85306e+06
+8.74578e+06
+7.63418e+06
+7.98488e+06
+7.8148e+06
+7.91396e+06
+7.99871e+06
+7.94223e+06
+8.04182e+06
+7.25818e+06
+8.35279e+06
+8.01304e+06
+7.62306e+06
+7.42424e+06
+7.22624e+06
+7.4389e+06
+7.20388e+06
+7.52236e+06
+7.52434e+06
+8.3931e+06
+7.22512e+06
+7.71794e+06
+7.64238e+06
+8.05586e+06
+7.99133e+06
+7.27981e+06
+7.73444e+06
+8.22979e+06
+8.03317e+06
+7.95126e+06
+7.85306e+06
+8.74578e+06
+7.63418e+06
+7.98488e+06
+7.8148e+06
+7.91396e+06
+7.99871e+06
+7.94223e+06
+8.04182e+06
+7.25818e+06
+8.35279e+06
+8.01304e+06
+7.62306e+06
+7.42424e+06
+7.22624e+06
+7.4389e+06
+7.20388e+06
+7.52236e+06
+7.52434e+06
+8.3931e+06
+7.22512e+06
+7.71794e+06
+7.64238e+06
+8.05586e+06
+7.99133e+06
+7.27981e+06
+7.73444e+06
+8.22979e+06
+8.03317e+06
+7.95126e+06
+7.85306e+06
+8.74578e+06
+7.63418e+06
+7.98488e+06
+7.8148e+06
+7.91396e+06
+7.99871e+06
+7.94223e+06
+8.04182e+06
+7.25818e+06
+8.35279e+06
+8.01304e+06
+7.62306e+06
+7.42424e+06
+7.22624e+06
+7.4389e+06
+7.20388e+06
+7.52236e+06
+8.07528e+06
+8.15166e+06
+8.23394e+06
+7.34907e+06
+7.7975e+06
+7.81956e+06
+8.0673e+06
+0
+*/
