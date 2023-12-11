@@ -217,18 +217,19 @@ int main()
                 Algeria.addRestaurant(wilaya, city, district, ID);
                 // ID,Name,Type,Creation date,employee number,wilaya,city,district
                 string date = to_string(year) + "-" + to_string(month) + "-" + to_string(day);
-                output <<endl;
-                output <<ID << "," << name << "," << date << "," << numEmployees << "," << wilaya << "," << city << "," << district ;
+                output << endl;
+                output << ID << "," << name << "," << date << "," << numEmployees << "," << wilaya << "," << city << "," << district;
                 cout << "restaurant added successfuly" << endl;
             }
-            else{
-                cout<<"restaurant ID already excist"<<endl;
+            else
+            {
+                cout << "restaurant ID already excist" << endl;
             }
             auto end = chrono::high_resolution_clock::now();
             auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
             break;
         }
-        /*case 2:
+        case 2:
         {
             rcms.printRestaurantsData();
             break;
@@ -783,10 +784,9 @@ int main()
 
         case 13:
             break;
-        }*/
+
         default:
             break;
         }
-
     } while (choice);
 }
