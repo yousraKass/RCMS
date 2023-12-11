@@ -19,7 +19,7 @@ public:
     void reportOnsales(int month, int year, int startYear) const;
     void reportOnsales(int day1, int month1, int year1, int day2, int month2, int year2, int startYear) const;
     void Add_Sales_and_Costs(int year, int month, int day, float sA, float sS, float sC, float sI, float sE, float pub_Cost, float gen_Cost, int startYear);
-
+    Sales_and_Costs(): Years(20){}
 private:
     bool isLeapYear(int year)
     {
