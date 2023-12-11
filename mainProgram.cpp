@@ -9,7 +9,7 @@
 #include <chrono>
 using namespace std;
 
-void extractTokensRestaurant(const string &line, string &ID, string &name, string &type, string &year, string &month, string &day, string &employeeNum, string &wilaya, string &city, string &district)
+void extractTokensRestaurant(const string &line, int &ID, string &name, string &type, int &year, int &month, int &day, int &employeeNum, string &wilaya, string &city, string &district)
 {
     // ID,Name,Type,Creation date,employee number,wilaya,city,district
 
@@ -17,7 +17,8 @@ void extractTokensRestaurant(const string &line, string &ID, string &name, strin
     stringstream ss(line);
 
     // Use getline with ',' as the delimiter to extract tokens
-    getline(ss, ID, ',');
+    ss >> ID;
+    ss.ignore();
     getline(ss, name, ',');
     getline(ss, type, ',');
 
@@ -26,11 +27,15 @@ void extractTokensRestaurant(const string &line, string &ID, string &name, strin
     getline(ss, dateToken, ',');
     stringstream dateSS(dateToken);
 
-    getline(dateSS, year, '-');
-    getline(dateSS, month, '-');
-    getline(dateSS, day, '-');
+    dateSS >> year;
+    dateSS.ignore();
+    dateSS >> month;
+    dateSS.ignore();
+    dateSS >> day;
+    dateSS.ignore();
 
-    getline(ss, employeeNum, ',');
+    ss >> employeeNum;
+    ss.ignore();
     getline(ss, wilaya, ',');
     getline(ss, city, ',');
     getline(ss, district);
@@ -65,7 +70,7 @@ void extractTokensSalesCosts(string &line, int &year, int &month, int &day, floa
     ss >> publicity;
 }
 
-void extractTokensRatings(string &lineRatings, string &r1, string &r2, string &r3, string &r4, string &r5, string &month_R, string &year_R)
+void extractTokensRatings(string &lineRatings, float &r1, float &r2, float &r3, float &r4, float &r5, int &month_R, int &year_R)
 {
     // rating 1, 2, 3, 4, 5, month, year
 
@@ -73,13 +78,19 @@ void extractTokensRatings(string &lineRatings, string &r1, string &r2, string &r
     stringstream ss(lineRatings);
 
     // Use getline with ',' as the delimiter to extract tokens
-    getline(ss, r1, ',');
-    getline(ss, r2, ',');
-    getline(ss, r3, ',');
-    getline(ss, r4, ',');
-    getline(ss, r5, ',');
-    getline(ss, month_R, ',');
-    getline(ss, year_R);
+    ss >> r1;
+    ss.ignore();
+    ss >> r2;
+    ss.ignore();
+    ss >> r3;
+    ss.ignore();
+    ss >> r4;
+    ss.ignore();
+    ss >> r5;
+    ss.ignore();
+    ss >> month_R;
+    ss.ignore();
+    ss >> year_R;
 }
 
 void fillSalesCosts(int ID, Restaurant &r)
@@ -104,7 +115,8 @@ void fillSalesCosts(int ID, Restaurant &r)
 void fillRating(int ID, Restaurant &r)
 {
     // variables needed
-    string r1, r2, r3, r4, r5, month_R, year_R;
+    float r1, r2, r3, r4, r5;
+    int month_R, year_R;
     // reading ratings
     // rating 1, 2, 3, 4, 5, month, year
     ifstream ratingsInput("Ratings/" + to_string(ID) + "ratings.csv");
@@ -113,7 +125,7 @@ void fillRating(int ID, Restaurant &r)
     while (getline(ratingsInput, lineRatings))
     {
         extractTokensRatings(lineRatings, r1, r2, r3, r4, r5, month_R, year_R);
-        r.addRating(stof(month_R), stof(year_R), stof(r1), stof(r2), stof(r3), stof(r4), stof(r5));
+        r.addRating(month_R, year_R, r1, r2, r3, r4, r5);
     }
 }
 
@@ -132,7 +144,8 @@ int main()
 
     // skipping the first line
     getline(input, line);
-    string ID, name, type, year, month, day, employeeNum, wilaya, city, district;
+    string name, type, wilaya, city, district;
+    int ID, year, month, day, employeeNum;
 
     // reading lines until finishing with the file
     while (getline(input, line))
@@ -142,15 +155,15 @@ int main()
         extractTokensRestaurant(line, ID, name, type, year, month, day, employeeNum, wilaya, city, district);
 
         // create the needed insttances
-        Date d(stoi(year), stoi(month), stoi(day));
-        Restaurant restaurant(type, name, stoi(ID), d, stoi(employeeNum));
+        Date d(year, month, day);
+        Restaurant restaurant(type, name, ID, d, employeeNum);
 
-        fillSalesCosts(stoi(ID), restaurant);
-        fillRating(stoi(ID), restaurant);
+        fillSalesCosts(ID, restaurant);
+        fillRating(ID, restaurant);
 
         // inserting the restaurants in our data structures
         rcms.insert(restaurant);
-        Algeria.addRestaurant(wilaya, city, district, stoi(ID));
+        Algeria.addRestaurant(wilaya, city, district, ID);
     }
 
     // display the menu
@@ -253,6 +266,7 @@ int main()
             switch (Case)
             {
             case 1:
+            {
                 cout << "enter the month and the year respectively: ";
                 int month, year;
                 cin >> month >> year;
@@ -273,8 +287,10 @@ int main()
                 }
 
                 break;
+            }
 
             case 2:
+            {
                 int day1, month1, year1;
                 int day2, month2, year2;
                 cout << "enter the starting date(day, month, year): ";
@@ -295,6 +311,7 @@ int main()
                 }
 
                 break;
+            }
             }
             break;
         }
@@ -318,6 +335,7 @@ int main()
             switch (Case)
             {
             case 1:
+            {
                 cout << "enter the month and the year respectively: ";
                 int month, year;
                 cin >> month >> year;
@@ -330,8 +348,10 @@ int main()
                 }
 
                 break;
+            }
 
             case 2:
+            {
                 int day1, month1, year1;
                 int day2, month2, year2;
                 cout << "enter the starting date(day, month, year): ";
@@ -349,6 +369,7 @@ int main()
                     cout << "-------------------------------------------------" << endl;
                 }
                 break;
+            }
             }
             break;
         }
@@ -371,6 +392,7 @@ int main()
             switch (Case)
             {
             case 1:
+            {
                 cout << "enter the month and the year respectively: ";
                 int month, year;
                 cin >> month >> year;
@@ -383,8 +405,10 @@ int main()
                 }
 
                 break;
+            }
 
             case 2:
+            {
                 int day1, month1, year1;
                 int day2, month2, year2;
                 cout << "enter the starting date(day, month, year): ";
@@ -402,6 +426,7 @@ int main()
                     cout << "-------------------------------------------------" << endl;
                 }
                 break;
+            }
             }
             break;
         }
