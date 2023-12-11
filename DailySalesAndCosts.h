@@ -10,7 +10,7 @@ class Sales_and_Costs
 {
 public:
     void GetMonthlySales(int month, int year, float &A, float &S, float &C, float &I, float &E, int startYear) const;
-    float GetMonthlySalesOfRestaurant(int month, int year, int startYear);
+    float GetMonthlySalesOfRestaurant(int month, int year, int startYear) const;
     void Ratio(int month,int year,int startYear)const;
     void Ratio(int month1,int year1,int month2,int year2,int startYear)const;
     void reportOnsales(int day, int month, int year, int startYear) const;
