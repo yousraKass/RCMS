@@ -10,15 +10,13 @@ class Sales_and_Costs
 {
 public:
     void GetMonthlySales(int month, int year, float &A, float &S, float &C, float &I, float &E, int startYear) const;
-    float GetMonthlySalesOfRestaurant(int month, int year, int startYear) const;
+    float GetMonthlySalesOfRestaurant(int month, int year, int startYear)const;
     void Ratio(int month,int year,int startYear)const;
     void Ratio(int month1,int year1,int month2,int year2,int startYear)const;
     void reportOnsales(int day, int month, int year, int startYear) const;
     void reportOnsales(int month, int year, int startYear) const;
     void reportOnsales(int day1, int month1, int year1, int day2, int month2, int year2, int startYear) const;
     void Add_Sales_and_Costs(int year, int month, int day, float sA, float sS, float sC, float sI, float sE, float pub_Cost, float gen_Cost, int startYear);
-    Sales_and_Costs(): Years(20){}
-
 
 private:
     bool isLeapYear(int year) { 
@@ -65,12 +63,12 @@ int daysInFebruary(int year) {
 
 void Sales_and_Costs::reportOnsales(int day, int month, int year, int startYear)const
 {
-    cout << "Day " << day << " sales of the Algerian cuisine : " << Years[year - startYear].months[month - 1].days[day - 1].sales[0]<<endl;
-    cout << "Day " << day << " sales of the Syrian cuisine : " << Years[year - startYear].months[month - 1].days[day - 1].sales[1]<<endl;
-    cout << "Day " << day << " sales of the Chinese cuisine : " << Years[year - startYear].months[month - 1].days[day - 1].sales[2]<<endl;
-    cout << "Day " << day << " sales of the Indian cuisine : " << Years[year - startYear].months[month - 1].days[day - 1].sales[3]<<endl;
-    cout << "Day " << day << " sales of the Europian cuisine : " << Years[year - startYear].months[month - 1].days[day - 1].sales[4]<<endl;
-    cout << "Day " << day << " sales of the Restaurant : " << Years[year - startYear].months[month - 1].days[day - 1].sales[5]<<endl;
+    cout <<"Sales of the Algerian cuisine in " << day << "/" << month << "/" << year << " : "<< Years[year - startYear].months[month - 1].days[day - 1].sales[0]<<endl;
+    cout <<"Sales of the Syrian cuisine in " << day << "/" << month << "/" << year << " : " << Years[year - startYear].months[month - 1].days[day - 1].sales[1]<<endl;
+    cout <<"Sales of the Chinese cuisine in " <<  day << "/" << month << "/" << year << " : " << Years[year - startYear].months[month - 1].days[day - 1].sales[2]<<endl;
+    cout <<"Sales of the Indian cuisine in " <<  day << "/" << month << "/" << year << " : " << Years[year - startYear].months[month - 1].days[day - 1].sales[3]<<endl;
+    cout <<"Sales of the Europian cuisine in " <<  day << "/" << month << "/" << year << " : " <<Years[year - startYear].months[month - 1].days[day - 1].sales[4]<<endl;
+    cout <<"Sales of the Restaurant in " <<  day << "/" << month << "/" << year << " : " << Years[year - startYear].months[month - 1].days[day - 1].sales[5]<<endl;
 }
 
 void Sales_and_Costs::reportOnsales(int month, int year, int startYear) const
@@ -239,7 +237,6 @@ void Sales_and_Costs::Add_Sales_and_Costs(int year, int month, int day, float sA
 
 float Sales_and_Costs::GetMonthlySalesOfRestaurant(int month, int year, int startYear) const
 {
-
     return Years[year - startYear].months[month - 1].MonthlySales[5];
 }
 
