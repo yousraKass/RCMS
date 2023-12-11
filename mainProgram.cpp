@@ -164,7 +164,6 @@ int main()
         cout << "3. Display the monthly sales report for a specific restaurant " << endl;
         cout << "4. Display the monthly sales report for all restaurants in a specific district " << endl;
         cout << "5. Display the monthly sales report for all restaurants in a specific city " << endl;
-
         cout << "6. Display the monthly sales report for all restaurants in a specific wilaya " << endl;
         cout << "7. Display the monthly sales report for all restaurants in the country " << endl;
         cout << "8. Display the ratio of the monthly sales on the publicity cost for a specific restaurant " << endl;
@@ -507,21 +506,281 @@ int main()
                 break;
             }
             break;
-
         }
         case 8:
         {
+            // Display the ratio of the monthly sales on the publicity cost for a specific restaurant
+            cout << "enter the restaurant ID: ";
+            int restaurant_ID;
+            cin >> restaurant_ID;
+            Restaurant *r = rcms.getRestaurant(restaurant_ID);
+            cout << endl;
+
+            cout << "do you want it for a period or a specific month: ";
+            cout << "1. specific month and year" << endl;
+            cout << "2. specific period" << endl;
+            int Case;
+            cin >> Case;
+            cout << endl;
+
+            switch (Case)
+            {
+            case 1:
+                cout << "enter the month and the year respectively: ";
+                int month, year;
+                cin >> month >> year;
+                Date d(year, month);
+                if (!r)
+                {
+                    r->getMonthlyRatio(d.getMonth(), d.getYear());
+                }
+                else
+                {
+                    cout << "this restaurant does not exist" << endl;
+                }
+
+                break;
+
+            case 2:
+                int month1, year1;
+                int month2, year2;
+                cout << "enter the starting date(month, year): ";
+                cin >> month1 >> year1;
+                cout << "enter the ending date(day, month, year): ";
+                cin >> month2 >> year2;
+
+                Date start(year1, month1);
+                Date end(year2, month2);
+
+                if (!r)
+                {
+                    r->getMonthlyRatioPeriod(start.getMonth(), start.getYear(), end.getMonth(), end.getYear());
+                }
+                else
+                {
+                    cout << "this restaurant does not exist" << endl;
+                }
+
+                break;
+            }
+
             break;
         }
 
         case 9:
+        {
+            // Display the ratio of the monthly sales on the publicity cost for all restaurants in a specific district
+            cout << "enter the wilaya, city, district to get the ratio of the monthly sales on the publicity cost for all restaurants in that district" << endl;
+            string wilaya, city, district;
+            cin >> wilaya >> city >> district;
+
+            vector<int> restaurantIDs = Algeria.getRestaurantsDistrict(wilaya, city, district);
+
+            cout << "do you want it for a period or a specific month: ";
+            cout << "1. specific month and year" << endl;
+            cout << "2. specific period" << endl;
+            int Case;
+            cin >> Case;
+            cout << endl;
+
+            switch (Case)
+            {
+            case 1:
+                cout << "enter the month and the year respectively: ";
+                int month, year;
+                cin >> month >> year;
+                Date d(year, month);
+                for (int i = 0; i < restaurantIDs.size(); i++)
+                {
+                    rcms.getRestaurant(restaurantIDs[i])->getMonthlyRatio(d.getMonth(), d.getYear());
+                    cout << "-------------------------------------------------" << endl;
+                    cout << "-------------------------------------------------" << endl;
+                }
+
+                break;
+
+            case 2:
+                int month1, year1;
+                int month2, year2;
+                cout << "enter the starting date(month, year): ";
+                cin >> month1 >> year1;
+                cout << "enter the ending date(month, year): ";
+                cin >> month2 >> year2;
+
+                Date start(year1, month1);
+                Date end(year2, month2);
+
+                for (int i = 0; i < restaurantIDs.size(); i++)
+                {
+                    rcms.getRestaurant(restaurantIDs[i])->getMonthlyRatioPeriod(start.getMonth(), start.getYear(), end.getMonth(), end.getYear());
+                    cout << "-------------------------------------------------" << endl;
+                    cout << "-------------------------------------------------" << endl;
+                }
+                break;
+            }
+
             break;
+        }
+
         case 10:
+        {
+            // Display the ratio of the monthly sales on the publicity cost for all restaurants in a specific city
+            cout << "enter the wilaya, city to get the ratio of the monthly sales on the publicity cost for all restaurants in that city" << endl;
+            string wilaya, city;
+            cin >> wilaya >> city;
+
+            vector<int> restaurantIDs = Algeria.getRestaurantsAllDistricts(wilaya, city);
+
+            cout << "do you want it for a period or a specific month: ";
+            cout << "1. specific month and year" << endl;
+            cout << "2. specific period" << endl;
+            int Case;
+            cin >> Case;
+            cout << endl;
+
+            switch (Case)
+            {
+            case 1:
+                cout << "enter the month and the year respectively: ";
+                int month, year;
+                cin >> month >> year;
+                Date d(year, month);
+                for (int i = 0; i < restaurantIDs.size(); i++)
+                {
+                    rcms.getRestaurant(restaurantIDs[i])->getMonthlyRatio(d.getMonth(), d.getYear());
+                    cout << "-------------------------------------------------" << endl;
+                    cout << "-------------------------------------------------" << endl;
+                }
+
+                break;
+
+            case 2:
+                int month1, year1;
+                int month2, year2;
+                cout << "enter the starting date(month, year): ";
+                cin >> month1 >> year1;
+                cout << "enter the ending date(month, year): ";
+                cin >> month2 >> year2;
+
+                Date start(year1, month1);
+                Date end(year2, month2);
+
+                for (int i = 0; i < restaurantIDs.size(); i++)
+                {
+                    rcms.getRestaurant(restaurantIDs[i])->getMonthlyRatioPeriod(start.getMonth(), start.getYear(), end.getMonth(), end.getYear());
+                    cout << "-------------------------------------------------" << endl;
+                    cout << "-------------------------------------------------" << endl;
+                }
+                break;
+            }
+
             break;
+        }
+
         case 11:
+        {
+            // Display the ratio of the monthly sales on the publicity cost for all restaurants in a specific wilaya
+            cout << "enter the wilaya to get the ratio of the monthly sales on the publicity cost for all restaurants in that wilaya" << endl;
+            string wilaya;
+            cin >> wilaya;
+
+            vector<int> restaurantIDs = Algeria.getRestaurantsAllCities(wilaya);
+
+            cout << "do you want it for a period or a specific month: ";
+            cout << "1. specific month and year" << endl;
+            cout << "2. specific period" << endl;
+            int Case;
+            cin >> Case;
+            cout << endl;
+
+            switch (Case)
+            {
+            case 1:
+                cout << "enter the month and the year respectively: ";
+                int month, year;
+                cin >> month >> year;
+                Date d(year, month);
+                for (int i = 0; i < restaurantIDs.size(); i++)
+                {
+                    rcms.getRestaurant(restaurantIDs[i])->getMonthlyRatio(d.getMonth(), d.getYear());
+                    cout << "-------------------------------------------------" << endl;
+                    cout << "-------------------------------------------------" << endl;
+                }
+
+                break;
+
+            case 2:
+                int month1, year1;
+                int month2, year2;
+                cout << "enter the starting date(month, year): ";
+                cin >> month1 >> year1;
+                cout << "enter the ending date(month, year): ";
+                cin >> month2 >> year2;
+
+                Date start(year1, month1);
+                Date end(year2, month2);
+
+                for (int i = 0; i < restaurantIDs.size(); i++)
+                {
+                    rcms.getRestaurant(restaurantIDs[i])->getMonthlyRatioPeriod(start.getMonth(), start.getYear(), end.getMonth(), end.getYear());
+                    cout << "-------------------------------------------------" << endl;
+                    cout << "-------------------------------------------------" << endl;
+                }
+                break;
+            }
             break;
+        }
+
         case 12:
+        {
+            // Display the ratio of the monthly sales on the publicity cost for all restaurants in the country
+            vector<int> restaurantIDs = Algeria.getRestaurantsAllWilayas();
+
+            cout << "do you want it for a period or a specific month: ";
+            cout << "1. specific month and year" << endl;
+            cout << "2. specific period" << endl;
+            int Case;
+            cin >> Case;
+            cout << endl;
+
+            switch (Case)
+            {
+            case 1:
+                cout << "enter the month and the year respectively: ";
+                int month, year;
+                cin >> month >> year;
+                Date d(year, month);
+                for (int i = 0; i < restaurantIDs.size(); i++)
+                {
+                    rcms.getRestaurant(restaurantIDs[i])->getMonthlyRatio(d.getMonth(), d.getYear());
+                    cout << "-------------------------------------------------" << endl;
+                    cout << "-------------------------------------------------" << endl;
+                }
+
+                break;
+
+            case 2:
+                int month1, year1;
+                int month2, year2;
+                cout << "enter the starting date(month, year): ";
+                cin >> month1 >> year1;
+                cout << "enter the ending date(month, year): ";
+                cin >> month2 >> year2;
+
+                Date start(year1, month1);
+                Date end(year2, month2);
+
+                for (int i = 0; i < restaurantIDs.size(); i++)
+                {
+                    rcms.getRestaurant(restaurantIDs[i])->getMonthlyRatioPeriod(start.getMonth(), start.getYear(), end.getMonth(), end.getYear());
+                    cout << "-------------------------------------------------" << endl;
+                    cout << "-------------------------------------------------" << endl;
+                }
+                break;
+            }
             break;
+        }
+
         case 13:
             break;
         }*/
