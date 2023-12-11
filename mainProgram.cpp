@@ -153,6 +153,7 @@ int main()
         // Algeria.addRestaurant(wilaya, city, district, stoi(ID));
     }
 
+/*
     // display the menu
     int choice;
     do
@@ -254,13 +255,31 @@ int main()
                 if (!r)
                 {
                     float amount = r->getMonthlySalesOfRestaurant(d.getMonth(), d.getYear());
-                    if(amount == 0)
+                    if (amount == 0)
                         cout << "no sales in that month and year" << endl;
-                    r->reportOnsales(d.getMonth(), d.getYear());
+                    else
+                    {
+                        r->reportOnsales(d.getMonth(), d.getYear());
+                    }
                 }
+                else
+                {
+                    cout << "this restaurant does not exist" << endl;
+                }
+
                 break;
 
             case 2:
+                int day1, month1, year1;
+                int day2, month2, year2;
+                cout << "enter the starting date(day, month, year): ";
+                cin >> day1 >> month1 >> year1;
+                cout << "enter the ending date(day, month, year): ";
+                cin >> day2 >> month2 >> year2;
+
+                Date start(year1, month1, day1);
+                Date end(year2, month2, day2);
+
                 break;
             }
             string id, month, year;
@@ -318,7 +337,7 @@ int main()
             break;
         }
         }
-    } while (choice != 11);
+    } while (choice != 11);*/
 
     return 0;
 }
