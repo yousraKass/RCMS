@@ -79,12 +79,12 @@ void RestaurantTree::insert(const Restaurant R, Restaurant *&ROOT)
 
         if (ROOT == nullptr)
             return nullptr;
-        else if (ROOT->getId() == key)
-            return ROOT;
         else if (key < ROOT->getId())
             return contains(key, ROOT->leftChild);
-        else
+        else if (key > ROOT->getId())
             return contains(key, ROOT->rightChild);
+        else 
+            return ROOT;
     }
 
     // show data of all restaurants

@@ -256,7 +256,7 @@ int main()
             Restaurant *r = rcms.getRestaurant(restaurant_ID);
             cout << endl;
 
-            cout << "do you want it for a period or a specific month: ";
+            cout << "do you want it for a period or a specific month: " << endl;
             cout << "1. specific month and year" << endl;
             cout << "2. specific period" << endl;
             int Case;
@@ -271,7 +271,7 @@ int main()
                 int month, year;
                 cin >> month >> year;
                 Date d(year, month);
-                if (!r)
+                if (r != nullptr)
                 {
                     float amount = r->getMonthlySalesOfRestaurant(d.getMonth(), d.getYear());
                     if (amount == 0)
@@ -301,7 +301,7 @@ int main()
                 Date start(year1, month1, day1);
                 Date end(year2, month2, day2);
 
-                if (!r)
+                if (r != nullptr)
                 {
                     r->reportOnsales(start.getDay(), start.getMonth(), start.getYear(), end.getDay(), end.getMonth(), end.getYear());
                 }
@@ -448,7 +448,7 @@ int main()
 
             switch (Case)
             {
-            case 1:
+            case 1:{
                 cout << "enter the month and the year respectively: ";
                 int month, year;
                 cin >> month >> year;
@@ -460,9 +460,9 @@ int main()
                     cout << "-------------------------------------------------" << endl;
                 }
 
-                break;
+                break;}
 
-            case 2:
+            case 2:{
                 int day1, month1, year1;
                 int day2, month2, year2;
                 cout << "enter the starting date(day, month, year): ";
@@ -479,7 +479,7 @@ int main()
                     cout << "-------------------------------------------------" << endl;
                     cout << "-------------------------------------------------" << endl;
                 }
-                break;
+                break;}
             }
             break;
         }
@@ -499,6 +499,7 @@ int main()
             switch (Case)
             {
             case 1:
+            {
                 cout << "enter the month and the year respectively: ";
                 int month, year;
                 cin >> month >> year;
@@ -511,8 +512,10 @@ int main()
                 }
 
                 break;
+            }
 
             case 2:
+            {
                 int day1, month1, year1;
                 int day2, month2, year2;
                 cout << "enter the starting date(day, month, year): ";
@@ -530,6 +533,7 @@ int main()
                     cout << "-------------------------------------------------" << endl;
                 }
                 break;
+            }
             }
             break;
         }
@@ -552,11 +556,12 @@ int main()
             switch (Case)
             {
             case 1:
+            {
                 cout << "enter the month and the year respectively: ";
                 int month, year;
                 cin >> month >> year;
                 Date d(year, month);
-                if (!r)
+                if (r != nullptr)
                 {
                     r->getMonthlyRatio(d.getMonth(), d.getYear());
                 }
@@ -566,8 +571,10 @@ int main()
                 }
 
                 break;
+            }
 
             case 2:
+            {
                 int month1, year1;
                 int month2, year2;
                 cout << "enter the starting date(month, year): ";
@@ -578,7 +585,7 @@ int main()
                 Date start(year1, month1);
                 Date end(year2, month2);
 
-                if (!r)
+                if (r != nullptr)
                 {
                     r->getMonthlyRatioPeriod(start.getMonth(), start.getYear(), end.getMonth(), end.getYear());
                 }
@@ -588,6 +595,7 @@ int main()
                 }
 
                 break;
+            }
             }
 
             break;
@@ -612,6 +620,7 @@ int main()
             switch (Case)
             {
             case 1:
+            {
                 cout << "enter the month and the year respectively: ";
                 int month, year;
                 cin >> month >> year;
@@ -624,8 +633,10 @@ int main()
                 }
 
                 break;
+            }
 
             case 2:
+            {
                 int month1, year1;
                 int month2, year2;
                 cout << "enter the starting date(month, year): ";
@@ -643,6 +654,7 @@ int main()
                     cout << "-------------------------------------------------" << endl;
                 }
                 break;
+            }
             }
 
             break;
@@ -667,6 +679,7 @@ int main()
             switch (Case)
             {
             case 1:
+            {
                 cout << "enter the month and the year respectively: ";
                 int month, year;
                 cin >> month >> year;
@@ -679,8 +692,10 @@ int main()
                 }
 
                 break;
+            }
 
             case 2:
+            {
                 int month1, year1;
                 int month2, year2;
                 cout << "enter the starting date(month, year): ";
@@ -698,6 +713,7 @@ int main()
                     cout << "-------------------------------------------------" << endl;
                 }
                 break;
+            }
             }
 
             break;
@@ -722,6 +738,7 @@ int main()
             switch (Case)
             {
             case 1:
+            {
                 cout << "enter the month and the year respectively: ";
                 int month, year;
                 cin >> month >> year;
@@ -734,8 +751,10 @@ int main()
                 }
 
                 break;
+            }
 
             case 2:
+            {
                 int month1, year1;
                 int month2, year2;
                 cout << "enter the starting date(month, year): ";
@@ -753,6 +772,7 @@ int main()
                     cout << "-------------------------------------------------" << endl;
                 }
                 break;
+            }
             }
             break;
         }
@@ -772,6 +792,7 @@ int main()
             switch (Case)
             {
             case 1:
+            {
                 cout << "enter the month and the year respectively: ";
                 int month, year;
                 cin >> month >> year;
@@ -784,8 +805,10 @@ int main()
                 }
 
                 break;
+            }
 
             case 2:
+            {
                 int month1, year1;
                 int month2, year2;
                 cout << "enter the starting date(month, year): ";
@@ -804,6 +827,7 @@ int main()
                 }
                 break;
             }
+            }
             break;
         }
 
@@ -814,4 +838,6 @@ int main()
             break;
         }
     } while (choice);
+
+
 }
