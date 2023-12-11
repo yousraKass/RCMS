@@ -143,16 +143,14 @@ int main()
 
         // create the needed insttances
         Date d(stoi(year), stoi(month), stoi(day));
-        Restaurant r(type, name, stoi(ID), d, stoi(employeeNum));
+        Restaurant restaurant(type, name, stoi(ID), d, stoi(employeeNum));
 
-        fillSalesCosts(stoi(ID), r);
-        fillRating(stoi(ID), r);
+        fillSalesCosts(stoi(ID), restaurant);
+        fillRating(stoi(ID), restaurant);
 
         // inserting the restaurants in our data structures
-        r.reportOnsales(10, 2023);
-        // rcms.insert(r);
-        // Algeria.addRestaurant(wilaya, city, district, stoi(ID));
-        break;
+        rcms.insert(restaurant);
+        Algeria.addRestaurant(wilaya, city, district, stoi(ID));
     }
 
     // display the menu
@@ -213,20 +211,25 @@ int main()
             Restaurant newRestaurant(type, name, ID, d, numEmployees);
             if (!rcms.contains(ID))
             {
+
                 fillRating(ID, newRestaurant);
                 fillSalesCosts(ID, newRestaurant);
                 rcms.insert(newRestaurant);
                 Algeria.addRestaurant(wilaya, city, district, ID);
                 // ID,Name,Type,Creation date,employee number,wilaya,city,district
                 string date = to_string(year) + "-" + to_string(month) + "-" + to_string(day);
-                output << ID << "," << name << "," << date << "," << numEmployees << "," << wilaya << "," << city << "," << district;
+                output <<endl;
+                output <<ID << "," << name << "," << date << "," << numEmployees << "," << wilaya << "," << city << "," << district ;
+                cout << "restaurant added successfuly" << endl;
             }
-            cout << "restaurant added successfuly" << endl;
+            else{
+                cout<<"restaurant ID already excist"<<endl;
+            }
             auto end = chrono::high_resolution_clock::now();
             auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
             break;
         }
-        case 2:
+        /*case 2:
         {
             rcms.printRestaurantsData();
             break;
@@ -521,6 +524,10 @@ int main()
             break;
         case 13:
             break;
+        }*/
+        default:
+            break;
         }
+
     } while (choice);
 }
