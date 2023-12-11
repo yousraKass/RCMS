@@ -12,7 +12,7 @@ private:
     void insert(const Restaurant R, Restaurant *&ROOT);
     void insert(Restaurant &&R, Restaurant *&ROOT);
     
-    Restaurant *contains(const int &key, Restaurant *&ROOT) const;
+    bool contains(const int &key, Restaurant *&ROOT) const;
     // show data of all restaurants
     void printHelper(Restaurant *ROOT) const;
     // utility function to find a restaurant with an ID
@@ -74,11 +74,13 @@ void RestaurantTree::insert(const Restaurant R, Restaurant *&ROOT)
         //duplicates
     }
 
-    Restaurant *RestaurantTree::contains(const int &key, Restaurant *&ROOT) const
+    bool RestaurantTree::contains(const int &key, Restaurant *&ROOT) const
     {
 
         if (ROOT == nullptr)
-            return nullptr;
+            return false;
+        else if (ROOT->getId() == key)
+            return true;
         else if (key < ROOT->getId())
             return contains(key, ROOT->leftChild);
         else if (key > ROOT->getId())
@@ -107,9 +109,9 @@ void RestaurantTree::insert(const Restaurant R, Restaurant *&ROOT)
         else if (ROOT->getId() == key)
             return ROOT;
         else if (key < ROOT->getId())
-            return contains(key, ROOT->leftChild);
+            return getRestauranthelper(key, ROOT->leftChild);
         else
-            return contains(key, ROOT->rightChild);
+            return getRestauranthelper(key, ROOT->rightChild);
     }
     void RestaurantTree::makeEmpty(Restaurant *&ROOT)
 {
@@ -137,7 +139,7 @@ void RestaurantTree::insert(const Restaurant R, Restaurant *&ROOT)
 
     bool RestaurantTree::contains(const int &key)
     {
-        return contains(key, root) != nullptr;
+        return contains(key, root);
     }
 
     void RestaurantTree::insert(const Restaurant &R)
@@ -156,7 +158,6 @@ void RestaurantTree::insert(const Restaurant R, Restaurant *&ROOT)
     }
     Restaurant *RestaurantTree::getRestaurant(const int &key) const
     {
-
         return getRestauranthelper(key, root);
     }
 

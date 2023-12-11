@@ -62,13 +62,14 @@ public:
     void getMonthlyRatio(int month, int year) const;
     void getMonthlyRatioPeriod(int startMonth, int startYear, int endMonth, int endYear) const;
     void reportOnsales(int month, int year) const;
-    void reportOnsales(Date start, Date end);
+        void reportOnsales(int day1, int month1, int year1, int day2, int month2, int year2) const;
+
+    //void reportOnsales(Date start, Date end);
     void addRating(int month, int year, float rA, float rS, float rC, float rI, float rE);
     float getRestaurantRating(int month, int year);
     void getAmountOfPrize(int month, int year, float &aA, float &aS, float &aC, float &aI, float &aE);
     void getMonthlySales(int month, int year, float &A, float &S, float &C, float &I, float &E) const;
     float getMonthlySalesOfRestaurant(int month, int year) const ;
-    void reportOnsales(int day1, int month1, int year1, int day2, int month2, int year2) const;
     void add_Sales_and_Costs(int year, int month, int day, float sA, float sS, float sC, float sI, float sE, float pub_Cost, float gen_Cost);
 };
 void Restaurant::getMonthlyRatioPeriod(int startMonth, int startYear, int endMonth, int endYear) const
@@ -157,10 +158,10 @@ bool Restaurant::operator>(const Restaurant &R)
 
 
 
-void Restaurant::reportOnsales(Date start, Date end)
+/*void Restaurant::reportOnsales(Date start, Date end)
 {
     this->SalesAndCosts.reportOnsales(start.getDay(), start.getMonth(), start.getYear(), end.getDay(), end.getMonth(), end.getYear(), creationDate.getYear());
-}
+}*/
 
 void Restaurant::addRating(int month, int year, float rA, float rS, float rC, float rI, float rE)
 {
