@@ -9,23 +9,36 @@ private:
     Restaurant *root;
     int totalRestaurants;
     //--> Insert x
-    void insert(const Restaurant R, Restaurant *&ROOT)
-    {
-        if (ROOT == nullptr)
-        {
-            Restaurant *newnode = new Restaurant(R);
-            ROOT = newnode;
-            totalRestaurants++;
-        }
+    void insert(const Restaurant R, Restaurant *&ROOT);
+    void insert(Restaurant &&R, Restaurant *&ROOT);
+    
+    Restaurant *contains(const int &key, Restaurant *&ROOT) const;
+    // show data of all restaurants
+    void printHelper(Restaurant *ROOT) const;
+    // utility function to find a restaurant with an ID
+    Restaurant *getRestauranthelper(const int &key, Restaurant *ROOT) const;
+    void makeEmpty(Restaurant *&ROOT);
 
-        else if (R.getId() < ROOT->getId())
-            insert(R, ROOT->leftChild);
-        else if (R.getId() > ROOT->getId())
-            insert(R, ROOT->rightChild);
-        
 
-    }
-    void insert(Restaurant &&R, Restaurant *&ROOT)
+public:
+    // default constructor
+    RestaurantTree();
+    bool IsEmpty() const;
+
+    bool contains(const int &key);
+
+    void insert(const Restaurant &R);
+    int getTotalRestaurants() const;
+    void printRestaurantsData() const;
+    Restaurant *getRestaurant(const int &key) const;
+    //--> Remove all restaurants
+    void makeEmpty();
+    ~RestaurantTree();
+
+   // void reportOnsales(vector<int> restaurants, Date date);
+   // void reportOnsales(int ID, Date start, Date end);
+};
+void RestaurantTree::insert(const Restaurant R, Restaurant *&ROOT)
     {
         if (ROOT == nullptr)
         {
@@ -35,14 +48,33 @@ private:
         }
         else if (!contains(R.getId(), ROOT))
         {
-            if (R < *ROOT)
-                insert(R, ROOT);
-            else if (R > *ROOT)
-                insert(R, ROOT);
+            if (R.getId() < ROOT->getId())
+                insert(R, ROOT->leftChild);
+            else if (R.getId() > ROOT->getId())
+                insert(R, ROOT->rightChild);
+        } 
+        
+
+    }
+    void RestaurantTree::insert(Restaurant &&R, Restaurant *&ROOT)
+    {
+        if (ROOT == nullptr)
+        {
+            Restaurant *newnode = new Restaurant(R);
+            ROOT = newnode;
+            totalRestaurants++; 
         }
+        else if (!contains(R.getId(), ROOT))
+        {
+            if (R.getId() < ROOT->getId())
+                insert(R, ROOT->leftChild);
+            else if (R.getId() > ROOT->getId())
+                insert(R, ROOT->rightChild);
+        }
+        //duplicates
     }
 
-    Restaurant *contains(const int &key, Restaurant *&ROOT) const
+    Restaurant *RestaurantTree::contains(const int &key, Restaurant *&ROOT) const
     {
 
         if (ROOT == nullptr)
@@ -56,17 +88,19 @@ private:
     }
 
     // show data of all restaurants
-    void printHelper(Restaurant *ROOT) const
+    void RestaurantTree::printHelper(Restaurant *ROOT) const
     {
         if (ROOT != nullptr)
         {
             printHelper(ROOT->leftChild);
             ROOT->showRestaurantData();
+            cout<<"--------------------------------------------"<<endl;
+            cout<<"--------------------------------------------"<<endl;
             printHelper(ROOT->rightChild);
         }
     }
     // utility function to find a restaurant with an ID
-    Restaurant *getRestauranthelper(const int &key, Restaurant *ROOT) const
+    Restaurant *RestaurantTree::getRestauranthelper(const int &key, Restaurant *ROOT) const
     {
         if (ROOT == nullptr)
             return nullptr;
@@ -77,7 +111,7 @@ private:
         else
             return contains(key, ROOT->rightChild);
     }
-    void makeEmpty(Restaurant *&ROOT)
+    void RestaurantTree::makeEmpty(Restaurant *&ROOT)
 {
     if (ROOT != nullptr)
     {
@@ -91,53 +125,52 @@ private:
 }
 
 
-public:
     // default constructor
-    RestaurantTree() : root(nullptr)
+    RestaurantTree::RestaurantTree() : root(nullptr)
     {
         totalRestaurants = 0;
     }
-    bool IsEmpty() const
+    bool RestaurantTree::IsEmpty() const
     {
         return (root == nullptr);
     }
 
-    bool contains(const int &key)
+    bool RestaurantTree::contains(const int &key)
     {
         return contains(key, root) != nullptr;
     }
 
-    void insert(const Restaurant &R)
+    void RestaurantTree::insert(const Restaurant &R)
     {
 
         insert(R, root);
     }
-    int getTotalRestaurants() const
+    int RestaurantTree::getTotalRestaurants() const
     {
         return totalRestaurants;
     }
-    void printRestaurantsData() const
+    void RestaurantTree::printRestaurantsData() const
     {
         cout << "Total number of restaurants is: " << getTotalRestaurants() << endl;
         printHelper(root);
     }
-    Restaurant *getRestaurant(const int &key) const
+    Restaurant *RestaurantTree::getRestaurant(const int &key) const
     {
 
         return getRestauranthelper(key, root);
     }
 
     //--> Remove all restaurants
-    void makeEmpty()
+    void RestaurantTree::makeEmpty()
     {
         makeEmpty(root);
     }
-    ~RestaurantTree()
+    RestaurantTree::~RestaurantTree()
     {
         makeEmpty();
     }
 
-    void reportOnsales(vector<int> restaurants, Date date)
+    /*void RestaurantTree::reportOnsales(vector<int> restaurants, Date date)
     {
         for (auto ID : restaurants)
         {
@@ -149,13 +182,12 @@ public:
             // add exception in case restaurant not found
         }
     }
-    void reportOnsales(int ID, Date start, Date end)
+    void RestaurantTree::reportOnsales(int ID, Date start, Date end)
     {
         Restaurant *R = getRestaurant(ID);
         if (R != nullptr)
         {
             R->reportOnsales(start, end);
         }
-    }
-};
+    }*/
 #endif

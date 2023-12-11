@@ -1,9 +1,11 @@
 #include <iostream>
+#include "RESTAURANT.h"
+#include "BSTRESTAURANT.h"
+#include"AVLRESTAURANT.h"
+#include "Country.h"
+#include "date.h"
 #include <fstream>
 #include <sstream>
-#include "BSTRESTAURANT.h"
-#include "date.h"
-#include "Country.h"
 
 using namespace std;
 
@@ -101,7 +103,7 @@ int main()
         // inserting the restaurants in our data structures
 
         // reading sales and costs of each restaurant
-        // year,month,day,sales1,sales2,sales3,sales4,sales5,publicity_costs,costs
+        /* year,month,day,sales1,sales2,sales3,sales4,sales5,publicity_costs,costs
         ifstream salesCostsInput(ID + "salesCosts.csv");
         string lineSalesCosts;
         getline(salesCostsInput, lineSalesCosts);
@@ -113,18 +115,20 @@ int main()
         }
 
         // reading ratings
-        // rating 1, 2, 3, 4, 5, month, year
+        /*rating 1, 2, 3, 4, 5, month, year
         ifstream ratingsInput(ID + "ratings.csv");
         string lineRatings;
         getline(ratingsInput, lineRatings);
 
-        while (getline(ratingsInput, lineRatings))
+       /* while (getline(ratingsInput, lineRatings))
         {
             extractTokensRatings(lineRatings, r1, r2, r3, r4, r5, month_R, year_R);
             r.addRating(stof(month_R), stof(year_R), stof(r1), stof(r2), stof(r3), stof(r4), stof(r5));
         }
-
+*/
         rcms.insert(r);
+       cout<<"total number of restaurants "<< rcms.getTotalRestaurants()<<endl;
+       rcms.printRestaurantsData();
         Algeria.addRestaurant(wilaya, city, district, stoi(ID));
     }
 
