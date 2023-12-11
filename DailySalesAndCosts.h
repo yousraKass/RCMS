@@ -10,7 +10,7 @@ class Sales_and_Costs
 {
 public:
     void GetMonthlySales(int month, int year, float &A, float &S, float &C, float &I, float &E, int startYear) const;
-    float GetMonthlySalesOfRestaurant(int month, int year, int startYear);
+    float GetMonthlySalesOfRestaurant(int month, int year, int startYear) const;
     void reportOnsales(int month, int year, int startYear) const;
     void reportOnsales(int day1, int month1, int year1, int day2, int month2, int year2, int startYear) const;
     void Add_Sales_and_Costs(int year, int month, int day, float sA, float sS, float sC, float sI, float sE, float pub_Cost, float gen_Cost, int startYear);
@@ -53,7 +53,7 @@ void Sales_and_Costs::reportOnsales(int month, int year, int startYear) const
             cout << "Monthly sales of the Chinese cuisine : " << C << endl;
             cout << "Monthly sales of the Indian cuisine : " << I << endl;
             cout << "Monthly sales of the Europian cuisine : " << E << endl;
-            float monthlyR=GetMonthlySalesOfRestaurant(month,year,startYear);
+            float monthlyR= A+S+C+I+E;
             cout << "Monthly sales of the Restaurant : " <<monthlyR<< endl;
         }
     }
@@ -149,7 +149,7 @@ void Sales_and_Costs::Add_Sales_and_Costs(int year, int month, int day, float sA
     // validate when day =30 or when month =2, check if day=28 or day=29
 }
 
-float Sales_and_Costs::GetMonthlySalesOfRestaurant(int month, int year, int startYear)
+float Sales_and_Costs::GetMonthlySalesOfRestaurant(int month, int year, int startYear) const
 {
 
     return Years[year - startYear].months[month - 1].MonthlySales[5];

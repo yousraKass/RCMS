@@ -128,6 +128,7 @@ int main()
         while (getline(salesCostsInput, lineSalesCosts))
         {
             extractTokensSalesCosts(lineSalesCosts, year_SC, month_SC, day_SC, sales1, sales2, sales3, sales4, sales5, publicity, costs);
+            cout<<year_SC<<" "<< month_SC<<" "<< day_SC<<" "<< sales1<<" "<< sales2<<" " <<sales3<<" "<< sales4<<" " <<sales5<<" "<< publicity<<" " <<costs<<endl;
             r.add_Sales_and_Costs(year_SC,month_SC, day_SC, sales1, sales2, sales3, sales4, sales5, publicity, costs);
         }
 
@@ -146,10 +147,10 @@ int main()
         
         // inserting the restaurants in our data structures
         //rcms.insert(r);
-        cout << r.getMonthlySalesOfRestaurant(6,2023) << endl;
+        cout<<r.getRestaurantRating(12,2023)<< endl;
         Algeria.addRestaurant(wilaya, city, district, stoi(ID));
-        break;
     }
+    cout<<i<<endl;
     
 
     return 0;
