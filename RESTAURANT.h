@@ -59,7 +59,7 @@ public:
     bool operator<(const Restaurant &R);
     bool operator>(const Restaurant &R);
     
-    void getMonthlyRatio(int month, int year, int startyear) const;
+    void getMonthlyRatio(int month, int year) const;
     void getMonthlyRatioPeriod(int startMonth, int startYear, int endMonth, int endYear) const;
     void reportOnsales(int month, int year);
     void reportOnsales(Date start, Date end);
@@ -76,7 +76,7 @@ void Restaurant::getMonthlyRatioPeriod(int startMonth, int startYear, int endMon
 {
     SalesAndCosts.Ratio(startMonth, startYear, endMonth, endYear, creationDate.getYear());
 }
-void Restaurant::getMonthlyRatio(int month, int year, int startyear) const
+void Restaurant::getMonthlyRatio(int month, int year) const
 {
     SalesAndCosts.Ratio(month, year, creationDate.getYear());
 }
