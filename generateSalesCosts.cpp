@@ -5,16 +5,18 @@
 
 using namespace std;
 
+#include "generateSalesCosts.h"
 
-void extractTokens(const std::string &line, std::string &firstToken, int &year, int &month, int &day)
+void extractTokens(const std::string &line, int &ID, int &year, int &month, int &day)
 {
     // Create a stringstream to parse the line
     std::stringstream ss(line);
 
     string temp;
-    
+
     // Use getline with ',' as the delimiter to extract tokens
-    std::getline(ss, firstToken, ','); // 12345678
+    ss >> ID;
+    ss.ignore();
     std::getline(ss, temp, ',');       // Chez Omar (skipping the second token)
     std::getline(ss, temp, ',');       // owned (skipping the third token)
 
@@ -42,38 +44,13 @@ int main()
     int i = 0;
     while (getline(inputFile, line))
     {
-        string ID;
-        int startYear, startMonth, startDay;
+        int startYear, startMonth, startDay, ID;
         extractTokens(line, ID, startYear, startMonth, startDay);
-
-        string filePath = ID + "salesCosts.csv";
-        ofstream outputFile(filePath);
         i++;
-        outputFile << "year,month,day,sales1,sales2,sales3,sales4,sales5,publicity_costs,costs" << endl;
 
-        for (int year = startYear; year <= 2023; ++year)
-        {
-            for (int month = (year == startYear) ? startMonth : 1; month <= 12; ++month)
-            {
-                for (int day = (year == startYear && month == startMonth) ? startDay : 1; day <= 31; ++day)
-                {
-                    // Generate random sales and costs data for each day (you can replace this with your own logic)
-                    double sales[5];
-                    for (int i = 0; i < 5; ++i)
-                    {
-                        sales[i] = rand() % 100000 + 1; // Random sales between 1 and 1000
-                    }
-                    double publicityCosts = rand() % 50000 + 1; // Random publicity costs between 1 and 100
-                    double costs = rand() % 90000 + 1;          // Random costs between 1 and 500
+        generateSalesCosts(startYear, startMonth, startDay, ID);
 
-                    // Write data to the CSV file
-                    outputFile << year << "," << month << "," << day << ","
-                               << sales[0] << "," << sales[1] << "," << sales[2] << "," << sales[3] << "," << sales[4] << ","
-                               << publicityCosts << "," << costs << std::endl;
-                }
-            }
-        }
-        
+        break;
     }
 
     return 0;
