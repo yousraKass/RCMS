@@ -9,7 +9,7 @@
 using namespace std;
 class AVLRestaurantTree;
 class RestaurantTree;
-
+class Prize_Winners;
 //enum type that indicates if the restaurant is owned/franchised
 enum Type
 {
@@ -23,6 +23,7 @@ class Restaurant
     friend class Sales_and_Costs;
     friend class Rating;
     friend class AVLRestaurantTree;
+    friend class Prize_Winners;
 //declaring private data members of the class Restaurant
 private:
     Type info;
