@@ -144,15 +144,15 @@ void Sales_and_Costs::Ratio(int month, int year, int startYear) const
     {
         pubMcost += Years[year - startYear].months[month - 1].days[i].publicity_costs;
     }
+    if(pubMcost == 0)
+        return;
     cout << "The ratio on  " << month << "/" << year << " : " << Years[year - startYear].months[month - 1].MonthlySales[5] / pubMcost << endl;
 }
 
 void Sales_and_Costs::Ratio(int month1, int year1, int month2, int year2, int startYear) const
 {
-    while (true)
+    while (month1 <= month2 && year1 <= year2)
     {
-        if (month1 == month2+1 && year1 == year2)
-            break;
         Ratio(month1, year1, startYear);
         month1++;
         if (month1 == 13)
