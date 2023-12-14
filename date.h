@@ -12,16 +12,20 @@ private:
     int day;
 
 public:
-    Date(int y, int m = 0, int d = 0): year (y),
-        month (m),
-        day (d)
+    Date(int y=0, int m = 0, int d = 0)
+        
     {
+        if(isValidDate(y,m,d)){
+            year=y;
+            month=m;
+            day=d;
+        }
        
     }
     
     bool isValidDate(int y, int m, int d) const
     {
-        if (y < 0 || m < 1 || m > 12 || d < 1)
+        if (y < 0 || m < 1 || m > 12 || d < 1 )
         {
             return false;
         }
@@ -35,10 +39,7 @@ public:
         return true;
     }
 
-    void displayDate() const
-    {
-        std::cout << "Date: " << year << "-" << month << "-" << day << "\n";
-    }
+  
     int daysInMonth(int y, int m) const
     {
         static const int days[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
