@@ -1,24 +1,33 @@
-#ifndef DAILY_SALES_AND_COSTS_H
-#define DAILY_SALES_AND_COSTS_H
+#ifndef DAILY_SALESANDCOSTS_H
+#define DAILY_SALESANDCOSTS_H
 #include <vector>
 #include <iostream>
 using std::cout;
 using std::endl;
 using std::vector;
 
-class Sales_and_Costs
+class SalesAndCosts
 {
 public:
-    Sales_and_Costs() : Years(20) {}
-
-    void GetMonthlySales(int month, int year, float &A, float &S, float &C, float &I, float &E, int startYear) const;
-    float GetMonthlySalesOfRestaurant(int month, int year, int startYear) const;
-    void Ratio(int month, int year, int startYear) const;
-    void Ratio(int month1, int year1, int month2, int year2, int startYear) const;
+    SalesAndCosts() : Years(20) {}
+    // Returns values of sales of each cuisine of a restaurant in a given month of a given year 
+    void GetMonthlySales(int month, int year, float &A, float &S, float &C, float &I, float &E, int startYear) const; 
+    // Returns value of sales of the restaurant in a given month of a given year
+    float GetMonthlySalesOfRestaurant(int month, int year, int startYear) const; 
+    // Display restaurant ratio (sales / publicity costs) in a given month of a given year
+    void Ratio(int month, int year, int startYear) const; 
+    // Display restaurant ratio in a given period
+    void Ratio(int month1, int year1, int month2, int year2, int startYear) const; 
+     // Display full report on sales of a restaurant in a given date
     void reportOnsales(int day, int month, int year, int startYear) const;
-    void reportOnsales(int month, int year, int startYear) const;
+    // Display full report on sales of a restaurant in a given month of a given year
+    void reportOnsales(int month, int year, int startYear) const; 
+     // Display full report on sales of a restaurant in a given period
     void reportOnsales(int day1, int month1, int year1, int day2, int month2, int year2, int startYear) const;
-    void Add_Sales_and_Costs(int year, int month, int day, float sA, float sS, float sC, float sI, float sE, float pub_Cost, float gen_Cost, int startYear);
+    // Add information about sales and costs of a restaurant to the system
+    void Add_SalesAndCosts(int year, int month, int day, float sA, float sS, float sC, float sI, float sE, float pub_Cost, float gen_Cost, int startYear);
+    //
+    void GetCumulativeSales(int month, int year, float &aA, float &aS, float &aC, float &aI, float &aE, int startYear) const;
     
 private:
     bool isLeapYear(int year)
@@ -27,16 +36,23 @@ private:
         return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
     }
 
-    int daysInFebruary(int year)
+    int daysInFebruary(int year) // Returns the number of days in February of a given year
     {
         return isLeapYear(year) ? 29 : 28;
     }
-    struct Sales_Costs
+
+        /* 
+        Struct contains an array of floats of size 6 to store the sales of each cuisine of the restaurant in the first five positions 
+        of a given date and the sixth position is the sum of sales of the five cuisines which is the same the sales of the restaurant.
+        It contains also two float variables one of them to stores the publicity costs while the other stores the general costs of a 
+        restaurant in a given date.
+        */
+    struct SalesCosts
     {
         float sales[6];
         float publicity_costs;
         float general_costs;
-        Sales_Costs() : publicity_costs(0), general_costs(0)
+        SalesCosts() : publicity_costs(0), general_costs(0)
         {
             for (int i = 0; i < 6; i++)
             {
@@ -47,8 +63,9 @@ private:
 
     struct Days
     {
-        Sales_Costs days[31];
+        SalesCosts days[31];
         float MonthlySales[6];
+        float CumulativeSales[5];
         Days()
         {
             for (int i = 0; i < 6; i++)
@@ -61,51 +78,77 @@ private:
     {
         Days months[12];
     };
-    vector<Months> Years;
+    vector<Months> Years; 
+    // Private data member represnets a vector called years each year has an array of size 12 to represents months, this array (months) is an array of struct called Days contains array (Montly sales)
+    // stores the values of monthly sales of each cuisine + monthly sales of the restaurant in the last position (the sum), also, it stores an array of size 31 of days, each day stores the information of the restaurant found in the struct up
 };
+
 
 // Implementation
 
-void Sales_and_Costs::reportOnsales(int day, int month, int year, int startYear) const
+void SalesAndCosts::reportOnsales(int day, int month, int year, int startYear) const
 {
-    cout << "Sales of the Algerian cuisine in " << day << "/" << month << "/" << year << " : " << Years[year - startYear].months[month - 1].days[day - 1].sales[0] << endl;
-    cout << "Sales of the Syrian cuisine in " << day << "/" << month << "/" << year << " : " << Years[year - startYear].months[month - 1].days[day - 1].sales[1] << endl;
-    cout << "Sales of the Chinese cuisine in " << day << "/" << month << "/" << year << " : " << Years[year - startYear].months[month - 1].days[day - 1].sales[2] << endl;
-    cout << "Sales of the Indian cuisine in " << day << "/" << month << "/" << year << " : " << Years[year - startYear].months[month - 1].days[day - 1].sales[3] << endl;
-    cout << "Sales of the Europian cuisine in " << day << "/" << month << "/" << year << " : " << Years[year - startYear].months[month - 1].days[day - 1].sales[4] << endl;
-    cout << "Sales of the Restaurant in " << day << "/" << month << "/" << year << " : " << Years[year - startYear].months[month - 1].days[day - 1].sales[5] << endl;
+    if (year < startYear)
+        return;
+    if (month < 1 || month > 12)
+        return;
+    if((month == 4 || month == 6 || month == 9 || month == 11) && (day > 30 || day <1 ))
+        return;
+    else if(month == 2 && year%4 == 0 && (day > 29 || day <1 ))
+        return;
+    else if(month == 2 && (day > 28 || day <1 ))
+        return;
+    else if((day > 28 || day <1 ))
+        return;
+
+    cout<<"-----------------------Report on sales in :'"<<day<<"/"<<month<<"/"<<year<<" : ------------------------------"<<endl;
+    cout<<"------------------------------------------------------------------------------------------------"<<endl;
+   
+    cout << "-Sales of the Algerian cuisine : " << Years[year - startYear].months[month - 1].days[day - 1].sales[0] << " DA " << endl;
+    cout << "-Sales of the Syrian cuisine : " << Years[year - startYear].months[month - 1].days[day - 1].sales[1] << " DA " << endl;
+    cout << "-Sales of the Chinese cuisine : " << Years[year - startYear].months[month - 1].days[day - 1].sales[2] << " DA " << endl;
+    cout << "-Sales of the Indian cuisine : " << Years[year - startYear].months[month - 1].days[day - 1].sales[3] << " DA " << endl;
+    cout << "-Sales of the Europian cuisine : " << Years[year - startYear].months[month - 1].days[day - 1].sales[4] << " DA " << endl;
+    cout << "Total : " << Years[year - startYear].months[month - 1].days[day - 1].sales[5] << " DA " << endl;
+    cout <<"------------------------------------------------------------------------------------------------"<<endl<<endl;
 }
 
-void Sales_and_Costs::reportOnsales(int month, int year, int startYear) const
+void SalesAndCosts::reportOnsales(int month, int year, int startYear) const
 {
     {
         if (year < startYear)
             return;
         if (month < 1 || month > 12)
             return;
-
         else
         {
             float A, S, C, I, E;
             GetMonthlySales(month, year, A, S, C, I, E, startYear);
-            // we have to discuss it cuz the report may display detailed results like for everyday for now let it like this
-            cout << "Monthly sales of the Algerian cuisine : " << A << endl;
-            cout << "Monthly sales of the Syrian cuisine : " << S << endl;
-            cout << "Monthly sales of the Chinese cuisine : " << C << endl;
-            cout << "Monthly sales of the Indian cuisine : " << I << endl;
-            cout << "Monthly sales of the Europian cuisine : " << E << endl;
-            cout << "Monthly sales of the Restaurant : " << Years[year - startYear].months[month - 1].MonthlySales[5] << endl;
+            cout<<"-----------------------Report on sales on : "<<month<<"/"<<year<<" : ------------------------------"<<endl;
+            cout<<"---------------------------------------------------------------------------------------------------"<<endl;
+            cout << "-Monthly sales of the Algerian cuisine : " << A <<  " DA " << endl;
+            cout << "-Monthly sales of the Syrian cuisine : " << S <<  " DA " << endl;
+            cout << "-Monthly sales of the Chinese cuisine : " << C << " DA " <<  endl;
+            cout << "-Monthly sales of the Indian cuisine : " << I <<  " DA " << endl;
+            cout << "-Monthly sales of the Europian cuisine : " << E <<  " DA " << endl;
+            cout << "-Total : " << Years[year - startYear].months[month - 1].MonthlySales[5] << " DA " <<  endl;
         }
     }
 }
 
-void Sales_and_Costs::reportOnsales(int day1, int month1, int year1, int day2, int month2, int year2, int startYear) const
+void SalesAndCosts::reportOnsales(int day1, int month1, int year1, int day2, int month2, int year2, int startYear) const
 {
     {
         if (year1 < startYear || year2 < startYear)
             return;
         if (year1 > year2)
             return;
+        if (year1 == year2 && month1>month2)
+            return;
+        if (year1 == year2 && month1 == month2 && day1>day2)
+            return;
+        if (year1 == year2 && month1 == month2 && day1 == day2)
+            reportOnsales(day1, month1, year1, startYear);
         else
         {
             while (true)
@@ -129,44 +172,57 @@ void Sales_and_Costs::reportOnsales(int day1, int month1, int year1, int day2, i
                             year1++;
                         }
                     }
-                    // please update it ; add a function reportonsales(day,month,year) so that you can call here
-                    // pls make sure of validations
                 }
             }
         }
     }
 }
 
-void Sales_and_Costs::Ratio(int month, int year, int startYear) const
+void SalesAndCosts::Ratio(int month, int year, int startYear) const
 {
+    if (year < startYear)
+        return;
+    if (month < 1 || month > 12)
+        return;
     int pubMcost = 0;
     for (int i = 0; i < 31; i++)
     {
         pubMcost += Years[year - startYear].months[month - 1].days[i].publicity_costs;
     }
-    if(pubMcost == 0)
-        return;
-    cout << "The ratio on  " << month << "/" << year << " : " << Years[year - startYear].months[month - 1].MonthlySales[5] / pubMcost << endl;
+    cout <<" The  monthly ratio on "<< month << "/" << year  << " is  : " << Years[year - startYear].months[month - 1].MonthlySales[5] / pubMcost << endl;
 }
 
-void Sales_and_Costs::Ratio(int month1, int year1, int month2, int year2, int startYear) const
+void SalesAndCosts::Ratio(int month1, int year1, int month2, int year2, int startYear) const
 {
-    //add exception for validation
-    while (month1<=month2 && year1<=year2)
-    {
-        
-        Ratio(month1, year1, startYear);
-        month1++;
-        if (month1 == 13)
+    if (year1 < startYear || year2 < startYear)
+            return;
+        if (year1 > year2)
+            return;
+        if (year1 == year2 && month1>month2)
+            return;
+        if (year1 == year2 && month1 == month2)
+            Ratio(month1,year1,startYear);
+        else{
+            while (month1<=month2 && year1<=year2)
         {
-            month1 = 1;
-            year1++;
+            Ratio(month1, year1, startYear);
+            month1++;
+            if (month1 == 13)
+                {
+                    month1 = 1;
+                    year1++;
+                }
         }
-    }
+        }
+    
 }
 
-void Sales_and_Costs::GetMonthlySales(int month, int year, float &A, float &S, float &C, float &I, float &E, int startYear) const
+void SalesAndCosts::GetMonthlySales(int month, int year, float &A, float &S, float &C, float &I, float &E, int startYear) const
 {
+    if (year < startYear)
+        return;
+    if (month < 1 || month > 12)
+        return;
     A = Years[year - startYear].months[month - 1].MonthlySales[0];
     S = Years[year - startYear].months[month - 1].MonthlySales[1];
     C = Years[year - startYear].months[month - 1].MonthlySales[2];
@@ -174,8 +230,16 @@ void Sales_and_Costs::GetMonthlySales(int month, int year, float &A, float &S, f
     E = Years[year - startYear].months[month - 1].MonthlySales[4];
 }
 
-void Sales_and_Costs::Add_Sales_and_Costs(int year, int month, int day, float sA, float sS, float sC, float sI, float sE, float pub_Cost, float gen_Cost, int startYear)
+void SalesAndCosts::Add_SalesAndCosts(int year, int month, int day, float sA, float sS, float sC, float sI, float sE, float pub_Cost, float gen_Cost, int startYear)
 {
+    if(year -startYear >= Years.size())
+        Years.resize(Years.size()*2);
+    
+    if( sA < 0 || sS < 0 || sC < 0 || sI < 0 || sE < 0 || pub_Cost < 0 || gen_Cost < 0)
+    {
+        cout<<"Invalid input."<<endl;
+        return;
+    }
     Years[year - startYear].months[month - 1].days[day - 1].sales[0] = sA;
     Years[year - startYear].months[month - 1].days[day - 1].sales[1] = sS;
     Years[year - startYear].months[month - 1].days[day - 1].sales[2] = sC;
@@ -241,11 +305,51 @@ void Sales_and_Costs::Add_Sales_and_Costs(int year, int month, int day, float sA
         Years[year - startYear].months[month - 1].MonthlySales[4] = sum5;
         Years[year - startYear].months[month - 1].MonthlySales[5] = sum1 + sum2 + sum3 + sum4 + sum5;
     }
+
+    if (year == startYear && month == 1)
+    {
+        Years[0].months[month - 1].CumulativeSales[0] = Years[year - startYear].months[month - 1].MonthlySales[0];
+        Years[0].months[month - 1].CumulativeSales[1] = Years[year - startYear].months[month - 1].MonthlySales[1];
+        Years[0].months[month - 1].CumulativeSales[2] = Years[year - startYear].months[month - 1].MonthlySales[2];
+        Years[0].months[month - 1].CumulativeSales[3] = Years[year - startYear].months[month - 1].MonthlySales[3];
+        Years[0].months[month - 1].CumulativeSales[4] = Years[year - startYear].months[month - 1].MonthlySales[4];
+    }
+
+    else if (month == 1)
+    {
+        Years[year - startYear].months[month - 1].CumulativeSales[0] = Years[year - startYear - 1].months[11].CumulativeSales[0] + Years[year - startYear].months[month - 1].MonthlySales[0];
+        Years[year - startYear].months[month - 1].CumulativeSales[1] = Years[year - startYear - 1].months[11].CumulativeSales[1] + Years[year - startYear].months[month - 1].MonthlySales[1];
+        Years[year - startYear].months[month - 1].CumulativeSales[2] = Years[year - startYear - 1].months[11].CumulativeSales[2] + Years[year - startYear].months[month - 1].MonthlySales[2];
+        Years[year - startYear].months[month - 1].CumulativeSales[3] = Years[year - startYear - 1].months[11].CumulativeSales[3] + Years[year - startYear].months[month - 1].MonthlySales[3];
+        Years[year - startYear].months[month - 1].CumulativeSales[4] = Years[year - startYear - 1].months[11].CumulativeSales[4] + Years[year - startYear].months[month - 1].MonthlySales[4];
+    }
+    else
+    {
+        Years[year - startYear].months[month - 1].CumulativeSales[0] = Years[year - startYear].months[month - 2].CumulativeSales[0] + Years[year - startYear].months[month - 1].MonthlySales[0];
+        Years[year - startYear].months[month - 1].CumulativeSales[1] = Years[year - startYear].months[month - 2].CumulativeSales[1] + Years[year - startYear].months[month - 1].MonthlySales[1];
+        Years[year - startYear].months[month - 1].CumulativeSales[2] = Years[year - startYear].months[month - 2].CumulativeSales[2] + Years[year - startYear].months[month - 1].MonthlySales[2];
+        Years[year - startYear].months[month - 1].CumulativeSales[3] = Years[year - startYear].months[month - 2].CumulativeSales[3] + Years[year - startYear].months[month - 1].MonthlySales[3];
+        Years[year - startYear].months[month - 1].CumulativeSales[4] = Years[year - startYear].months[month - 2].CumulativeSales[4] + Years[year - startYear].months[month - 1].MonthlySales[4];
+    }
 }
 
-float Sales_and_Costs::GetMonthlySalesOfRestaurant(int month, int year, int startYear) const
+float SalesAndCosts::GetMonthlySalesOfRestaurant(int month, int year, int startYear) const
 {
+    if (year < startYear)
+        return -1;
+    if (month < 1 || month > 12)
+        return -1;
     return Years[year - startYear].months[month - 1].MonthlySales[5];
 }
+
+void SalesAndCosts::GetCumulativeSales(int month, int year, float &aA, float &aS, float &aC, float &aI, float &aE, int startYear) const
+{
+    aA = Years[year - startYear].months[month - 1].CumulativeSales[0];
+    aS = Years[year - startYear].months[month - 1].CumulativeSales[1];
+    aC = Years[year - startYear].months[month - 1].CumulativeSales[2];
+    aI = Years[year - startYear].months[month - 1].CumulativeSales[3];
+    aE = Years[year - startYear].months[month - 1].CumulativeSales[4];
+}
+
 
 #endif
