@@ -13,7 +13,9 @@ enum cuisine{
     CHINESE,
     INDIAN,
     EUROPIAN
-}
+};
+
+
 class Prize_Winners
 {
 private:
@@ -21,34 +23,36 @@ private:
     vector<vector<int>> winnersID;
 
 public:
-    void CalculateMonthlyPrizeWinner(const Restaurant *root, int month, int year, int IdA, float &winnerA, int IdS, float &winnerS, int IdI, float &winnerI, int IdE, float &winnerE, int IdC, float &winnerC)
+    void CalculateMonthlyPrizeWinner(Restaurant *root, int month, int year, int IdA, float &winnerA, int IdS, float &winnerS, int IdI, float &winnerI, int IdE, float &winnerE, int IdC, float &winnerC)
     {
         if (root == nullptr)
             return;
         CalculateMonthlyPrizeWinner(root->leftChild, month, year, IdA, winnerA, IdS, winnerS, IdI, winnerI, IdE, winnerE, IdC, winnerC);
-        if (root->getPrize(month, year, 0) > winnerA)
-        {
-            winnerA = root->getPrize(month, year, 0);
+        float aA, aS,aC,aI,aE;
+        root->getPrize(month, year,aA, aS,aC,aI,aE);
+        if (aA> winnerA)
+        {   
+            winnerA = aA;
             IdA = root->getId();
         }
-        if (root->getPrize(month, year, 1) > winnerS)
+        if (aS >winnerS)
         {
-            winnerS = root->getPrize(month, year, 1);
+            winnerS = aS;
             IdS = root->getId();
         }
-        if (root->getPrize(month, year, 2) > winnerI)
+        if (aI > winnerI)
         {
-            winnerI = root->getPrize(month, year, 2);
+            winnerI = aI;
             IdI = root->getId();
         }
-        if (root->getPrize(month, year, 3) > winnerE)
+        if (aE > winnerE)
         {
-            winnerE = root->getPrize(month, year, 3);
+            winnerE = aE;
             IdE = root->getId();
         }
-        if (root->getPrize(month, year, 4) > winnerC)
+        if (aC > winnerC)
         {
-            winnerC = root->getPrize(month, year, 4);
+            winnerC = aC;
             IdC = root->getId();
         }
         CalculateMonthlyPrizeWinner(root->rightChild, month, year, IdA, winnerA, IdS, winnerS, IdI, winnerI, IdE, winnerE, IdC, winnerC);
@@ -79,6 +83,6 @@ public:
         int index=(year - First_Creation_Date.getYear() )*12+ month - First_Creation_Date.getMonth();
         return winnersID[index];
     }
-}
+};
 
-#endif;
+#endif

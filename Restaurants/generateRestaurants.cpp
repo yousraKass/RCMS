@@ -4,14 +4,14 @@ using std::ofstream;
 
 #include <cstdlib>
 #include <ctime>
-using std::srand;
 using std::rand;
+using std::srand;
 using std::time;
 
 #include <iostream>
+using std::cout;
 using std::endl;
 using std::getline;
-using std::cout;
 using std::string;
 
 // we are generating 10000 restaurant
@@ -21,11 +21,11 @@ int restaurantName = 400;
 int main()
 {
     // generate restaurant IDs
-    
+
     srand(time(0));
     /*
     ofstream outputID("IDS.csv");
-    
+
     for(int i = 0; i<7000; i++){
         unsigned id = rand() % 10000000000;
         // int k = rand() % 10 + 1;
@@ -40,17 +40,17 @@ int main()
     ifstream inputLocation("algeria_cities.csv");
     ifstream inputname("restaurantNames.csv");
     int id, type;
-    int day,month, year;
+    int day, month, year;
     string name;
-    string wilaya,city,district;
+    string wilaya, city, district;
     int currentRestaurantName = 1;
     int currentRestaurantID = 1;
     int currentRestaurantLocation = 1;
     ofstream output("RESTAURANTS.csv");
 
-
     // ID,Name,Type,Creation date,employee number,country,city,district
-    for(int i = 0; i<restaurantNum; i++){
+    for (int i = 0; i < restaurantNum; i++)
+    {
         inputID >> id;
         inputname >> name;
         inputLocation >> district;
@@ -59,12 +59,11 @@ int main()
         inputLocation.ignore();
         inputLocation >> wilaya;
         inputLocation.ignore();
-        type = rand()%2;
+        type = rand() % 2;
+        string t = (type == 0 )? "owned" : "franchised";
 
-
-        output < id << "," << (type == 0? "owned":"franchised") << ",";
+        output << id << "," << t << ",";
     }
-
 
     return 0;
 }

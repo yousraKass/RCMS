@@ -74,7 +74,7 @@ public:
     //return the monthly rating of a restaurant (average of the five cuisine)
     float getRestaurantRating(int month, int year);
     //get the prize Amount of a specific month
-    void getAmountOfPrize(int month, int year, float &aA, float &aS, float &aC, float &aI, float &aE);
+    void getPrize(int month, int year, float &aA, float &aS, float &aC, float &aI, float &aE);
     //show the sales of a specific month for each cuisine and the restaurant
     void getMonthlySales(int month, int year, float &A, float &S, float &C, float &I, float &E) const;
     //get the sales of the restaurant on a given month
@@ -181,7 +181,7 @@ float Restaurant::getRestaurantRating(int month, int year)
     return rating.GetRestaurantRating(month, year, sYear);
 }
 
-void Restaurant::getAmountOfPrize(int month, int year, float &aA, float &aS, float &aC, float &aI, float &aE)
+void Restaurant::getPrize(int month, int year, float &aA, float &aS, float &aC, float &aI, float &aE)
 {
     int sYear = creationDate.getYear();
     rating.GetAmountOfPrize(month, year, aA, aS, aC, aI, aE, sYear);

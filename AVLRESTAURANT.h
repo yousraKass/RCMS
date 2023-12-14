@@ -41,8 +41,6 @@ private:
 public:
     // default constructor
     AVLRestaurantTree();
-    // check wether the tree is empty
-    bool IsEmpty() const;
     // check wether a restaurant with Id=key excist in the AVL tree
     bool contains(const int &key);
     // insert a new restaurant
@@ -56,9 +54,11 @@ public:
     // Remove all restaurants
     void makeEmpty();
     // destructor
+    // check wether the tree is empty
+    bool IsEmpty() const;
     ~AVLRestaurantTree();
 };
-#endif
+
 
 // default constructor
 AVLRestaurantTree::AVLRestaurantTree() : root(nullptr)
@@ -256,3 +256,6 @@ AVLRestaurantTree::~AVLRestaurantTree()
 {
     makeEmpty();
 }
+
+
+#endif

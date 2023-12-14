@@ -1,9 +1,10 @@
 #include <iostream>
 #include "RESTAURANT.h"
 #include "BSTRESTAURANT.h"
-#include "AVLRESTAURANT.h"
+// #include "AVLRESTAURANT.h"
 #include "Country.h"
 #include "date.h"
+#include "Prize_Winners.h"
 #include <fstream>
 #include <sstream>
 #include <chrono>
@@ -146,6 +147,7 @@ int main()
     getline(input, line);
     string name, type, wilaya, city, district;
     int ID, year, month, day, employeeNum;
+    Date date(31,12,2024);
 
     // reading lines until finishing with the file
     while (getline(input, line))
@@ -156,6 +158,8 @@ int main()
 
         // create the needed insttances
         Date d(year, month, day);
+        if (d<date)
+            date = d;
         Restaurant restaurant(type, name, ID, d, employeeNum);
 
         fillSalesCosts(ID, restaurant);
@@ -184,7 +188,7 @@ int main()
         cout << "10. Display the ratio of the monthly sales on the publicity cost for all restaurants in a specific city " << endl;
         cout << "11. Display the ratio of the monthly sales on the publicity cost for all restaurants in a specific wilaya " << endl;
         cout << "12. Display the ratio of the monthly sales on the publicity cost for all restaurants in the country " << endl;
-        cout << "13. Display the prize winners for each cuisine: " << endl;
+        cout << "13. Display the prize winners for each cuisine " << endl;
         // for the graph display should be added in each case of the above cases
         cout << "14. Exit" << endl;
         cout << endl;
@@ -301,7 +305,7 @@ int main()
                 Date start(year1, month1, day1);
                 Date end(year2, month2, day2);
 
-                if (r !=nullptr)
+                if (r != nullptr)
                 {
                     r->reportOnsales(start.getDay(), start.getMonth(), start.getYear(), end.getDay(), end.getMonth(), end.getYear());
                 }
@@ -448,7 +452,8 @@ int main()
 
             switch (Case)
             {
-            case 1:{
+            case 1:
+            {
                 cout << "enter the month and the year respectively: ";
                 int month, year;
                 cin >> month >> year;
@@ -460,9 +465,11 @@ int main()
                     cout << "-------------------------------------------------" << endl;
                 }
 
-                break;}
+                break;
+            }
 
-            case 2:{
+            case 2:
+            {
                 int day1, month1, year1;
                 int day2, month2, year2;
                 cout << "enter the starting date(day, month, year): ";
@@ -479,7 +486,8 @@ int main()
                     cout << "-------------------------------------------------" << endl;
                     cout << "-------------------------------------------------" << endl;
                 }
-                break;}
+                break;
+            }
             }
             break;
         }
@@ -832,12 +840,17 @@ int main()
         }
 
         case 13:
+        {
+            // Display the prize winners for each cuisine
+            Prize_Winners p(rcms,date);
+            vector<int> idwinner = p.get_winners(11,2023);
+            for(auto i: idwinner)
+                cout << idwinner[i] << endl;
             break;
-
+        }
         default:
             break;
         }
-     
-    }while (choice);
 
+    } while (choice);
 }
