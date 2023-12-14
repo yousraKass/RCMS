@@ -4,7 +4,6 @@
 // #include "AVLRESTAURANT.h"
 #include "Country.h"
 #include "date.h"
-#include "Prize_Winners.h"
 #include <fstream>
 #include <sstream>
 #include <chrono>
@@ -841,11 +840,7 @@ int main()
 
         case 13:
         {
-            // Display the prize winners for each cuisine
-            Prize_Winners p(rcms,date);
-            vector<int> idwinner = p.get_winners(11,2023);
-            for(auto i: idwinner)
-                cout << idwinner[i] << endl;
+            
             break;
         }
         default:
