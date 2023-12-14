@@ -50,7 +50,7 @@ int main()
 
         generateSalesCosts(startYear, startMonth, startDay, ID);
 
-        break;
+        if(i == 30)break;
     }
 
     return 0;
