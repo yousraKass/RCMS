@@ -20,10 +20,10 @@ class Prize_Winners
 {
 private:
     Date First_Creation_Date;
-    vector<vector<int>> winnersID;
+    vector<vector<Restaurant*>> winners;
 
 public:
-    void CalculateMonthlyPrizeWinner(Restaurant *root, int month, int year, int IdA, float &winnerA, int IdS, float &winnerS, int IdI, float &winnerI, int IdE, float &winnerE, int IdC, float &winnerC)
+    void CalculateMonthlyPrizeWinner(Restaurant *root, int month, int year, Restaurant*& IdA, float &winnerA, Restaurant*& IdS, float &winnerS, Restaurant*& IdI, float &winnerI, Restaurant*& IdE, float &winnerE, Restaurant*& IdC, float &winnerC)
     {
         if (root == nullptr)
             return;
@@ -33,27 +33,27 @@ public:
         if (aA> winnerA)
         {   
             winnerA = aA;
-            IdA = root->getId();
+            IdA = root;
         }
         if (aS >winnerS)
         {
             winnerS = aS;
-            IdS = root->getId();
+            IdS = root;
         }
         if (aI > winnerI)
         {
             winnerI = aI;
-            IdI = root->getId();
+            IdI = root;
         }
         if (aE > winnerE)
         {
             winnerE = aE;
-            IdE = root->getId();
+            IdE = root;
         }
         if (aC > winnerC)
         {
             winnerC = aC;
-            IdC = root->getId();
+            IdC = root;
         }
         CalculateMonthlyPrizeWinner(root->rightChild, month, year, IdA, winnerA, IdS, winnerS, IdI, winnerI, IdE, winnerE, IdC, winnerC);
     }
@@ -64,12 +64,16 @@ public:
         int year = First_Creation_Date.getYear();
         int month = First_Creation_Date.getMonth();
         float winnerA = 0, winnerS = 0, winnerC = 0, winnerI = 0, winnerE = 0;
-        int IdA, IdS, IdI, IdC, IdE;
+        Restaurant* IdA;
+        Restaurant* IdS;
+        Restaurant* IdI;
+        Restaurant* IdC;
+        Restaurant* IdE;
         while (year != 2024)
         {
             CalculateMonthlyPrizeWinner(rcms.root, month, year, IdA, winnerA, IdS, winnerS, IdI, winnerI, IdE, winnerE, IdC, winnerC);
-            vector<int> winnerIDS= {IdA,IdS,IdC,IdI,IdE};
-            winnersID.push_back(winnerIDS);
+            vector<Restaurant*> winnerIDS= {IdA,IdS,IdC,IdI,IdE};
+            winners.push_back(winnerIDS);
             month++;
             if(month==13){
                 month=1;
@@ -78,10 +82,10 @@ public:
             
         }
     }
-    vector<int> get_winners(int month, int year)
+    vector<Restaurant*> get_winners(int month, int year)
     {
         int index=(year - First_Creation_Date.getYear() )*12+ month - First_Creation_Date.getMonth();
-        return winnersID[index];
+        return winners[index];
     }
 };
 
