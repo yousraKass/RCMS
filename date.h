@@ -44,7 +44,7 @@ public:
     {
         static const int days[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-        int daysInThisMonth = days[month];
+        int daysInThisMonth = days[m];
 
         //  leap year in February
         if (month == 2 && isLeapYear(year))

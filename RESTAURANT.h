@@ -9,6 +9,7 @@
 using namespace std;
 class AVLRestaurantTree;
 class RestaurantTree;
+class Prize_Winners;
 enum Type
 {
     owned,
@@ -20,6 +21,7 @@ class Restaurant
     friend class SalesAndCosts;
     friend class Rating;
     friend class AVLRestaurantTree;
+    friend class Prize_Winners;
 
 private:
     Type info;
@@ -67,7 +69,7 @@ public:
     //void reportOnsales(Date start, Date end);
     void addRating(int month, int year, float rA, float rS, float rC, float rI, float rE);
     float getRestaurantRating(int month, int year);
-    void getAmountOfPrize(int month, int year, float &aA, float &aS, float &aC, float &aI, float &aE);
+    void getPrize(int month, int year, float &aA, float &aS, float &aC, float &aI, float &aE);
     void getMonthlySales(int month, int year, float &A, float &S, float &C, float &I, float &E) const;
     float getMonthlySalesOfRestaurant(int month, int year) const ;
     void add_Sales_and_Costs(int year, int month, int day, float sA, float sS, float sC, float sI, float sE, float pub_Cost, float gen_Cost);
