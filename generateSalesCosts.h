@@ -3,7 +3,8 @@
 #include <string>
 
 using namespace std;
-
+int currentYear = 2023;
+int currentMonth = 12;
 
 void generateSalesCosts(int startYear, int startMonth, int startDay, int ID)
 {
@@ -11,7 +12,7 @@ void generateSalesCosts(int startYear, int startMonth, int startDay, int ID)
     ofstream outputFile(filePath);
     outputFile << "year,month,day,sales1,sales2,sales3,sales4,sales5,publicity_costs,costs" << endl;
 
-    for (int year = startYear; year <= 2023; ++year)
+    for (int year = startYear; year <= currentYear; ++year)
     {
         for (int month = (year == startYear) ? startMonth : 1; month <= 12; ++month)
         {

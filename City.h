@@ -1,3 +1,4 @@
+// class City contains a vector of all the Districts that are in it
 #ifndef CITY_H
 #define CITY_H
 
@@ -9,39 +10,17 @@ using std::unordered_map;
 class City
 {
 public:
-    // report on sales
-    vector<int> getRestaurantsDistrict(string district);
+    // get restaurants of the specified district in the current city
+    vector<int> getRestaurantsDistrict(const string &district);
+    // get restaurants from all districts in the current city
     vector<int> getRestaurantsAllDistricts();
 
-    // add a restaurant
-    void addRestaurant(string district, int ID);
+    // add a restaurant in the spesified district in the current city
+    void addRestaurant(const string &district, const int &ID);
 
 private:
     string name;
     unordered_map<string, District> districts;
 };
-
-vector<int> City::getRestaurantsDistrict(string district)
-{
-    return districts[district].getRestaurantsDistrict();
-}
-
-vector<int> City::getRestaurantsAllDistricts()
-{
-    vector<int> Result;
-    for (const auto &district : districts)
-    {
-        const vector<int> &districtRestaurants = getRestaurantsDistrict(district.first);
-        Result.insert(Result.end(), districtRestaurants.begin(), districtRestaurants.end());
-    }
-    return Result;
-}
-
-
-// add a restaurant
-void City::addRestaurant(string district, int ID)
-{
-    districts[district].addRestaurant(ID);
-}
 
 #endif

@@ -583,7 +583,7 @@ int main()
                 int month2, year2;
                 cout << "enter the starting date(month, year): ";
                 cin >> month1 >> year1;
-                cout << "enter the ending date(day, month, year): ";
+                cout << "enter the ending date(month, year): ";
                 cin >> month2 >> year2;
 
                 Date start(year1, month1);

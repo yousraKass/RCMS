@@ -144,6 +144,8 @@ void Sales_and_Costs::Ratio(int month, int year, int startYear) const
     {
         pubMcost += Years[year - startYear].months[month - 1].days[i].publicity_costs;
     }
+    if(pubMcost == 0)
+        return;
     cout << "The ratio on  " << month << "/" << year << " : " << Years[year - startYear].months[month - 1].MonthlySales[5] / pubMcost << endl;
 }
 
