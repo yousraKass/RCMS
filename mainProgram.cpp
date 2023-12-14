@@ -301,7 +301,11 @@ int main()
                 Date start(year1, month1, day1);
                 Date end(year2, month2, day2);
 
+<<<<<<< Updated upstream
                 if (r != nullptr)
+=======
+                if (r !=nullptr)
+>>>>>>> Stashed changes
                 {
                     r->reportOnsales(start.getDay(), start.getMonth(), start.getYear(), end.getDay(), end.getMonth(), end.getYear());
                 }
@@ -600,7 +604,7 @@ int main()
 
             break;
         }
-
+/*
         case 9:
         {
             // Display the ratio of the monthly sales on the publicity cost for all restaurants in a specific district
@@ -836,8 +840,14 @@ int main()
 
         default:
             break;
+<<<<<<< Updated upstream
         }
     } while (choice);
 
 
+=======
+        }*/
+    } 
+    }while (choice);
+>>>>>>> Stashed changes
 }

@@ -151,8 +151,10 @@ void Sales_and_Costs::Ratio(int month, int year, int startYear) const
 
 void Sales_and_Costs::Ratio(int month1, int year1, int month2, int year2, int startYear) const
 {
-    while (month1 <= month2 && year1 <= year2)
+    //add exception for validation
+    while (month1<=month2 && year1<=year2)
     {
+        
         Ratio(month1, year1, startYear);
         month1++;
         if (month1 == 13)
