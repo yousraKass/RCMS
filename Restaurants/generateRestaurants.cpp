@@ -12,6 +12,7 @@ using std::time;
 using std::endl;
 using std::getline;
 using std::cout;
+using std::string;
 
 // we are generating 10000 restaurant
 int restaurantNum = 7000;
@@ -20,8 +21,9 @@ int restaurantName = 400;
 int main()
 {
     // generate restaurant IDs
-    /*
+    
     srand(time(0));
+    /*
     ofstream outputID("IDS.csv");
     
     for(int i = 0; i<7000; i++){
@@ -35,18 +37,32 @@ int main()
     */
 
     ifstream inputID("IDS.csv");
-    int id;
+    ifstream inputLocation("algeria_cities.csv");
+    ifstream inputname("restaurantNames.csv");
+    int id, type;
+    int day,month, year;
+    string name;
+    string wilaya,city,district;
     int currentRestaurantName = 1;
-    int currentRestauran = 1;
+    int currentRestaurantID = 1;
     int currentRestaurantLocation = 1;
     ofstream output("RESTAURANTS.csv");
+
 
     // ID,Name,Type,Creation date,employee number,country,city,district
     for(int i = 0; i<restaurantNum; i++){
         inputID >> id;
-        
+        inputname >> name;
+        inputLocation >> district;
+        inputLocation.ignore();
+        inputLocation >> city;
+        inputLocation.ignore();
+        inputLocation >> wilaya;
+        inputLocation.ignore();
+        type = rand()%2;
 
-        output < id << "," << 
+
+        output < id << "," << (type == 0? "owned":"franchised") << ",";
     }
 
 
