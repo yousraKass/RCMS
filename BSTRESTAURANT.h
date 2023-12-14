@@ -8,36 +8,48 @@ class RestaurantTree
 private:
     Restaurant *root;
     int totalRestaurants;
-    //--> Insert x
+    //************Utility functions************
+    //Insert x with two version 
     void insert(const Restaurant R, Restaurant *&ROOT);
     void insert(Restaurant &&R, Restaurant *&ROOT);
-    
+    //search for x return true if found, else false
     bool contains(const int &key, Restaurant *&ROOT) const;
     // show data of all restaurants
     void printHelper(Restaurant *ROOT) const;
-    // utility function to find a restaurant with an ID
+    // utility function to find a restaurant with an ID, returns a pointer to the restaurant if found , else return nullptr
     Restaurant *getRestauranthelper(const int &key, Restaurant *ROOT) const;
+    //destroy the the BST
     void makeEmpty(Restaurant *&ROOT);
 
 
 public:
     // default constructor
     RestaurantTree();
+    //return true if empty,false otherwise
     bool IsEmpty() const;
-
+    //return true if restaurant with Id =key is found
     bool contains(const int &key);
-
+    //insert restaurant
     void insert(const Restaurant &R);
+    //return the total number of restaurants
     int getTotalRestaurants() const;
+    //show data of all restaurant in the BST
     void printRestaurantsData() const;
+    //return a pointer to the restaurant with Id=key
     Restaurant *getRestaurant(const int &key) const;
-    //--> Remove all restaurants
+    //Remove all restaurants start with left tree, right tree then the root
     void makeEmpty();
+    //destructor that will call makeEmpty
     ~RestaurantTree();
 
-   // void reportOnsales(vector<int> restaurants, Date date);
-   // void reportOnsales(int ID, Date start, Date end);
+
 };
+
+// default constructor
+    RestaurantTree::RestaurantTree() : root(nullptr)
+    {
+        totalRestaurants = 0;
+    }
 void RestaurantTree::insert(const Restaurant R, Restaurant *&ROOT)
     {
         if (ROOT == nullptr)
@@ -127,11 +139,7 @@ void RestaurantTree::insert(const Restaurant R, Restaurant *&ROOT)
 }
 
 
-    // default constructor
-    RestaurantTree::RestaurantTree() : root(nullptr)
-    {
-        totalRestaurants = 0;
-    }
+    
     bool RestaurantTree::IsEmpty() const
     {
         return (root == nullptr);
@@ -171,24 +179,6 @@ void RestaurantTree::insert(const Restaurant R, Restaurant *&ROOT)
         makeEmpty();
     }
 
-    /*void RestaurantTree::reportOnsales(vector<int> restaurants, Date date)
-    {
-        for (auto ID : restaurants)
-        {
-            Restaurant *R = getRestaurant(ID);
-            if (R != nullptr)
-            {
-                R->reportOnsales(date.getMonth(), date.getYear());
-            }
-            // add exception in case restaurant not found
-        }
-    }
-    void RestaurantTree::reportOnsales(int ID, Date start, Date end)
-    {
-        Restaurant *R = getRestaurant(ID);
-        if (R != nullptr)
-        {
-            R->reportOnsales(start, end);
-        }
-    }*/
+    
+
 #endif
