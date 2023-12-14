@@ -56,11 +56,11 @@ void Rating::AddRating(int month, int year, float rA, float rS, float rC, float 
 
     else if (month == 1)
     {
-        Years[year - startYear].months[month - 1].Amount_of_Prize[0] = Years[year - startYear - 1].months[11].Amount_of_Prize[0] + (rA / 100);
-        Years[year - startYear].months[month - 1].Amount_of_Prize[1] = Years[year - startYear - 1].months[11].Amount_of_Prize[1] + (rS / 100);
-        Years[year - startYear].months[month - 1].Amount_of_Prize[2] = Years[year - startYear - 1].months[11].Amount_of_Prize[2] + (rC / 100);
-        Years[year - startYear].months[month - 1].Amount_of_Prize[3] = Years[year - startYear - 1].months[11].Amount_of_Prize[3] + (rI / 100);
-        Years[year - startYear].months[month - 1].Amount_of_Prize[4] = Years[year - startYear - 1].months[11].Amount_of_Prize[4] + (rE / 100);
+        Years[year - startYear].months[month - 1].Amount_of_Prize[0] = rA / 100;
+        Years[year - startYear].months[month - 1].Amount_of_Prize[1] = rS / 100;
+        Years[year - startYear].months[month - 1].Amount_of_Prize[2] = rC / 100;
+        Years[year - startYear].months[month - 1].Amount_of_Prize[3] = rI / 100;
+        Years[year - startYear].months[month - 1].Amount_of_Prize[4] = rE / 100;
     }
     else
     {

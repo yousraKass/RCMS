@@ -170,6 +170,7 @@ int main()
         Algeria.addRestaurant(wilaya, city, district, ID);
     }
 
+/*
     // display the menu
     int choice;
     do
@@ -843,14 +844,15 @@ int main()
         {
             // Display the prize winners for each cuisine
             Prize_Winners p(rcms,date);
-            vector<int> idwinner = p.get_winners(11,2023);
+            vector<int> idwinner = p.get_winners(10,2023);
             for(auto i: idwinner)
-                cout << idwinner[i] << endl;
+                cout << i << endl;
             break;
         }
         default:
             break;
         }
 
-    } while (choice);
+    } while (choice != 14);
+    */
 }

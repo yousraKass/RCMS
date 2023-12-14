@@ -317,11 +317,11 @@ void SalesAndCosts::Add_SalesAndCosts(int year, int month, int day, float sA, fl
 
     else if (month == 1)
     {
-        Years[year - startYear].months[month - 1].CumulativeSales[0] = Years[year - startYear - 1].months[11].CumulativeSales[0] + Years[year - startYear].months[month - 1].MonthlySales[0];
-        Years[year - startYear].months[month - 1].CumulativeSales[1] = Years[year - startYear - 1].months[11].CumulativeSales[1] + Years[year - startYear].months[month - 1].MonthlySales[1];
-        Years[year - startYear].months[month - 1].CumulativeSales[2] = Years[year - startYear - 1].months[11].CumulativeSales[2] + Years[year - startYear].months[month - 1].MonthlySales[2];
-        Years[year - startYear].months[month - 1].CumulativeSales[3] = Years[year - startYear - 1].months[11].CumulativeSales[3] + Years[year - startYear].months[month - 1].MonthlySales[3];
-        Years[year - startYear].months[month - 1].CumulativeSales[4] = Years[year - startYear - 1].months[11].CumulativeSales[4] + Years[year - startYear].months[month - 1].MonthlySales[4];
+        Years[year - startYear].months[month - 1].CumulativeSales[0] = Years[year - startYear].months[month - 1].MonthlySales[0];
+        Years[year - startYear].months[month - 1].CumulativeSales[1] = Years[year - startYear].months[month - 1].MonthlySales[1];
+        Years[year - startYear].months[month - 1].CumulativeSales[2] = Years[year - startYear].months[month - 1].MonthlySales[2];
+        Years[year - startYear].months[month - 1].CumulativeSales[3] = Years[year - startYear].months[month - 1].MonthlySales[3];
+        Years[year - startYear].months[month - 1].CumulativeSales[4] = Years[year - startYear].months[month - 1].MonthlySales[4];
     }
     else
     {
@@ -344,6 +344,8 @@ float SalesAndCosts::GetMonthlySalesOfRestaurant(int month, int year, int startY
 
 void SalesAndCosts::GetCumulativeSales(int month, int year, float &aA, float &aS, float &aC, float &aI, float &aE, int startYear) const
 {
+    if (year < startYear)
+        return;
     aA = Years[year - startYear].months[month - 1].CumulativeSales[0];
     aS = Years[year - startYear].months[month - 1].CumulativeSales[1];
     aC = Years[year - startYear].months[month - 1].CumulativeSales[2];

@@ -23,7 +23,7 @@ private:
     vector<vector<int>> winnersID;
 
 public:
-    void CalculateMonthlyPrizeWinner(Restaurant *root, int month, int year, int IdA, float &winnerA, int IdS, float &winnerS, int IdI, float &winnerI, int IdE, float &winnerE, int IdC, float &winnerC)
+    void CalculateMonthlyPrizeWinner(Restaurant *root, int month, int year, int &IdA, float &winnerA, int& IdS, float &winnerS, int &IdI, float &winnerI, int &IdE, float &winnerE, int &IdC, float &winnerC)
     {
         if (root == nullptr)
             return;
