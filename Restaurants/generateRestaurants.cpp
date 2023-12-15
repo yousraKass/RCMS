@@ -70,7 +70,7 @@ int main()
         string date = to_string(year) + "-" + to_string(month) + "-" + to_string(day);
         employeeNumber = rand() % 200 + 20;
 
-        output << id << "," << t << "," << date << "," << employeeNumber << "," << temp << endl;
+        output << id << "," << name << "," << t << "," << date << "," << employeeNumber << "," << temp << endl;
 
         currentRestaurantName++;
         currentRestaurantLocation++;

@@ -4,7 +4,6 @@
 // #include "AVLRESTAURANT.h"
 #include "Country.h"
 #include "date.h"
-#include "Prize_Winners.h"
 #include <fstream>
 #include <sstream>
 #include <chrono>
@@ -170,7 +169,7 @@ int main()
         Algeria.addRestaurant(wilaya, city, district, ID);
     }
 
-/*
+
     // display the menu
     int choice;
     do
@@ -842,11 +841,7 @@ int main()
 
         case 13:
         {
-            // Display the prize winners for each cuisine
-            Prize_Winners p(rcms,date);
-            vector<int> idwinner = p.get_winners(10,2023);
-            for(auto i: idwinner)
-                cout << i << endl;
+            
             break;
         }
         default:
@@ -854,5 +849,5 @@ int main()
         }
 
     } while (choice != 14);
-    */
+    
 }

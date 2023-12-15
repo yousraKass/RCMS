@@ -13,6 +13,7 @@ void extractTokens(const std::string &line, int &ID, int &year, int &month, int 
     std::stringstream ss(line);
 
     string temp;
+    // 1010043555,owned,2008-3-4,142,Chlef,Beni Haoua,Oued Goussine
 
     // Use getline with ',' as the delimiter to extract tokens
     ss >> ID;
@@ -50,7 +51,7 @@ int main()
 
         generateSalesCosts(startYear, startMonth, startDay, ID);
 
-        if(i == 30)break;
+        if(i == 50)break;
     }
 
     return 0;
