@@ -7,14 +7,14 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-enum cuisine{
+enum cuisine
+{
     ALGERIAN,
     SYRIAN,
     CHINESE,
     INDIAN,
     EUROPIAN
 };
-
 
 class Prize_Winners
 {
@@ -23,19 +23,19 @@ private:
     vector<vector<int>> winnersID;
 
 public:
-    void CalculateMonthlyPrizeWinner(Restaurant *root, int month, int year, int &IdA, float &winnerA, int& IdS, float &winnerS, int &IdI, float &winnerI, int &IdE, float &winnerE, int &IdC, float &winnerC)
+    void CalculateMonthlyPrizeWinner(Restaurant *root, int month, int year, int &IdA, float &winnerA, int &IdS, float &winnerS, int &IdI, float &winnerI, int &IdE, float &winnerE, int &IdC, float &winnerC)
     {
         if (root == nullptr)
             return;
         CalculateMonthlyPrizeWinner(root->leftChild, month, year, IdA, winnerA, IdS, winnerS, IdI, winnerI, IdE, winnerE, IdC, winnerC);
-        float aA, aS,aC,aI,aE;
-        root->getPrize(month, year,aA, aS,aC,aI,aE);
-        if (aA> winnerA)
-        {   
+        float aA, aS, aC, aI, aE;
+        root->getPrize(month, year, aA, aS, aC, aI, aE);
+        if (aA > winnerA)
+        {
             winnerA = aA;
             IdA = root->getId();
         }
-        if (aS >winnerS)
+        if (aS > winnerS)
         {
             winnerS = aS;
             IdS = root->getId();
@@ -57,6 +57,7 @@ public:
         }
         CalculateMonthlyPrizeWinner(root->rightChild, month, year, IdA, winnerA, IdS, winnerS, IdI, winnerI, IdE, winnerE, IdC, winnerC);
     }
+
     Prize_Winners(const RestaurantTree &rcms, const Date &firstDate)
     {
         First_Creation_Date = firstDate;
@@ -68,20 +69,44 @@ public:
         while (year != 2024)
         {
             CalculateMonthlyPrizeWinner(rcms.root, month, year, IdA, winnerA, IdS, winnerS, IdI, winnerI, IdE, winnerE, IdC, winnerC);
-            vector<int> winnerIDS= {IdA,IdS,IdC,IdI,IdE};
+            vector<int> winnerIDS = {IdA, IdS, IdC, IdI, IdE};
             winnersID.push_back(winnerIDS);
             month++;
-            if(month==13){
-                month=1;
+            if (month == 13)
+            {
+                month = 1;
                 year++;
             }
-            
         }
     }
+
+    // we have to test if the index is valid
+    // and throw an exception if there is an error
     vector<int> get_winners(int month, int year)
     {
-        int index=(year - First_Creation_Date.getYear() )*12+ month - First_Creation_Date.getMonth();
+        int index = (year - First_Creation_Date.getYear()) * 12 + month - First_Creation_Date.getMonth();
         return winnersID[index];
+    }
+
+    vector<vector<int>> get_winners(int startMonth, int startYear, int endMonth, int endYear)
+    {
+        int startIndex = (startYear - First_Creation_Date.getYear()) * 12 + startMonth - First_Creation_Date.getMonth();
+        int endIndex = (endYear - First_Creation_Date.getYear()) * 12 + endMonth - First_Creation_Date.getMonth();
+        vector<vector<int>> result;
+
+        if (startIndex > endIndex)
+            swap(startIndex, endIndex);
+
+        if (startIndex < 0 || endIndex > winnersID.size())
+        {
+        }
+
+        for (; startIndex <= endIndex; startIndex++)
+        {
+            result.push_back(winnersID[startIndex]);
+        }
+
+        return result;
     }
 };
 
