@@ -104,7 +104,7 @@ void fillSalesCosts(int ID, Restaurant &r)
     int year_SC, month_SC, day_SC;
     float sales1, sales2, sales3, sales4, sales5, publicity, costs;
 
-    ifstream salesCostsInput("salesCosts/" + to_string(ID) + "salesCosts.csv");
+    ifstream salesCostsInput("Data/salesCosts/" + to_string(ID) + "salesCosts.csv");
     string lineSalesCosts;
     getline(salesCostsInput, lineSalesCosts);
 
@@ -122,7 +122,7 @@ void fillRating(int ID, Restaurant &r)
     int month_R, year_R;
     // reading ratings
     // rating 1, 2, 3, 4, 5, month, year
-    ifstream ratingsInput("Ratings/" + to_string(ID) + "ratings.csv");
+    ifstream ratingsInput("Data/Ratings/" + to_string(ID) + "ratings.csv");
     string lineRatings;
     getline(ratingsInput, lineRatings);
     while (getline(ratingsInput, lineRatings))
@@ -159,8 +159,8 @@ int main()
 {
     // reading the files
     // the set of restaurants
-    ifstream input("RESTAURANTS.csv");
-    ofstream output("RESTAURANTS.csv", ios::app);
+    ifstream input("Data/RESTAURANTS.csv");
+    ofstream output("Data/RESTAURANTS.csv", ios::app);
 
     // variable to store each line each time
     string line;
