@@ -875,16 +875,7 @@ int main()
             int choice_p;
             cin >> choice_p;
 
-            /*
-            enum cuisine
-{
-    ALGERIAN,
-    SYRIAN,
-    CHINESE,
-    INDIAN,
-    EUROPIAN
-};
-            */
+        
             switch (choice_p)
             {
             case 1:
