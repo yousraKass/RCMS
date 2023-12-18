@@ -132,6 +132,29 @@ void fillRating(int ID, Restaurant &r)
     }
 }
 
+void printWinners(vector<Restaurant *> v)
+{
+    cout << "the winner of the Algerian cuisine is: ";
+    cout << "\t" << v[ALGERIAN]->getName() << "restaurant" << endl;
+    cout << "\tID:" << v[ALGERIAN]->getId() << endl;
+
+    cout << "the v of the Syrian cuisine is: ";
+    cout << "\t" << v[SYRIAN]->getName() << "restaurant" << endl;
+    cout << "\tID:" << v[SYRIAN]->getId() << endl;
+
+    cout << "the v of the Chinese cuisine is: ";
+    cout << "\t" << v[CHINESE]->getName() << "restaurant" << endl;
+    cout << "\tID:" << v[CHINESE]->getId() << endl;
+
+    cout << "the v of the Indian cuisine is: ";
+    cout << "\t" << v[INDIAN]->getName() << "restaurant" << endl;
+    cout << "\tID:" << v[INDIAN]->getId() << endl;
+
+    cout << "the v of the Europian cuisine is: ";
+    cout << "\t" << v[EUROPIAN]->getName() << "restaurant" << endl;
+    cout << "\tID:" << v[EUROPIAN]->getId() << endl;
+}
+
 int main()
 {
     // reading the files
@@ -851,6 +874,17 @@ int main()
 
             int choice_p;
             cin >> choice_p;
+
+            /*
+            enum cuisine
+{
+    ALGERIAN,
+    SYRIAN,
+    CHINESE,
+    INDIAN,
+    EUROPIAN
+};
+            */
             switch (choice_p)
             {
             case 1:
@@ -860,6 +894,7 @@ int main()
                 cin >> month_p >> year_p;
                 Date date_p(year_p, month_p);
                 vector<Restaurant *> winner = winners.get_winners(date_p.getMonth(), date_p.getYear());
+                printWinners(winner);
             }
             case 2:
             {
@@ -875,7 +910,18 @@ int main()
                 Date Edate_p(end_year_p, end_month_p);
 
                 vector<vector<Restaurant *>> winner = winners.get_winners(Sdate_p.getMonth(), Sdate_p.getYear(), Edate_p.getMonth(), Edate_p.getYear());
-                
+                // this should be modified
+                // our code is not consistent
+                for (auto &item : winner)
+                {
+                    cout << "winners of " << ++start_month_p << "/" << start_year_p << endl;
+                    printWinners(item);
+                    if (start_month_p == 13)
+                    {
+                        start_month_p = 0;
+                        start_year_p++;
+                    }
+                }
             }
             }
 
