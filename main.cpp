@@ -1,13 +1,16 @@
 #include <iostream>
-#include "RESTAURANT.h"
-#include "BSTRESTAURANT.h"
-// #include "AVLRESTAURANT.h"
-#include "Country.h"
-#include "date.h"
 #include <fstream>
 #include <sstream>
 #include <chrono>
+
 using namespace std;
+
+#include "BSTRESTAURANT.h"
+#include "RESTAURANT.h"
+#include "AVLRESTAURANT.h"
+#include "Country.h"
+#include "date.h"
+#include "Prize_Winners.h"
 
 void extractTokensRestaurant(const string &line, int &ID, string &name, string &type, int &year, int &month, int &day, int &employeeNum, string &wilaya, string &city, string &district)
 {
@@ -146,7 +149,7 @@ int main()
     getline(input, line);
     string name, type, wilaya, city, district;
     int ID, year, month, day, employeeNum;
-    Date date(31,12,2024);
+    Date date(31, 12, 2024);
 
     // reading lines until finishing with the file
     while (getline(input, line))
@@ -157,7 +160,7 @@ int main()
 
         // create the needed insttances
         Date d(year, month, day);
-        if (d<date)
+        if (d < date)
             date = d;
         Restaurant restaurant(type, name, ID, d, employeeNum);
 
@@ -169,6 +172,7 @@ int main()
         Algeria.addRestaurant(wilaya, city, district, ID);
     }
 
+    Prize_Winners winners(rcms, date);
 
     // display the menu
     int choice;
@@ -189,7 +193,6 @@ int main()
         cout << "11. Display the ratio of the monthly sales on the publicity cost for all restaurants in a specific wilaya " << endl;
         cout << "12. Display the ratio of the monthly sales on the publicity cost for all restaurants in the country " << endl;
         cout << "13. Display the prize winners for each cuisine " << endl;
-        // for the graph display should be added in each case of the above cases
         cout << "14. Exit" << endl;
         cout << endl;
         cout << "Enter your choice: ";
@@ -841,13 +844,44 @@ int main()
 
         case 13:
         {
-            
+            // Display the prize winners for each cuisine
+            cout << "do you want the prize winners for: " << endl;
+            cout << "1. specific month and year" << endl;
+            cout << "2. specific period" << endl;
+
+            int choice_p;
+            cin >> choice_p;
+            switch (choice_p)
+            {
+            case 1:
+            {
+                int month_p, year_p;
+                cout << "enter the month and year respectively: ";
+                cin >> month_p >> year_p;
+                Date date_p(year_p, month_p);
+                vector<Restaurant *> winner = winners.get_winners(date_p.getMonth(), date_p.getYear());
+            }
+            case 2:
+            {
+                int start_month_p, start_year_p;
+                int end_month_p, end_year_p;
+
+                cout << "enter the start month then year: ";
+                cin >> start_month_p >> start_year_p;
+                Date Sdate_p(start_year_p, start_month_p);
+
+                cout << "enter the end month then year: ";
+                cin >> end_month_p >> end_year_p;
+                Date Edate_p(end_year_p, end_month_p);
+
+                vector<vector<Restaurant *>> winner = winners.get_winners(Sdate_p.getMonth(), Sdate_p.getYear(), Edate_p.getMonth(), Edate_p.getYear());
+                
+            }
+            }
+
             break;
         }
-        default:
-            break;
         }
 
     } while (choice != 14);
-    
 }
