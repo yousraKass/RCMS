@@ -24,7 +24,7 @@ private:
     vector<vector<Restaurant *>> winnersID;
 
 public:
-    void CalculateMonthlyPrizeWinner(Restaurant *root, int month, int year, Restaurant *&IdA, float &winnerA, Restaurant *&IdS, float &winnerS, Restaurant *&IdI, float &winnerI, Restaurant *&IdE, float &winnerE, Restaurant *&IdC, float &winnerC)
+    void CalculateMonthlyPrizeWinner(Restaurant *root, int month, int year, Restaurant * &IdA, float &winnerA, Restaurant * &IdS, float &winnerS, Restaurant * &IdI, float &winnerI, Restaurant * &IdE, float &winnerE, Restaurant * &IdC, float &winnerC)
     {
         if (root == nullptr)
             return;
@@ -66,11 +66,11 @@ public:
         int year = First_Creation_Date.getYear();
         int month = First_Creation_Date.getMonth();
         float winnerA = 0, winnerS = 0, winnerC = 0, winnerI = 0, winnerE = 0;
-        Restaurant *IdA;
-        Restaurant *IdS;
-        Restaurant *IdI;
-        Restaurant *IdC;
-        Restaurant *IdE;
+        Restaurant * IdA;
+        Restaurant * IdS;
+        Restaurant * IdI;
+        Restaurant * IdC;
+        Restaurant * IdE;
         while (year != 2024)
         {
             CalculateMonthlyPrizeWinner(rcms.root, month, year, IdA, winnerA, IdS, winnerS, IdI, winnerI, IdE, winnerE, IdC, winnerC);

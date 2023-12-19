@@ -9,7 +9,7 @@ using std::vector;
 class SalesAndCosts
 {
 public:
-    SalesAndCosts() : Years(20) {}
+    SalesAndCosts() : Years(25) {}
     // Returns values of sales of each cuisine of a restaurant in a given month of a given year 
     void GetMonthlySales(int month, int year, float &A, float &S, float &C, float &I, float &E, int startYear) const; 
     // Returns value of sales of the restaurant in a given month of a given year
@@ -98,10 +98,10 @@ void SalesAndCosts::reportOnsales(int day, int month, int year, int startYear) c
         return;
     else if(month == 2 && (day > 28 || day <1 ))
         return;
-    else if((day > 28 || day <1 ))
+    else if((day > 31 || day <1 ))
         return;
 
-    cout<<"-----------------------Report on sales in :'"<<day<<"/"<<month<<"/"<<year<<" : ------------------------------"<<endl;
+    cout<<"-----------------------Report on sales in : "<<day<<"/"<<month<<"/"<<year<<" : ------------------------------"<<endl;
     cout<<"------------------------------------------------------------------------------------------------"<<endl;
    
     cout << "-Sales of the Algerian cuisine : " << Years[year - startYear].months[month - 1].days[day - 1].sales[0] << " DA " << endl;
@@ -174,6 +174,7 @@ void SalesAndCosts::reportOnsales(int day1, int month1, int year1, int day2, int
                     }
                 }
             }
+            reportOnsales(day1, month1, year1, startYear);
         }
     }
 }

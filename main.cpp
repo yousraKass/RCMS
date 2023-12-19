@@ -2,6 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <chrono>
+#include <iomanip>
 
 using namespace std;
 
@@ -18,10 +19,11 @@ void extractTokensRatings(string &lineRatings, float &r1, float &r2, float &r3, 
 void fillSalesCosts(int ID, Restaurant &r);
 void fillRating(int ID, Restaurant &r);
 void printWinners(vector<Restaurant *> v);
-
+void toLower(string &str);
 
 int main()
 {
+    cout << fixed << setprecision(2);
     RestaurantTree rcms;
     Country Algeria;
 
@@ -37,7 +39,7 @@ int main()
     getline(input, line);
     string name, type, wilaya, city, district;
     int ID, year, month, day, employeeNum;
-    Date date(31, 12, 2024);
+    Date date(2024, 12, 31);
     int i = 0;
 
     // reading lines until finishing with the file
@@ -57,6 +59,7 @@ int main()
         fillRating(ID, restaurant);
 
         // inserting the restaurants in our data structures
+        toLower(wilaya); toLower(city); toLower(district); 
         rcms.insert(restaurant);
         Algeria.addRestaurant(wilaya, city, district, ID);
     }
@@ -101,12 +104,19 @@ int main()
 
             cout << "enter the restaurant location: wilaya, city, district: ";
             cin >> wilaya >> city >> district;
+            toLower(wilaya); toLower(city); toLower(district);
+
             cout << "Enter the name of the restaurant: ";
             cin >> name;
+            toLower(name);
+
             cout << "Enter the ID of the restaurant: ";
             cin >> ID;
+
             cout << "Enter the type of the restaurant (owned or franchised): ";
             cin >> type;
+            toLower(type);
+
             cout << "Enter the number of employees: ";
             cin >> numEmployees;
             cout << "Enter the creation date: day, month, year: ";
@@ -120,7 +130,7 @@ int main()
             if (!rcms.contains(ID))
             {
 
-                //fillRating(ID, newRestaurant);
+                // fillRating(ID, newRestaurant);
                 fillSalesCosts(ID, newRestaurant);
                 rcms.insert(newRestaurant);
                 Algeria.addRestaurant(wilaya, city, district, ID);
@@ -218,6 +228,8 @@ int main()
             cout << "enter the wilaya, city, district to get the report on sales of all restaurants in that district" << endl;
             string wilaya, city, district;
             cin >> wilaya >> city >> district;
+            toLower(wilaya); toLower(city); toLower(district);
+            cout << wilaya << endl;
 
             vector<int> restaurantIDs = Algeria.getRestaurantsDistrict(wilaya, city, district);
 
@@ -275,6 +287,7 @@ int main()
             cout << "enter the wilaya, city to get the report on sales of all restaurants in that city" << endl;
             string wilaya, city;
             cin >> wilaya >> city;
+            toLower(wilaya); toLower(city);
 
             vector<int> restaurantIDs = Algeria.getRestaurantsAllDistricts(wilaya, city);
 
@@ -332,6 +345,7 @@ int main()
             cout << "enter the wilaya to get the report on sales of all restaurants in that wilaya" << endl;
             string wilaya;
             cin >> wilaya;
+            toLower(wilaya);
 
             vector<int> restaurantIDs = Algeria.getRestaurantsAllCities(wilaya);
 
@@ -507,6 +521,7 @@ int main()
             cout << "enter the wilaya, city, district to get the ratio of the monthly sales on the publicity cost for all restaurants in that district" << endl;
             string wilaya, city, district;
             cin >> wilaya >> city >> district;
+            toLower(wilaya); toLower(city); toLower(district);
 
             vector<int> restaurantIDs = Algeria.getRestaurantsDistrict(wilaya, city, district);
 
@@ -566,6 +581,7 @@ int main()
             cout << "enter the wilaya, city to get the ratio of the monthly sales on the publicity cost for all restaurants in that city" << endl;
             string wilaya, city;
             cin >> wilaya >> city;
+            toLower(wilaya); toLower(city);
 
             vector<int> restaurantIDs = Algeria.getRestaurantsAllDistricts(wilaya, city);
 
@@ -625,6 +641,7 @@ int main()
             cout << "enter the wilaya to get the ratio of the monthly sales on the publicity cost for all restaurants in that wilaya" << endl;
             string wilaya;
             cin >> wilaya;
+            toLower(wilaya);
 
             vector<int> restaurantIDs = Algeria.getRestaurantsAllCities(wilaya);
 
@@ -741,7 +758,6 @@ int main()
             int choice_p;
             cin >> choice_p;
 
-        
             switch (choice_p)
             {
             case 1:
@@ -771,11 +787,11 @@ int main()
                 // our code is not consistent
                 for (auto &item : winner)
                 {
-                    cout << "winners of " << ++start_month_p << "/" << start_year_p << endl;
+                    cout << "winners of " << start_month_p++ << "/" << start_year_p << endl;
                     printWinners(item);
                     if (start_month_p == 13)
                     {
-                        start_month_p = 0;
+                        start_month_p = 1;
                         start_year_p++;
                     }
                 }
@@ -788,7 +804,6 @@ int main()
 
     } while (choice != 14);
 }
-
 
 void extractTokensRestaurant(const string &line, int &ID, string &name, string &type, int &year, int &month, int &day, int &employeeNum, string &wilaya, string &city, string &district)
 {
@@ -815,13 +830,14 @@ void extractTokensRestaurant(const string &line, int &ID, string &name, string &
     dateSS >> day;
     dateSS.ignore();
 
+    cout << day << "  " << month << " " << year << endl;
+
     ss >> employeeNum;
     ss.ignore();
     getline(ss, wilaya, ',');
     getline(ss, city, ',');
     getline(ss, district);
 }
-
 
 void extractTokensSalesCosts(string &line, int &year, int &month, int &day, float &sales1, float &sales2, float &sales3, float &sales4, float &sales5, float &publicity, float &costs)
 {
@@ -913,23 +929,29 @@ void fillRating(int ID, Restaurant &r)
 
 void printWinners(vector<Restaurant *> v)
 {
-    cout << "the winner of the Algerian cuisine is: ";
-    cout << "\t" << v[ALGERIAN]->getName() << "restaurant" << endl;
+    cout << "The winner of the Algerian cuisine is: ";
+    cout << v[ALGERIAN]->getName() << " restaurant";
     cout << "\tID:" << v[ALGERIAN]->getId() << endl;
 
-    cout << "the v of the Syrian cuisine is: ";
-    cout << "\t" << v[SYRIAN]->getName() << "restaurant" << endl;
+    cout << "The winner of the Syrian cuisine is: ";
+    cout << v[SYRIAN]->getName() << " restaurant";
     cout << "\tID:" << v[SYRIAN]->getId() << endl;
 
-    cout << "the v of the Chinese cuisine is: ";
-    cout << "\t" << v[CHINESE]->getName() << "restaurant" << endl;
+    cout << "The winner of the Chinese cuisine is: ";
+    cout << v[CHINESE]->getName() << " restaurant";
     cout << "\tID:" << v[CHINESE]->getId() << endl;
 
-    cout << "the v of the Indian cuisine is: ";
-    cout << "\t" << v[INDIAN]->getName() << "restaurant" << endl;
+    cout << "The winner of the Indian cuisine is: ";
+    cout << v[INDIAN]->getName() << " restaurant";
     cout << "\tID:" << v[INDIAN]->getId() << endl;
 
-    cout << "the v of the Europian cuisine is: ";
-    cout << "\t" << v[EUROPIAN]->getName() << "restaurant" << endl;
+    cout << "The winner of the Europian cuisine is: ";
+    cout << v[EUROPIAN]->getName() << " restaurant";
     cout << "\tID:" << v[EUROPIAN]->getId() << endl;
+}
+
+void toLower(string &str)
+{
+    for(int i = 0; i<str.size(); i++)
+        str [i] = tolower(str[i]);
 }

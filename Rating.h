@@ -15,7 +15,7 @@ public:
     float GetRestaurantRating(int month, int year, int startYear) const;
     void GetAmountOfPrize(int month, int year, float &aA, float &aS, float &aC, float &aI, float &aE, int startYear) const;
 
-    Rating() : Years(20)
+    Rating() : Years(25)
     {
     }
 
