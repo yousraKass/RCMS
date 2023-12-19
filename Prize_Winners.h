@@ -8,14 +8,6 @@
 #include <vector>
 #include <stdexcept>
 using namespace std;
-enum cuisine
-{
-    ALGERIAN,
-    SYRIAN,
-    CHINESE,
-    INDIAN,
-    EUROPIAN
-};
 
 class Prize_Winners
 {
