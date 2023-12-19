@@ -59,7 +59,6 @@ public:
     ~AVLRestaurantTree();
 };
 
-
 // default constructor
 AVLRestaurantTree::AVLRestaurantTree() : root(nullptr)
 {
@@ -74,7 +73,7 @@ void AVLRestaurantTree::insert(const Restaurant R, Restaurant *&ROOT)
         totalRestaurants++;
     }
 
-    else if (!contains(R.getId(), ROOT))
+    else
     {
         if (R.getId() < ROOT->getId())
             insert(R, ROOT);
@@ -230,7 +229,6 @@ bool AVLRestaurantTree::contains(const int &key)
 
 void AVLRestaurantTree::insert(const Restaurant &R)
 {
-
     insert(R, root);
 }
 int AVLRestaurantTree::getTotalRestaurants() const
@@ -257,6 +255,5 @@ AVLRestaurantTree::~AVLRestaurantTree()
 {
     makeEmpty();
 }
-
 
 #endif

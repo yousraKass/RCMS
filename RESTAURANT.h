@@ -10,6 +10,15 @@ using namespace std;
 class AVLRestaurantTree;
 class RestaurantTree;
 class Prize_Winners;
+
+enum cuisine
+{
+    ALGERIAN,
+    SYRIAN,
+    CHINESE,
+    INDIAN,
+    EUROPIAN
+};
 enum Type
 {
     owned,
@@ -85,7 +94,7 @@ void Restaurant::getMonthlyRatio(int month, int year) const
 
 Restaurant::Restaurant(string T, string Name, int id, const Date &creation, const int &employee) : ID(id), name(Name), creationDate(creation), employee_num(employee), heightNode(0)
 {
-    if (T == "Owned")
+    if (T == "owned")
     {
         info = owned;
     }
