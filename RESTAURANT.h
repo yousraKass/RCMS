@@ -205,12 +205,14 @@ float Restaurant::getMonthlySalesOfRestaurant(int month, int year) const
 
 void Restaurant::reportOnsales(int month, int year) const
 {
+    cout<<"Restaurant's name : "<<this->getName()<<"   , ID : "<<this->getId()<<endl;
     int sYear = creationDate.getYear();
     Sales_and_Costs.reportOnsales(month, year, sYear);
 }
 
 void Restaurant::reportOnsales(int day1, int month1, int year1, int day2, int month2, int year2) const
 {
+    cout<<"Restaurant's name : "<<this->getName()<<"   , ID : "<<this->getId()<<endl;
     int sYear = creationDate.getYear();
     Sales_and_Costs.reportOnsales(day1, month1, year1, day2, month2, year2, sYear);
 }
