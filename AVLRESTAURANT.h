@@ -76,9 +76,9 @@ void AVLRestaurantTree::insert(const Restaurant R, Restaurant *&ROOT)
     else
     {
         if (R.getId() < ROOT->getId())
-            insert(R, ROOT);
+            insert(R, ROOT->leftChild);
         else if (R.getId() > ROOT->getId())
-            insert(R, ROOT);
+            insert(R, ROOT->rightChild);
     }
     balance(ROOT);
 }
@@ -151,9 +151,8 @@ void AVLRestaurantTree::makeEmpty(Restaurant *&ROOT)
 // utility function that counts a height of the AVL
 int AVLRestaurantTree::height(Restaurant *temp)
 {
-    if (temp == NULL)
-        return -1;
-    return 1 + max(height(temp->leftChild), height(temp->rightChild));
+            return temp == nullptr ? -1 : temp->heightNode;
+
 }
 
 void AVLRestaurantTree::rotateWithLeftChild(Restaurant *&k2)
