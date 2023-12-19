@@ -6,6 +6,7 @@
 #include "AVLRESTAURANT.h"
 #include <iostream>
 #include <vector>
+#include <stdexcept>
 using namespace std;
 enum cuisine
 {
@@ -90,7 +91,7 @@ public:
     {
         int index = (year - First_Creation_Date.getYear()) * 12 + month - First_Creation_Date.getMonth();
         if (index < 0 || index >= winnersID.size())
-            exit(1);
+           throw out_of_range{"out of range index"};
         return winnersID[index];
     }
 
@@ -104,7 +105,7 @@ public:
             swap(startIndex, endIndex);
 
         if (startIndex < 0 || endIndex > winnersID.size())
-            exit(1);
+            throw out_of_range{"out of range index"};
 
         for (; startIndex <= endIndex; startIndex++)
             result.push_back(winnersID[startIndex]);

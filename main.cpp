@@ -12,151 +12,19 @@ using namespace std;
 #include "date.h"
 #include "Prize_Winners.h"
 
-void extractTokensRestaurant(const string &line, int &ID, string &name, string &type, int &year, int &month, int &day, int &employeeNum, string &wilaya, string &city, string &district)
-{
-    // ID,Name,Type,Creation date,employee number,wilaya,city,district
+void extractTokensRestaurant(const string &line, int &ID, string &name, string &type, int &year, int &month, int &day, int &employeeNum, string &wilaya, string &city, string &district);
+void extractTokensSalesCosts(string &line, int &year, int &month, int &day, float &sales1, float &sales2, float &sales3, float &sales4, float &sales5, float &publicity, float &costs);
+void extractTokensRatings(string &lineRatings, float &r1, float &r2, float &r3, float &r4, float &r5, int &month_R, int &year_R);
+void fillSalesCosts(int ID, Restaurant &r);
+void fillRating(int ID, Restaurant &r);
+void printWinners(vector<Restaurant *> v);
 
-    // Create a stringstream to parse the line
-    stringstream ss(line);
-
-    // Use getline with ',' as the delimiter to extract tokens
-    ss >> ID;
-    ss.ignore();
-    getline(ss, name, ',');
-    getline(ss, type, ',');
-
-    // Extract the date and parse it
-    string dateToken;
-    getline(ss, dateToken, ',');
-    stringstream dateSS(dateToken);
-
-    dateSS >> year;
-    dateSS.ignore();
-    dateSS >> month;
-    dateSS.ignore();
-    dateSS >> day;
-    dateSS.ignore();
-
-    ss >> employeeNum;
-    ss.ignore();
-    getline(ss, wilaya, ',');
-    getline(ss, city, ',');
-    getline(ss, district);
-}
-
-void extractTokensSalesCosts(string &line, int &year, int &month, int &day, float &sales1, float &sales2, float &sales3, float &sales4, float &sales5, float &publicity, float &costs)
-{
-    // year,month,day,sales1,sales2,sales3,sales4,sales5,publicity_costs,costs
-
-    // Create a stringstream to parse the line
-    stringstream ss(line);
-
-    // Use getline with ',' as the delimiter to extract tokens
-    ss >> year;
-    ss.ignore();
-    ss >> month;
-    ss.ignore();
-    ss >> day;
-    ss.ignore();
-    ss >> sales1;
-    ss.ignore();
-    ss >> sales2;
-    ss.ignore();
-    ss >> sales3;
-    ss.ignore();
-    ss >> sales4;
-    ss.ignore();
-    ss >> sales5;
-    ss.ignore();
-    ss >> costs;
-    ss.ignore();
-    ss >> publicity;
-}
-
-void extractTokensRatings(string &lineRatings, float &r1, float &r2, float &r3, float &r4, float &r5, int &month_R, int &year_R)
-{
-    // rating 1, 2, 3, 4, 5, month, year
-
-    // Create a stringstream to parse the line
-    stringstream ss(lineRatings);
-
-    // Use getline with ',' as the delimiter to extract tokens
-    ss >> r1;
-    ss.ignore();
-    ss >> r2;
-    ss.ignore();
-    ss >> r3;
-    ss.ignore();
-    ss >> r4;
-    ss.ignore();
-    ss >> r5;
-    ss.ignore();
-    ss >> month_R;
-    ss.ignore();
-    ss >> year_R;
-}
-
-void fillSalesCosts(int ID, Restaurant &r)
-{
-    // reading sales and costs of each restaurant
-    // year,month,day,sales1,sales2,sales3,sales4,sales5,publicity_costs,costs
-    // needed variables
-    int year_SC, month_SC, day_SC;
-    float sales1, sales2, sales3, sales4, sales5, publicity, costs;
-
-    ifstream salesCostsInput("Data/salesCosts/" + to_string(ID) + "salesCosts.csv");
-    string lineSalesCosts;
-    getline(salesCostsInput, lineSalesCosts);
-
-    while (getline(salesCostsInput, lineSalesCosts))
-    {
-        extractTokensSalesCosts(lineSalesCosts, year_SC, month_SC, day_SC, sales1, sales2, sales3, sales4, sales5, publicity, costs);
-        r.add_Sales_and_Costs(year_SC, month_SC, day_SC, sales1, sales2, sales3, sales4, sales5, publicity, costs);
-    }
-}
-
-void fillRating(int ID, Restaurant &r)
-{
-    // variables needed
-    float r1, r2, r3, r4, r5;
-    int month_R, year_R;
-    // reading ratings
-    // rating 1, 2, 3, 4, 5, month, year
-    ifstream ratingsInput("Data/Ratings/" + to_string(ID) + "ratings.csv");
-    string lineRatings;
-    getline(ratingsInput, lineRatings);
-    while (getline(ratingsInput, lineRatings))
-    {
-        extractTokensRatings(lineRatings, r1, r2, r3, r4, r5, month_R, year_R);
-        r.addRating(month_R, year_R, r1, r2, r3, r4, r5);
-    }
-}
-
-void printWinners(vector<Restaurant *> v)
-{
-    cout << "the winner of the Algerian cuisine is: ";
-    cout << "\t" << v[ALGERIAN]->getName() << "restaurant" << endl;
-    cout << "\tID:" << v[ALGERIAN]->getId() << endl;
-
-    cout << "the v of the Syrian cuisine is: ";
-    cout << "\t" << v[SYRIAN]->getName() << "restaurant" << endl;
-    cout << "\tID:" << v[SYRIAN]->getId() << endl;
-
-    cout << "the v of the Chinese cuisine is: ";
-    cout << "\t" << v[CHINESE]->getName() << "restaurant" << endl;
-    cout << "\tID:" << v[CHINESE]->getId() << endl;
-
-    cout << "the v of the Indian cuisine is: ";
-    cout << "\t" << v[INDIAN]->getName() << "restaurant" << endl;
-    cout << "\tID:" << v[INDIAN]->getId() << endl;
-
-    cout << "the v of the Europian cuisine is: ";
-    cout << "\t" << v[EUROPIAN]->getName() << "restaurant" << endl;
-    cout << "\tID:" << v[EUROPIAN]->getId() << endl;
-}
 
 int main()
 {
+    RestaurantTree rcms;
+    Country Algeria;
+
     // reading the files
     // the set of restaurants
     ifstream input("Data/RESTAURANTS.csv");
@@ -164,20 +32,18 @@ int main()
 
     // variable to store each line each time
     string line;
-    RestaurantTree rcms;
-    Country Algeria;
-    int i = 0;
 
     // skipping the first line
     getline(input, line);
     string name, type, wilaya, city, district;
     int ID, year, month, day, employeeNum;
     Date date(31, 12, 2024);
+    int i = 0;
 
     // reading lines until finishing with the file
     while (getline(input, line))
     {
-
+        i++;
         // reading the data in that line
         extractTokensRestaurant(line, ID, name, type, year, month, day, employeeNum, wilaya, city, district);
 
@@ -254,7 +120,7 @@ int main()
             if (!rcms.contains(ID))
             {
 
-                fillRating(ID, newRestaurant);
+                //fillRating(ID, newRestaurant);
                 fillSalesCosts(ID, newRestaurant);
                 rcms.insert(newRestaurant);
                 Algeria.addRestaurant(wilaya, city, district, ID);
@@ -921,4 +787,149 @@ int main()
         }
 
     } while (choice != 14);
+}
+
+
+void extractTokensRestaurant(const string &line, int &ID, string &name, string &type, int &year, int &month, int &day, int &employeeNum, string &wilaya, string &city, string &district)
+{
+    // ID,Name,Type,Creation date,employee number,wilaya,city,district
+
+    // Create a stringstream to parse the line
+    stringstream ss(line);
+
+    // Use getline with ',' as the delimiter to extract tokens
+    ss >> ID;
+    ss.ignore();
+    getline(ss, name, ',');
+    getline(ss, type, ',');
+
+    // Extract the date and parse it
+    string dateToken;
+    getline(ss, dateToken, ',');
+    stringstream dateSS(dateToken);
+
+    dateSS >> year;
+    dateSS.ignore();
+    dateSS >> month;
+    dateSS.ignore();
+    dateSS >> day;
+    dateSS.ignore();
+
+    ss >> employeeNum;
+    ss.ignore();
+    getline(ss, wilaya, ',');
+    getline(ss, city, ',');
+    getline(ss, district);
+}
+
+
+void extractTokensSalesCosts(string &line, int &year, int &month, int &day, float &sales1, float &sales2, float &sales3, float &sales4, float &sales5, float &publicity, float &costs)
+{
+    // year,month,day,sales1,sales2,sales3,sales4,sales5,publicity_costs,costs
+
+    // Create a stringstream to parse the line
+    stringstream ss(line);
+
+    // Use getline with ',' as the delimiter to extract tokens
+    ss >> year;
+    ss.ignore();
+    ss >> month;
+    ss.ignore();
+    ss >> day;
+    ss.ignore();
+    ss >> sales1;
+    ss.ignore();
+    ss >> sales2;
+    ss.ignore();
+    ss >> sales3;
+    ss.ignore();
+    ss >> sales4;
+    ss.ignore();
+    ss >> sales5;
+    ss.ignore();
+    ss >> costs;
+    ss.ignore();
+    ss >> publicity;
+}
+
+void extractTokensRatings(string &lineRatings, float &r1, float &r2, float &r3, float &r4, float &r5, int &month_R, int &year_R)
+{
+    // rating 1, 2, 3, 4, 5, month, year
+
+    // Create a stringstream to parse the line
+    stringstream ss(lineRatings);
+
+    // Use getline with ',' as the delimiter to extract tokens
+    ss >> r1;
+    ss.ignore();
+    ss >> r2;
+    ss.ignore();
+    ss >> r3;
+    ss.ignore();
+    ss >> r4;
+    ss.ignore();
+    ss >> r5;
+    ss.ignore();
+    ss >> month_R;
+    ss.ignore();
+    ss >> year_R;
+}
+
+void fillSalesCosts(int ID, Restaurant &r)
+{
+    // reading sales and costs of each restaurant
+    // year,month,day,sales1,sales2,sales3,sales4,sales5,publicity_costs,costs
+    // needed variables
+    int year_SC, month_SC, day_SC;
+    float sales1, sales2, sales3, sales4, sales5, publicity, costs;
+
+    ifstream salesCostsInput("Data/salesCosts/" + to_string(ID) + "salesCosts.csv");
+    string lineSalesCosts;
+    getline(salesCostsInput, lineSalesCosts);
+
+    while (getline(salesCostsInput, lineSalesCosts))
+    {
+        extractTokensSalesCosts(lineSalesCosts, year_SC, month_SC, day_SC, sales1, sales2, sales3, sales4, sales5, publicity, costs);
+        r.add_Sales_and_Costs(year_SC, month_SC, day_SC, sales1, sales2, sales3, sales4, sales5, publicity, costs);
+    }
+}
+
+void fillRating(int ID, Restaurant &r)
+{
+    // variables needed
+    float r1, r2, r3, r4, r5;
+    int month_R, year_R;
+    // reading ratings
+    // rating 1, 2, 3, 4, 5, month, year
+    ifstream ratingsInput("Data/Ratings/" + to_string(ID) + "ratings.csv");
+    string lineRatings;
+    getline(ratingsInput, lineRatings);
+    while (getline(ratingsInput, lineRatings))
+    {
+        extractTokensRatings(lineRatings, r1, r2, r3, r4, r5, month_R, year_R);
+        r.addRating(month_R, year_R, r1, r2, r3, r4, r5);
+    }
+}
+
+void printWinners(vector<Restaurant *> v)
+{
+    cout << "the winner of the Algerian cuisine is: ";
+    cout << "\t" << v[ALGERIAN]->getName() << "restaurant" << endl;
+    cout << "\tID:" << v[ALGERIAN]->getId() << endl;
+
+    cout << "the v of the Syrian cuisine is: ";
+    cout << "\t" << v[SYRIAN]->getName() << "restaurant" << endl;
+    cout << "\tID:" << v[SYRIAN]->getId() << endl;
+
+    cout << "the v of the Chinese cuisine is: ";
+    cout << "\t" << v[CHINESE]->getName() << "restaurant" << endl;
+    cout << "\tID:" << v[CHINESE]->getId() << endl;
+
+    cout << "the v of the Indian cuisine is: ";
+    cout << "\t" << v[INDIAN]->getName() << "restaurant" << endl;
+    cout << "\tID:" << v[INDIAN]->getId() << endl;
+
+    cout << "the v of the Europian cuisine is: ";
+    cout << "\t" << v[EUROPIAN]->getName() << "restaurant" << endl;
+    cout << "\tID:" << v[EUROPIAN]->getId() << endl;
 }
