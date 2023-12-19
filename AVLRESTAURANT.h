@@ -17,7 +17,7 @@ private:
     void insert(const Restaurant R, Restaurant *&ROOT);
     void insert(Restaurant &&R, Restaurant *&ROOT);
     // return true if a restaurant with Id=key is found
-    bool contains(const int &key, Restaurant *&ROOT) const;
+    bool contains(const int &key, Restaurant *ROOT) const;
     // show data of all restaurants
     void printHelper(Restaurant *ROOT) const;
     // utility function to find a restaurant with specific ID and return a pointer to its location, else it will return nullptr
@@ -101,7 +101,7 @@ void AVLRestaurantTree::insert(Restaurant &&R, Restaurant *&ROOT)
     balance(ROOT);
 }
 
-bool AVLRestaurantTree::contains(const int &key, Restaurant *&ROOT) const
+bool AVLRestaurantTree::contains(const int &key, Restaurant *ROOT) const
 {
 
     if (ROOT == nullptr)
@@ -188,6 +188,7 @@ void AVLRestaurantTree::doubleWithRightChild(Restaurant *&k1)
     rotateWithLeftChild(k1->rightChild);
     rotateWithRightChild(k1);
 }
+
 
 void AVLRestaurantTree::balance(Restaurant *&t)
 {

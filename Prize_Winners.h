@@ -94,6 +94,33 @@ public:
            throw out_of_range{"out of range index"};
         return winnersID[index];
     }
+    Prize_Winners(const AVLRestaurantTree &rcms, const Date &firstDate)
+    {
+        First_Creation_Date = firstDate;
+
+        int year = First_Creation_Date.getYear();
+        int month = First_Creation_Date.getMonth();
+        float winnerA = 0, winnerS = 0, winnerC = 0, winnerI = 0, winnerE = 0;
+        Restaurant * IdA;
+        Restaurant * IdS;
+        Restaurant * IdI;
+        Restaurant * IdC;
+        Restaurant * IdE;
+        while (year != 2024)
+        {
+            CalculateMonthlyPrizeWinner(rcms.root, month, year, IdA, winnerA, IdS, winnerS, IdI, winnerI, IdE, winnerE, IdC, winnerC);
+            vector<Restaurant *> winnerIDS = {IdA, IdS, IdC, IdI, IdE};
+            winnersID.push_back(winnerIDS);
+            month++;
+            if (month == 13)
+            {
+                month = 1;
+                year++;
+            }
+        }
+    }
+
+    
 
     vector<vector<Restaurant *>> get_winners(int startMonth, int startYear, int endMonth, int endYear)
     {
