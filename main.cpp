@@ -94,7 +94,7 @@ int main()
         rcms.insert(restaurant);
 
         Algeria.addRestaurant(wilaya, city, district, ID);
-        if (i == 7000)
+        if (i == 100)
             break;
     }
 
@@ -389,7 +389,6 @@ int main()
             cout << "enter the wilaya to get the report on sales of all restaurants in that wilaya" << endl;
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             getline(cin, wilaya, '\n');
-            cout << wilaya;
             toLower(wilaya);
 
         
