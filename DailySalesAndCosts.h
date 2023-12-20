@@ -2,12 +2,13 @@
 #define DAILY_SALESANDCOSTS_H
 #include <vector>
 #include <iostream>
+#include<string>
 #include <iomanip>
 #include <sstream>
 using std::cout;
 using std::endl;
 using std::vector;
-using std::setprecision
+using std::setprecision;
 
 class SalesAndCosts
 {
@@ -122,17 +123,17 @@ void SalesAndCosts::reportOnsales(int day, int month, int year, int startYear) c
     cout<<"Sales : "<<endl;
     cout<<"-------"<<endl;
     std::ostringstream stream1, stream2, stream3, stream4, stream5, stream6;
-    stream1<< std::fixed <<setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].sales[0];
+    stream1<< std::fixed <<std::setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].sales[0];
     string s1 = stream1.str();
-    stream2<< std::fixed <<setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].sales[1];
+    stream2<< std::fixed <<std::setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].sales[1];
     string s2 = stream2.str();
-    stream3<< std::fixed <<setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].sales[2];
+    stream3<< std::fixed <<std::setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].sales[2];
     string s3 = stream3.str();
-    stream4<< std::fixed <<setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].sales[3];
+    stream4<< std::fixed <<std::setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].sales[3];
     string s4 = stream4.str();
-    stream5<< std::fixed <<setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].sales[4];
+    stream5<< std::fixed <<std::setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].sales[4];
     string s5 = stream5.str();
-    stream6<< std::fixed <<setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].sales[5];
+    stream6<< std::fixed <<std::setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].sales[5];
     string s6 = stream6.str();
     cout<<std::setw(20)<<std::left<<"Algerian"
         <<std::setw(20)<<std::left<<"Syrian"
@@ -150,45 +151,47 @@ void SalesAndCosts::reportOnsales(int day, int month, int year, int startYear) c
     cout<<endl;
     cout<<"Costs : "<<endl;
     cout<<"-------"<<endl;
+    std::ostringstream Stream1, Stream2, Stream3, Stream4, Stream5,Stream6,Stream7,Stream8,Stream9;
+    Stream1<< std::fixed <<std::setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].Cost_on_rent;
+    string S1 = Stream1.str();
+    Stream2<< std::fixed <<std::setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].Cost_on_employees_salary;
+    string S2 = Stream2.str();
+    Stream3<< std::fixed <<std::setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].Cost_on_elec;
+    string S3 = Stream3.str();
+    Stream4<< std::fixed <<std::setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].Cost_on_gas;
+    string S4 = Stream4.str();
+    Stream5<< std::fixed <<std::setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].Cost_on_vegetables;
+    string S5 = Stream5.str();
+    Stream6<< std::fixed <<std::setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].Cost_on_meat;
+    string S6 = Stream6.str();
+    Stream7<< std::fixed <<std::setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].Cost_on_other_ingrediants;
+    string S7 = Stream7.str();
+    Stream8<< std::fixed <<std::setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].publicity_costs;
+    string S8 = Stream8.str();
+    Stream9<< std::fixed <<std::setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].general_costs;
+    string S9 = Stream9.str();
     cout<<std::setw(18)<<std::left<<"Rent"
         <<std::setw(23)<<std::left<<"Employees salary"
-        <<std::setw(20)<<std::left<<"Electricity"
-        <<std::setw(18)<<std::left<<"Gas"
-        <<std::setw(18)<<std::left<<"Vegetables"
-        <<std::setw(18)<<std::left<<"Meat"
-        <<std::setw(23)<<std::left<<"Other ingrediants"
-        <<std::setw(16)<<std::left<<"Publicity"
-        <<std::setw(20)<<std::left<<"Total"<<endl;
-    
-    std::ostringstream Stream1, Stream2, Stream3, Stream4, Stream5,Stream6,Stream7,Stream8,Stream9;
-    Stream1<< std::fixed <<setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].Cost_on_rent;
-    string S1 = Stream1.str();
-    Stream2<< std::fixed <<setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].Cost_on_employees_salary;
-    string S2 = Stream2.str();
-    Stream3<< std::fixed <<setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].Cost_on_elec;
-    string S3 = Stream3.str();
-    Stream4<< std::fixed <<setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].Cost_on_gas;
-    string S4 = Stream4.str();
-    Stream5<< std::fixed <<setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].Cost_on_vegetables;
-    string S5 = Stream5.str();
-    Stream6<< std::fixed <<setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].Cost_on_meat;
-    string S6 = Stream6.str();
-    Stream7<< std::fixed <<setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].Cost_on_other_ingrediants;
-    string S7 = Stream7.str();
-    Stream8<< std::fixed <<setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].publicity_costs;
-    string S8 = Stream8.str();
-    Stream9<< std::fixed <<setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].general_costs;
-    string S9 = Stream9.str();
+        <<std::setw(23)<<std::left<<"Electricity"
+        <<std::setw(18)<<std::left<<"Gas"<<endl;
 
     cout<<std::setw(18)<<std::left<<S1 + " DA "
         <<std::setw(23)<<std::left<<S2 + " DA " 
-        <<std::setw(20)<<std::left<<S3 + " DA "
-        <<std::setw(18)<<std::left<<S4 + " DA "
-        <<std::setw(18)<<std::left<<S5 + " DA "
-        <<std::setw(18)<<std::left<<S6 + " DA "
+        <<std::setw(23)<<std::left<<S3 + " DA "
+        <<std::setw(18)<<std::left<<S4 + " DA "<<endl;
+cout<<endl;
+    cout<<std::setw(18)<<std::left<<"Vegetables"
+        <<std::setw(23)<<std::left<<"Meat"
+        <<std::setw(23)<<std::left<<"Other ingrediants"
+        <<std::setw(18)<<std::left<<"Publicity"
+        <<std::setw(20)<<std::left<<"Total"<<endl;
+    
+    cout<<std::setw(18)<<std::left<<S5 + " DA "
+        <<std::setw(23)<<std::left<<S6 + " DA "
         <<std::setw(23)<<std::left<<S7 + " DA "
-        <<std::setw(16)<<std::left<<S8 + " DA "
+        <<std::setw(18)<<std::left<<S8 + " DA "
         <<std::setw(20)<<std::left<<S9 + " DA "<<endl;
+cout<<endl;
     float difference = Years[year - startYear].months[month - 1].days[day - 1].sales[5] - GetGeneralCosts(day,month,year,startYear);
     cout <<"-The difference between sales and costs : " << difference << " DA "<<endl; 
     cout <<"------------------------------------------------------------------------------------------------------------------------------------------------------------------------"<<endl<<endl;
