@@ -1,7 +1,7 @@
 #ifndef RESTAURANT_H
 #define RESTAURANT_H
 #include <string>
-#include "DailySalesAndCosts.h"
+#include "SalesAndCosts.h"
 #include "Rating.h"
 #include "date.h"
 #include <fstream>
@@ -47,7 +47,7 @@ private:
 public:
     // SALES AND COSTS TREATED IN THEIR CLASSES
     // SALES AND COSTS TREATED IN THEIR CLASSES
-    Restaurant(string T, string Name, int id, const Date &creation, const int &employee,int h=0);
+    Restaurant(string T, string Name, int id, const Date &creation, const int &employee);
 
     // have to check what it will return (to be done while testing)
     string getType() const;
@@ -73,7 +73,7 @@ public:
     void getMonthlyRatio(int month, int year) const;
     void getMonthlyRatioPeriod(int startMonth, int startYear, int endMonth, int endYear) const;
     void reportOnsales(int month, int year) const;
-        void reportOnsales(int day1, int month1, int year1, int day2, int month2, int year2) const;
+    void reportOnsales(int day1, int month1, int year1, int day2, int month2, int year2) const;
 
     //void reportOnsales(Date start, Date end);
     void addRating(int month, int year, float rA, float rS, float rC, float rI, float rE);
@@ -82,6 +82,11 @@ public:
     void getMonthlySales(int month, int year, float &A, float &S, float &C, float &I, float &E) const;
     float getMonthlySalesOfRestaurant(int month, int year) const ;
     void add_Sales_and_Costs(int year, int month, int day, float sA, float sS, float sC, float sI, float sE, float pub_Cost, float gen_Cost);
+    float getGeneralCosts(int day1, int month1, int year1, int day2, int month2, int year2)const;
+    float getGeneralCosts(int day,int month,int year) const;
+    float getPublicityCosts(int day1, int month1, int year1, int day2, int month2, int year2)const;
+    float getPublicityCosts(int day,int month,int year)const;
+
 };
 void Restaurant::getMonthlyRatioPeriod(int startMonth, int startYear, int endMonth, int endYear) const
 {
@@ -92,7 +97,7 @@ void Restaurant::getMonthlyRatio(int month, int year) const
     Sales_and_Costs.Ratio(month, year, creationDate.getYear());
 }
 
-Restaurant::Restaurant(string T, string Name, int id, const Date &creation, const int &employee,int h) : ID(id), name(Name), creationDate(creation), employee_num(employee), heightNode(h)
+Restaurant::Restaurant(string T, string Name, int id, const Date &creation, const int &employee) : ID(id), name(Name), creationDate(creation), employee_num(employee), heightNode(0)
 {
     if (T == "owned")
     {
@@ -231,7 +236,32 @@ void Restaurant::reportOnsales(int day1, int month1, int year1, int day2, int mo
 void Restaurant::add_Sales_and_Costs(int year, int month, int day, float sA, float sS, float sC, float sI, float sE, float pub_Cost, float gen_Cost)
 {
     int sYear = creationDate.getYear();
-    Sales_and_Costs.Add_SalesAndCosts(year, month, day, sA, sS, sC, sI, sE, pub_Cost, gen_Cost, sYear);
+    Sales_and_Costs.Add_SalesAndCosts(year, month, day, sA, sS, sC, sI, sE, pub_Cost,90000,88870,56980,40840,78569,84450,51230, sYear);
 }
+
+float Restaurant::getGeneralCosts(int day1, int month1, int year1, int day2, int month2, int year2)const
+{
+    int sYear = creationDate.getYear();
+    return Sales_and_Costs.GetGeneralCosts(day1,month1,year1,day2,month2,year2,sYear);
+}
+
+float Restaurant::getGeneralCosts(int day,int month,int year) const
+{
+    int sYear = creationDate.getYear();
+    return Sales_and_Costs.GetGeneralCosts(day,month,year,sYear);
+}
+
+float Restaurant::getPublicityCosts(int day1, int month1, int year1, int day2, int month2, int year2)const
+{
+    int sYear = creationDate.getYear();
+    return Sales_and_Costs.GetPublicityCosts(day1,month1,year1,day2,month2,year2,sYear);
+}
+
+float Restaurant::getPublicityCosts(int day,int month,int year)const
+{
+    int sYear = creationDate.getYear();
+    return Sales_and_Costs.GetPublicityCosts(day,month,year,sYear);
+}
+
 
 #endif
