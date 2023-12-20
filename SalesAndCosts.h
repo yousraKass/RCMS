@@ -7,6 +7,8 @@
 using std::cout;
 using std::endl;
 using std::vector;
+using std::setprecision;
+using std::string;
 
 class SalesAndCosts
 {
@@ -147,18 +149,7 @@ void SalesAndCosts::reportOnsales(int day, int month, int year, int startYear) c
         <<std::setw(20)<<std::left<<s5+" DA "
         <<std::setw(20)<<std::left<<s6+" DA "<<endl;
     cout<<endl;
-    cout<<"Costs : "<<endl;
-    cout<<"-------"<<endl;
-    cout<<std::setw(18)<<std::left<<"Rent"
-        <<std::setw(23)<<std::left<<"Employees salary"
-        <<std::setw(20)<<std::left<<"Electricity"
-        <<std::setw(18)<<std::left<<"Gas"
-        <<std::setw(18)<<std::left<<"Vegetables"
-        <<std::setw(18)<<std::left<<"Meat"
-        <<std::setw(23)<<std::left<<"Other ingrediants"
-        <<std::setw(16)<<std::left<<"Publicity"
-        <<std::setw(20)<<std::left<<"Total"<<endl;
-    
+
     std::ostringstream Stream1, Stream2, Stream3, Stream4, Stream5,Stream6,Stream7,Stream8,Stream9;
     Stream1<< std::fixed <<setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].Cost_on_rent;
     string S1 = Stream1.str();
@@ -178,6 +169,19 @@ void SalesAndCosts::reportOnsales(int day, int month, int year, int startYear) c
     string S8 = Stream8.str();
     Stream9<< std::fixed <<setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].general_costs;
     string S9 = Stream9.str();
+    cout<<"Costs : "<<endl;
+    cout<<"-------"<<endl;
+    cout<<std::setw(18)<<std::left<<"Rent"
+        <<std::setw(23)<<std::left<<"Employees salary"
+        <<std::setw(20)<<std::left<<"Electricity"
+        <<std::setw(18)<<std::left<<"Gas"
+        <<std::setw(18)<<std::left<<"Vegetables"
+        <<std::setw(18)<<std::left<<"Meat"
+        <<std::setw(23)<<std::left<<"Other ingrediants"
+        <<std::setw(16)<<std::left<<"Publicity"
+        <<std::setw(20)<<std::left<<"Total"<<endl;
+    
+    
 
     cout<<std::setw(18)<<std::left<<S1 + " DA "
         <<std::setw(23)<<std::left<<S2 + " DA " 

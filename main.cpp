@@ -2,6 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <chrono>
+#include <string>
 #include <iomanip>
 
 using std::cin;
@@ -12,6 +13,7 @@ using std::time;
 using std::chrono::duration_cast;
 using std::chrono::high_resolution_clock;
 using std::chrono::microseconds;
+using namespace std;
 
 #include "BSTRESTAURANT.h"
 #include "RESTAURANT.h"
@@ -43,7 +45,7 @@ int main()
 
     Country Algeria;
 
-    ofstream runningTime("runningTimeInsertBst.txt", ios::app);
+    ofstream runningTime("searchRestaurantBST.txt", ios::app);
 
     // reading the files
     // the set of restaurants
@@ -61,10 +63,10 @@ int main()
     int i = 0;
 
     // reading lines until finishing with the file
-    std::chrono::duration<long long, std::micro> duration = std::chrono::microseconds(0);
-    std::chrono::high_resolution_clock::time_point start;
-    std::chrono::high_resolution_clock::time_point end;
-    long long du = duration.count();
+    // std::chrono::duration<long long, std::micro> duration = std::chrono::microseconds(0);
+    // std::chrono::high_resolution_clock::time_point startTime;
+    // std::chrono::high_resolution_clock::time_point endTime;
+    // long long du = duration.count();
     while (getline(input, line))
     {
         i++;
@@ -88,18 +90,14 @@ int main()
         // runningTime << "fillRating for 1 restaurant " << du << endl;
 
         // inserting the restaurants in our data structures
-        start = high_resolution_clock::now();
+
         rcms.insert(restaurant);
-        end = high_resolution_clock::now();
-        du += duration_cast<microseconds>(end - start).count();
 
         Algeria.addRestaurant(wilaya, city, district, ID);
         if (i == 7000)
             break;
     }
-    runningTime << i << " " << du << endl;
 
-    /*
     Prize_Winners winners(rcms, date);
 
     // display the menu
@@ -184,6 +182,7 @@ int main()
         }
         case 2:
         {
+            
             rcms.printRestaurantsData();
             break;
         }
@@ -194,7 +193,7 @@ int main()
             int restaurant_ID;
             cin >> restaurant_ID;
             Restaurant *r = rcms.getRestaurant(restaurant_ID);
-
+            
             cout << endl;
 
             cout << "do you want it for a period or a specific month: " << endl;
@@ -388,9 +387,11 @@ int main()
             string wilaya;
 
             cout << "enter the wilaya to get the report on sales of all restaurants in that wilaya" << endl;
-            cin >> wilaya;
+            getline(cin, wilaya, '\n');
             cout << wilaya;
             toLower(wilaya);
+
+        
 
             vector<int> restaurantIDs = Algeria.getRestaurantsAllCities(wilaya);
 
@@ -858,8 +859,6 @@ int main()
         }
 
     } while (choice != 14);
-
-*/
 }
 
 void extractTokensRestaurant(const string &line, int &ID, string &name, string &type, int &year, int &month, int &day, int &employeeNum, string &wilaya, string &city, string &district)
