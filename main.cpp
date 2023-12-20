@@ -21,21 +21,29 @@ using std::chrono::microseconds;
 #include "Prize_Winners.h"
 
 void extractTokensRestaurant(const string &line, int &ID, string &name, string &type, int &year, int &month, int &day, int &employeeNum, string &wilaya, string &city, string &district);
-void extractTokensSalesCosts(string &line, int &year, int &month, int &day, float &sales1, float &sales2, float &sales3, float &sales4, float &sales5, float &publicity, float &costs);
+void extractTokensSalesCosts(string &line, int &year, int &month, int &day, float &sales1, float &sales2, float &sales3, float &sales4, float &sales5, float &rent, float &employeePayment, float &electricity, float &gaz, float &vegetables, float &meats, float &otherIngredients, float &publicity);
 void extractTokensRatings(string &lineRatings, float &r1, float &r2, float &r3, float &r4, float &r5, int &month_R, int &year_R);
 void fillSalesCosts(int ID, Restaurant &r);
 void fillRating(int ID, Restaurant &r);
 void printWinners(vector<Restaurant *> v);
 void toLower(string &str);
 
+// chrono::duration<long long, std::micro> duration = std::chrono::microseconds(0);
+// chrono::high_resolution_clock::time_point startTime;
+// chrono::high_resolution_clock::time_point endTime;
+// long long du = duration.count();
+// long long du2 = duration.count();
+
 int main()
 {
+
     cout << fixed << setprecision(2);
 
     RestaurantTree rcms;
+
     Country Algeria;
 
-    ofstream runningTime("runningTimeGeneral.txt", ios::app);
+    ofstream runningTime("runningTimeInsertBst.txt", ios::app);
 
     // reading the files
     // the set of restaurants
@@ -53,10 +61,10 @@ int main()
     int i = 0;
 
     // reading lines until finishing with the file
-    // std::chrono::duration<long long, std::micro> duration = std::chrono::microseconds(0);
-    // std::chrono::high_resolution_clock::time_point start;
-    // std::chrono::high_resolution_clock::time_point end;
-    // long long du = duration.count();
+    std::chrono::duration<long long, std::micro> duration = std::chrono::microseconds(0);
+    std::chrono::high_resolution_clock::time_point start;
+    std::chrono::high_resolution_clock::time_point end;
+    long long du = duration.count();
     while (getline(input, line))
     {
         i++;
@@ -76,11 +84,22 @@ int main()
         fillSalesCosts(ID, restaurant);
         fillRating(ID, restaurant);
 
-        // inserting the restaurants in our data structures
-        rcms.insert(restaurant);
-        Algeria.addRestaurant(wilaya, city, district, ID);
-    }
+        // runningTime << "fillSalesCosts for 1 restaurant " << du2 << endl;
+        // runningTime << "fillRating for 1 restaurant " << du << endl;
 
+        // inserting the restaurants in our data structures
+        start = high_resolution_clock::now();
+        rcms.insert(restaurant);
+        end = high_resolution_clock::now();
+        du += duration_cast<microseconds>(end - start).count();
+
+        Algeria.addRestaurant(wilaya, city, district, ID);
+        if (i == 7000)
+            break;
+    }
+    runningTime << i << " " << du << endl;
+
+    /*
     Prize_Winners winners(rcms, date);
 
     // display the menu
@@ -530,13 +549,8 @@ int main()
 
                 if (r != nullptr)
                 {
-                    auto startTime = high_resolution_clock::now();
+
                     r->getMonthlyRatioPeriod(start.getMonth(), start.getYear(), end.getMonth(), end.getYear());
-
-                    auto endTime = high_resolution_clock::now();
-                    auto duration = duration_cast<microseconds>(endTime - startTime);
-                    runningTime << "getMonthlyRatioPeriod(period) " << duration.count() << "  microseconds" << endl;
-
                 }
                 else
                 {
@@ -806,6 +820,8 @@ int main()
                 Date date_p(year_p, month_p);
                 vector<Restaurant *> winner = winners.get_winners(date_p.getMonth(), date_p.getYear());
                 printWinners(winner);
+
+                break;
             }
             case 2:
             {
@@ -819,8 +835,8 @@ int main()
                 cout << "enter the end month then year: ";
                 cin >> end_month_p >> end_year_p;
                 Date Edate_p(end_year_p, end_month_p);
-
                 vector<vector<Restaurant *>> winner = winners.get_winners(Sdate_p.getMonth(), Sdate_p.getYear(), Edate_p.getMonth(), Edate_p.getYear());
+
                 // this should be modified
                 // our code is not consistent
                 for (auto &item : winner)
@@ -833,6 +849,7 @@ int main()
                         start_year_p++;
                     }
                 }
+                break;
             }
             }
 
@@ -841,6 +858,8 @@ int main()
         }
 
     } while (choice != 14);
+
+*/
 }
 
 void extractTokensRestaurant(const string &line, int &ID, string &name, string &type, int &year, int &month, int &day, int &employeeNum, string &wilaya, string &city, string &district)
@@ -875,9 +894,9 @@ void extractTokensRestaurant(const string &line, int &ID, string &name, string &
     getline(ss, district);
 }
 
-void extractTokensSalesCosts(string &line, int &year, int &month, int &day, float &sales1, float &sales2, float &sales3, float &sales4, float &sales5, float &publicity, float &costs)
+void extractTokensSalesCosts(string &line, int &year, int &month, int &day, float &sales1, float &sales2, float &sales3, float &sales4, float &sales5, float &rent, float &employeePayment, float &electricity, float &gaz, float &vegetables, float &meats, float &otherIngredients, float &publicity)
 {
-    // year,month,day,sales1,sales2,sales3,sales4,sales5,publicity_costs,costs
+    // year,month,day,sales1,sales2,sales3,sales4,sales5,rent, employeePayment, electricity, gaz, vegetables, meats, otherIngredients, publicity
 
     // Create a stringstream to parse the line
     stringstream ss(line);
@@ -899,7 +918,19 @@ void extractTokensSalesCosts(string &line, int &year, int &month, int &day, floa
     ss.ignore();
     ss >> sales5;
     ss.ignore();
-    ss >> costs;
+    ss >> rent;
+    ss.ignore();
+    ss >> employeePayment;
+    ss.ignore();
+    ss >> electricity;
+    ss.ignore();
+    ss >> gaz;
+    ss.ignore();
+    ss >> vegetables;
+    ss.ignore();
+    ss >> meats;
+    ss.ignore();
+    ss >> otherIngredients;
     ss.ignore();
     ss >> publicity;
 }
@@ -930,10 +961,10 @@ void extractTokensRatings(string &lineRatings, float &r1, float &r2, float &r3, 
 void fillSalesCosts(int ID, Restaurant &restaurant)
 {
     // reading sales and costs of each restaurant
-    // year,month,day,sales1,sales2,sales3,sales4,sales5,publicity_costs,costs
+    // year,month,day,sales1,sales2,sales3,sales4,sales5,rent, employeePayment, electricity, gaz, vegetables, meats, otherIngredients, publicity
     // needed variables
     int year_SC, month_SC, day_SC;
-    float sales1, sales2, sales3, sales4, sales5, publicity, costs;
+    float sales1, sales2, sales3, sales4, sales5, rent, employeePayment, electricity, gaz, vegetables, meats, otherIngredients, publicity;
 
     ifstream salesCostsInput("Data/salesCosts/" + to_string(ID) + "salesCosts.csv");
     string lineSalesCosts;
@@ -941,8 +972,8 @@ void fillSalesCosts(int ID, Restaurant &restaurant)
 
     while (getline(salesCostsInput, lineSalesCosts))
     {
-        extractTokensSalesCosts(lineSalesCosts, year_SC, month_SC, day_SC, sales1, sales2, sales3, sales4, sales5, publicity, costs);
-        restaurant.add_Sales_and_Costs(year_SC, month_SC, day_SC, sales1, sales2, sales3, sales4, sales5, publicity, costs);
+        extractTokensSalesCosts(lineSalesCosts, year_SC, month_SC, day_SC, sales1, sales2, sales3, sales4, sales5, rent, employeePayment, electricity, gaz, vegetables, meats, otherIngredients, publicity);
+        restaurant.add_Sales_and_Costs(year_SC, month_SC, day_SC, sales1, sales2, sales3, sales4, sales5, rent, employeePayment, electricity, gaz, vegetables, meats, otherIngredients, publicity);
     }
 }
 
@@ -959,6 +990,7 @@ void fillRating(int ID, Restaurant &r)
     while (getline(ratingsInput, lineRatings))
     {
         extractTokensRatings(lineRatings, r1, r2, r3, r4, r5, month_R, year_R);
+        auto startTime = chrono::high_resolution_clock::now();
         r.addRating(month_R, year_R, r1, r2, r3, r4, r5);
     }
 }

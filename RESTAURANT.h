@@ -148,6 +148,7 @@ void Restaurant::showRestaurantData() const
     cout << "Name : " << getName() << endl;
     cout << "Id : " << getId() << endl;
     cout << "Type : " << getType() << endl;
+    cout << "Number of employees: " << getEmployeeNumber() << endl;
     cout << "Creation  ";
     creationDate.DisplayDate();
 }

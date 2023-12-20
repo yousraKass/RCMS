@@ -46,3 +46,23 @@ getMonthlyRatioPeriod(period) 300  microseconds
 
 
 Case 9
+get_winners(month, year)  9  microseconds
+get_winners(month, year)  7  microseconds
+get_winners(month, year)  8  microseconds
+get_winners(month, year)  7  microseconds
+printWinners(winner)  102  microseconds
+printWinners(winner)  88  microseconds
+printWinners(winner)  116  microseconds
+printWinners(winner)  118  microseconds
+winners.get_winners(period) 41 microseconds
+winners.get_winners(period) 39 microseconds
+
+Filling data lite
+fillSalesCosts for 1 restaurant 1
+fillRating for 1 restaurant 1
+fillSalesCosts for 1 restaurant 5
+fillRating for 1 restaurant 1
+fillSalesCosts for 1 restaurant 1
+fillRating for 1 restaurant 0
+fillSalesCosts for 1 restaurant 3
+fillRating for 1 restaurant 0
