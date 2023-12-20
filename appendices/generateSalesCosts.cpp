@@ -51,7 +51,7 @@ int main()
 
         generateSalesCosts(startYear, startMonth, startDay, ID);
 
-        if(i == 50)break;
+        
     }
 
     return 0;

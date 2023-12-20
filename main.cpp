@@ -4,8 +4,14 @@
 #include <chrono>
 #include <iomanip>
 
-using namespace std;
 using std::cin;
+using std::getline;
+using std::rand;
+using std::srand;
+using std::time;
+using std::chrono::duration_cast;
+using std::chrono::high_resolution_clock;
+using std::chrono::microseconds;
 
 #include "BSTRESTAURANT.h"
 #include "RESTAURANT.h"
@@ -15,22 +21,29 @@ using std::cin;
 #include "Prize_Winners.h"
 
 void extractTokensRestaurant(const string &line, int &ID, string &name, string &type, int &year, int &month, int &day, int &employeeNum, string &wilaya, string &city, string &district);
-void extractTokensSalesCosts(string &line, int &year, int &month, int &day, float &sales1, float &sales2, float &sales3, float &sales4, float &sales5, float &publicity, float &costs);
+void extractTokensSalesCosts(string &line, int &year, int &month, int &day, float &sales1, float &sales2, float &sales3, float &sales4, float &sales5, float &rent, float &employeePayment, float &electricity, float &gaz, float &vegetables, float &meats, float &otherIngredients, float &publicity);
 void extractTokensRatings(string &lineRatings, float &r1, float &r2, float &r3, float &r4, float &r5, int &month_R, int &year_R);
 void fillSalesCosts(int ID, Restaurant &r);
 void fillRating(int ID, Restaurant &r);
 void printWinners(vector<Restaurant *> v);
 void toLower(string &str);
 
+// chrono::duration<long long, std::micro> duration = std::chrono::microseconds(0);
+// chrono::high_resolution_clock::time_point startTime;
+// chrono::high_resolution_clock::time_point endTime;
+// long long du = duration.count();
+// long long du2 = duration.count();
+
 int main()
 {
+
     cout << fixed << setprecision(2);
 
-
     RestaurantTree rcms;
+
     Country Algeria;
 
-    ofstream runningTimeAVL("runningTimeInsertAVL.txt", ios::app);
+    ofstream runningTime("runningTimeInsertBst.txt", ios::app);
 
     // reading the files
     // the set of restaurants
@@ -48,7 +61,7 @@ int main()
     int i = 0;
 
     // reading lines until finishing with the file
-    std::chrono::duration<long long, std::micro> duration = std::chrono::milliseconds(0);
+    std::chrono::duration<long long, std::micro> duration = std::chrono::microseconds(0);
     std::chrono::high_resolution_clock::time_point start;
     std::chrono::high_resolution_clock::time_point end;
     long long du = duration.count();
@@ -65,27 +78,28 @@ int main()
         toLower(wilaya);
         toLower(city);
         toLower(district);
-        
+
         Restaurant restaurant(type, name, ID, d, employeeNum);
-        
-        
+
         fillSalesCosts(ID, restaurant);
         fillRating(ID, restaurant);
 
+        // runningTime << "fillSalesCosts for 1 restaurant " << du2 << endl;
+        // runningTime << "fillRating for 1 restaurant " << du << endl;
+
         // inserting the restaurants in our data structures
-        
+        start = high_resolution_clock::now();
         rcms.insert(restaurant);
-        start = chrono::high_resolution_clock::now();
+        end = high_resolution_clock::now();
+        du += duration_cast<microseconds>(end - start).count();
+
         Algeria.addRestaurant(wilaya, city, district, ID);
-        end = chrono::high_resolution_clock::now();
-        du = du + chrono::duration_cast<chrono::milliseconds>(end - start).count();
-        // if (i == 1000)
-        //     runningTimeAVL << i << " " << du << endl;
-        
+        if (i == 7000)
+            break;
     }
+    runningTime << i << " " << du << endl;
 
-    cout << rcms.getTotalRestaurants() << endl;
-
+    /*
     Prize_Winners winners(rcms, date);
 
     // display the menu
@@ -148,8 +162,6 @@ int main()
             cout << "getting sales and costs..." << endl;
             cout << "getting ratings ..." << endl;
             Date d(year, month, day);
-
-            auto start = chrono::high_resolution_clock::now();
             Restaurant newRestaurant(type, name, ID, d, numEmployees);
             if (!rcms.contains(ID))
             {
@@ -168,8 +180,6 @@ int main()
             {
                 cout << "restaurant ID already excist" << endl;
             }
-            auto end = chrono::high_resolution_clock::now();
-            auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
             break;
         }
         case 2:
@@ -184,6 +194,7 @@ int main()
             int restaurant_ID;
             cin >> restaurant_ID;
             Restaurant *r = rcms.getRestaurant(restaurant_ID);
+
             cout << endl;
 
             cout << "do you want it for a period or a specific month: " << endl;
@@ -204,10 +215,12 @@ int main()
                 if (r != nullptr)
                 {
                     float amount = r->getMonthlySalesOfRestaurant(d.getMonth(), d.getYear());
+
                     if (amount == 0)
                         cout << "no sales in that month and year" << endl;
                     else
                     {
+
                         r->reportOnsales(d.getMonth(), d.getYear());
                     }
                 }
@@ -274,6 +287,7 @@ int main()
                 int month, year;
                 cin >> month >> year;
                 Date d(year, month);
+
                 for (int i = 0; i < restaurantIDs.size(); i++)
                 {
                     rcms.getRestaurant(restaurantIDs[i])->reportOnsales(d.getMonth(), d.getYear());
@@ -307,6 +321,7 @@ int main()
             }
             break;
         }
+
         case 5:
         {
             // Display the monthly sales report for all restaurants in a specific city
@@ -366,12 +381,15 @@ int main()
             }
             break;
         }
+
         case 6:
         {
             // Display the monthly sales report for all restaurants in a specific wilaya
-            cout << "enter the wilaya to get the report on sales of all restaurants in that wilaya" << endl;
             string wilaya;
+
+            cout << "enter the wilaya to get the report on sales of all restaurants in that wilaya" << endl;
             cin >> wilaya;
+            cout << wilaya;
             toLower(wilaya);
 
             vector<int> restaurantIDs = Algeria.getRestaurantsAllCities(wilaya);
@@ -428,9 +446,10 @@ int main()
         case 7:
         {
             // Display the monthly sales report for all restaurants in the country
+
             vector<int> restaurantIDs = Algeria.getRestaurantsAllWilayas();
 
-            cout << "do you want it for a period or a specific month: ";
+            cout << "do you want it for a period or a specific month: " << endl;
             cout << "1. specific month and year" << endl;
             cout << "2. specific period" << endl;
             int Case;
@@ -478,6 +497,7 @@ int main()
             }
             break;
         }
+
         case 8:
         {
             // Display the ratio of the monthly sales on the publicity cost for a specific restaurant
@@ -498,12 +518,13 @@ int main()
             {
             case 1:
             {
-                cout << "enter the month and the year respectively: ";
+                cout << "enter the month and the year respectively: " << endl;
                 int month, year;
                 cin >> month >> year;
                 Date d(year, month);
                 if (r != nullptr)
                 {
+
                     r->getMonthlyRatio(d.getMonth(), d.getYear());
                 }
                 else
@@ -528,6 +549,7 @@ int main()
 
                 if (r != nullptr)
                 {
+
                     r->getMonthlyRatioPeriod(start.getMonth(), start.getYear(), end.getMonth(), end.getYear());
                 }
                 else
@@ -798,6 +820,8 @@ int main()
                 Date date_p(year_p, month_p);
                 vector<Restaurant *> winner = winners.get_winners(date_p.getMonth(), date_p.getYear());
                 printWinners(winner);
+
+                break;
             }
             case 2:
             {
@@ -811,8 +835,8 @@ int main()
                 cout << "enter the end month then year: ";
                 cin >> end_month_p >> end_year_p;
                 Date Edate_p(end_year_p, end_month_p);
-
                 vector<vector<Restaurant *>> winner = winners.get_winners(Sdate_p.getMonth(), Sdate_p.getYear(), Edate_p.getMonth(), Edate_p.getYear());
+
                 // this should be modified
                 // our code is not consistent
                 for (auto &item : winner)
@@ -825,6 +849,7 @@ int main()
                         start_year_p++;
                     }
                 }
+                break;
             }
             }
 
@@ -833,6 +858,8 @@ int main()
         }
 
     } while (choice != 14);
+
+*/
 }
 
 void extractTokensRestaurant(const string &line, int &ID, string &name, string &type, int &year, int &month, int &day, int &employeeNum, string &wilaya, string &city, string &district)
@@ -867,9 +894,9 @@ void extractTokensRestaurant(const string &line, int &ID, string &name, string &
     getline(ss, district);
 }
 
-void extractTokensSalesCosts(string &line, int &year, int &month, int &day, float &sales1, float &sales2, float &sales3, float &sales4, float &sales5, float &publicity, float &costs)
+void extractTokensSalesCosts(string &line, int &year, int &month, int &day, float &sales1, float &sales2, float &sales3, float &sales4, float &sales5, float &rent, float &employeePayment, float &electricity, float &gaz, float &vegetables, float &meats, float &otherIngredients, float &publicity)
 {
-    // year,month,day,sales1,sales2,sales3,sales4,sales5,publicity_costs,costs
+    // year,month,day,sales1,sales2,sales3,sales4,sales5,rent, employeePayment, electricity, gaz, vegetables, meats, otherIngredients, publicity
 
     // Create a stringstream to parse the line
     stringstream ss(line);
@@ -891,7 +918,19 @@ void extractTokensSalesCosts(string &line, int &year, int &month, int &day, floa
     ss.ignore();
     ss >> sales5;
     ss.ignore();
-    ss >> costs;
+    ss >> rent;
+    ss.ignore();
+    ss >> employeePayment;
+    ss.ignore();
+    ss >> electricity;
+    ss.ignore();
+    ss >> gaz;
+    ss.ignore();
+    ss >> vegetables;
+    ss.ignore();
+    ss >> meats;
+    ss.ignore();
+    ss >> otherIngredients;
     ss.ignore();
     ss >> publicity;
 }
@@ -922,10 +961,10 @@ void extractTokensRatings(string &lineRatings, float &r1, float &r2, float &r3, 
 void fillSalesCosts(int ID, Restaurant &restaurant)
 {
     // reading sales and costs of each restaurant
-    // year,month,day,sales1,sales2,sales3,sales4,sales5,publicity_costs,costs
+    // year,month,day,sales1,sales2,sales3,sales4,sales5,rent, employeePayment, electricity, gaz, vegetables, meats, otherIngredients, publicity
     // needed variables
     int year_SC, month_SC, day_SC;
-    float sales1, sales2, sales3, sales4, sales5, publicity, costs;
+    float sales1, sales2, sales3, sales4, sales5, rent, employeePayment, electricity, gaz, vegetables, meats, otherIngredients, publicity;
 
     ifstream salesCostsInput("Data/salesCosts/" + to_string(ID) + "salesCosts.csv");
     string lineSalesCosts;
@@ -933,8 +972,8 @@ void fillSalesCosts(int ID, Restaurant &restaurant)
 
     while (getline(salesCostsInput, lineSalesCosts))
     {
-        extractTokensSalesCosts(lineSalesCosts, year_SC, month_SC, day_SC, sales1, sales2, sales3, sales4, sales5, publicity, costs);
-        restaurant.add_Sales_and_Costs(year_SC, month_SC, day_SC, sales1, sales2, sales3, sales4, sales5, publicity, costs);
+        extractTokensSalesCosts(lineSalesCosts, year_SC, month_SC, day_SC, sales1, sales2, sales3, sales4, sales5, rent, employeePayment, electricity, gaz, vegetables, meats, otherIngredients, publicity);
+        restaurant.add_Sales_and_Costs(year_SC, month_SC, day_SC, sales1, sales2, sales3, sales4, sales5, rent, employeePayment, electricity, gaz, vegetables, meats, otherIngredients, publicity);
     }
 }
 
@@ -951,6 +990,7 @@ void fillRating(int ID, Restaurant &r)
     while (getline(ratingsInput, lineRatings))
     {
         extractTokensRatings(lineRatings, r1, r2, r3, r4, r5, month_R, year_R);
+        auto startTime = chrono::high_resolution_clock::now();
         r.addRating(month_R, year_R, r1, r2, r3, r4, r5);
     }
 }
