@@ -93,7 +93,7 @@ int main()
         rcms.insert(restaurant);
 
         Algeria.addRestaurant(wilaya, city, district, ID);
-        if (i == 100)
+        if (i == 25)
             break;
     }
 
@@ -210,7 +210,9 @@ int main()
                 cout << "enter the month and the year respectively: ";
                 int month, year;
                 cin >> month >> year;
+                cout << "month: " << month << "year: " << year << endl;
                 Date d(year, month);
+                cout << "month: " << d.getMonth() << "year: " << d.getYear()<< endl;
                 if (r != nullptr)
                 {
                     float amount = r->getMonthlySalesOfRestaurant(d.getMonth(), d.getYear());

@@ -15,11 +15,11 @@ public:
     Date(int y=0, int m = 0, int d = 0)
         
     {
-        if(isValidDate(y,m,d)){
+        //if(isValidDate(y,m,d)){
             year=y;
             month=m;
             day=d;
-        }
+        //}
        
     }
     
