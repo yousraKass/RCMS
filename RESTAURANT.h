@@ -81,7 +81,7 @@ public:
     void getPrize(int month, int year, float &aA, float &aS, float &aC, float &aI, float &aE);
     void getMonthlySales(int month, int year, float &A, float &S, float &C, float &I, float &E) const;
     float getMonthlySalesOfRestaurant(int month, int year) const ;
-    void add_Sales_and_Costs(int year, int month, int day, float sA, float sS, float sC, float sI, float sE, float pub_Cost, float gen_Cost);
+    void add_Sales_and_Costs(int year, int month, int day, float sA, float sS, float sC, float sI, float sE,float rent_cost,float emp_salary_cost,float elec_cost,float gas_cost,float veg_cost,float meat_cost,float other_cost, float pub_cost);
     float getGeneralCosts(int day1, int month1, int year1, int day2, int month2, int year2)const;
     float getGeneralCosts(int day,int month,int year) const;
     float getPublicityCosts(int day1, int month1, int year1, int day2, int month2, int year2)const;
@@ -153,7 +153,6 @@ void Restaurant::showRestaurantData() const
     cout << "Name : " << getName() << endl;
     cout << "Id : " << getId() << endl;
     cout << "Type : " << getType() << endl;
-    cout << "Number of employees: " << getEmployeeNumber() << endl;
     cout << "Creation  ";
     creationDate.DisplayDate();
 }
@@ -233,10 +232,10 @@ void Restaurant::reportOnsales(int day1, int month1, int year1, int day2, int mo
     Sales_and_Costs.reportOnsales(day1, month1, year1, day2, month2, year2, sYear);
 }
 
-void Restaurant::add_Sales_and_Costs(int year, int month, int day, float sA, float sS, float sC, float sI, float sE, float pub_Cost, float gen_Cost)
+void Restaurant::add_Sales_and_Costs(int year, int month, int day, float sA, float sS, float sC, float sI, float sE,float rent_cost,float emp_salary_cost,float elec_cost,float gas_cost,float veg_cost,float meat_cost,float other_cost, float pub_cost)
 {
     int sYear = creationDate.getYear();
-    Sales_and_Costs.Add_SalesAndCosts(year, month, day, sA, sS, sC, sI, sE, pub_Cost,90000,88870,56980,40840,78569,84450,51230, sYear);
+    Sales_and_Costs.Add_SalesAndCosts(year, month, day, sA, sS, sC, sI, sE,rent_cost,emp_salary_cost,elec_cost,gas_cost,veg_cost,meat_cost,other_cost,pub_cost,sYear);
 }
 
 float Restaurant::getGeneralCosts(int day1, int month1, int year1, int day2, int month2, int year2)const
