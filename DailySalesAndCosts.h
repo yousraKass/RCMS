@@ -7,6 +7,7 @@
 using std::cout;
 using std::endl;
 using std::vector;
+using std::setprecision
 
 class SalesAndCosts
 {
