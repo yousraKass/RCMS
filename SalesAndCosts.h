@@ -210,16 +210,16 @@ void SalesAndCosts::reportOnsales(int day, int month, int year, int startYear) c
 
 void SalesAndCosts::reportOnsales(int month, int year, int startYear) const
 {
-    cout << "hi" << endl;
+  
     if (year < startYear)
     {
-        cout << year << startYear << endl;
-        cout << "hi wrong 1" << endl;
+        
+      
         return;
     }
     if (month < 1 || month > 12)
     {
-        cout << "hi wrong 2" << endl;
+        
         return;
     }
     else

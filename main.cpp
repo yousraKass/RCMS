@@ -15,7 +15,7 @@ using std::chrono::high_resolution_clock;
 using std::chrono::microseconds;
 using namespace std;
 
-#include"BSTRESTAURANT.h"
+#include "BSTRESTAURANT.h"
 #include "AVLRESTAURANT.h"
 #include "Country.h"
 #include "date.h"
@@ -40,11 +40,11 @@ int main()
 
     cout << fixed << setprecision(2);
 
-    RestaurantTree rcms;
+    AVLRestaurantTree rcms;
 
     Country Algeria;
 
-    ofstream runningTime("searchRestaurantBST.txt", ios::app);
+    ofstream runningTime("runningTimeGeneral.txt", ios::app);
 
     // reading the files
     // the set of restaurants
@@ -93,13 +93,11 @@ int main()
         rcms.insert(restaurant);
 
         Algeria.addRestaurant(wilaya, city, district, ID);
-        if (i == 25)
-            break;
+        // if (i == 25)
+        //     break;
     }
 
-    
     Prize_Winners winners(rcms, date);
-
     // display the menu
     int choice;
     do
@@ -137,13 +135,20 @@ int main()
             int numEmployees, ID, day, month, year;
 
             cout << "enter the restaurant location: wilaya, city, district: ";
-            cin >> wilaya >> city >> district;
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            getline(cin, wilaya, '\n');
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            getline(cin, city, '\n');
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            getline(cin, district, '\n');
+
             toLower(wilaya);
             toLower(city);
             toLower(district);
 
             cout << "Enter the name of the restaurant: ";
-            cin >> name;
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            getline(cin, name, '\n');
             toLower(name);
 
             cout << "Enter the ID of the restaurant: ";
@@ -160,6 +165,9 @@ int main()
             cout << "getting sales and costs..." << endl;
             cout << "getting ratings ..." << endl;
             Date d(year, month, day);
+
+            auto start = high_resolution_clock::now();
+
             Restaurant newRestaurant(type, name, ID, d, numEmployees);
             if (!rcms.contains(ID))
             {
@@ -178,11 +186,15 @@ int main()
             {
                 cout << "restaurant ID already excist" << endl;
             }
+            auto end = high_resolution_clock::now();
+            auto duration = duration_cast<microseconds>(end - start).count();
+            runningTime << duration << endl;
+
             break;
         }
         case 2:
         {
-            
+
             rcms.printRestaurantsData();
             break;
         }
@@ -193,7 +205,7 @@ int main()
             int restaurant_ID;
             cin >> restaurant_ID;
             Restaurant *r = rcms.getRestaurant(restaurant_ID);
-            
+
             cout << endl;
 
             cout << "do you want it for a period or a specific month: " << endl;
@@ -212,7 +224,7 @@ int main()
                 cin >> month >> year;
                 cout << "month: " << month << "year: " << year << endl;
                 Date d(year, month);
-                cout << "month: " << d.getMonth() << "year: " << d.getYear()<< endl;
+                cout << "month: " << d.getMonth() << "year: " << d.getYear() << endl;
                 if (r != nullptr)
                 {
                     float amount = r->getMonthlySalesOfRestaurant(d.getMonth(), d.getYear());
@@ -265,7 +277,13 @@ int main()
             // Display the monthly sales report for all restaurants in a specific district
             cout << "enter the wilaya, city, district to get the report on sales of all restaurants in that district" << endl;
             string wilaya, city, district;
-            cin >> wilaya >> city >> district;
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            getline(cin, wilaya, '\n');
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            getline(cin, city, '\n');
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            getline(cin, district, '\n');
+
             toLower(wilaya);
             toLower(city);
             toLower(district);
@@ -328,7 +346,10 @@ int main()
             // Display the monthly sales report for all restaurants in a specific city
             cout << "enter the wilaya, city to get the report on sales of all restaurants in that city" << endl;
             string wilaya, city;
-            cin >> wilaya >> city;
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            getline(cin, wilaya, '\n');
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            getline(cin, city, '\n');
             toLower(wilaya);
             toLower(city);
 
@@ -392,8 +413,6 @@ int main()
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             getline(cin, wilaya, '\n');
             toLower(wilaya);
-
-        
 
             vector<int> restaurantIDs = Algeria.getRestaurantsAllCities(wilaya);
 
@@ -572,7 +591,13 @@ int main()
             // Display the ratio of the monthly sales on the publicity cost for all restaurants in a specific district
             cout << "enter the wilaya, city, district to get the ratio of the monthly sales on the publicity cost for all restaurants in that district" << endl;
             string wilaya, city, district;
-            cin >> wilaya >> city >> district;
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            getline(cin, wilaya, '\n');
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            getline(cin, city, '\n');
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            getline(cin, district, '\n');
+
             toLower(wilaya);
             toLower(city);
             toLower(district);
@@ -634,7 +659,11 @@ int main()
             // Display the ratio of the monthly sales on the publicity cost for all restaurants in a specific city
             cout << "enter the wilaya, city to get the ratio of the monthly sales on the publicity cost for all restaurants in that city" << endl;
             string wilaya, city;
-            cin >> wilaya >> city;
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            getline(cin, wilaya, '\n');
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            getline(cin, city, '\n');
+
             toLower(wilaya);
             toLower(city);
 
@@ -695,7 +724,8 @@ int main()
             // Display the ratio of the monthly sales on the publicity cost for all restaurants in a specific wilaya
             cout << "enter the wilaya to get the ratio of the monthly sales on the publicity cost for all restaurants in that wilaya" << endl;
             string wilaya;
-            cin >> wilaya;
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            getline(cin, wilaya, '\n');
             toLower(wilaya);
 
             vector<int> restaurantIDs = Algeria.getRestaurantsAllCities(wilaya);
@@ -858,11 +888,11 @@ int main()
 
             break;
         }
+        default:
+            break;
         }
 
     } while (choice != 14);
-
-
 }
 
 void extractTokensRestaurant(const string &line, int &ID, string &name, string &type, int &year, int &month, int &day, int &employeeNum, string &wilaya, string &city, string &district)
