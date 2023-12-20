@@ -47,7 +47,7 @@ private:
 public:
     // SALES AND COSTS TREATED IN THEIR CLASSES
     // SALES AND COSTS TREATED IN THEIR CLASSES
-    Restaurant(string T, string Name, int id, const Date &creation, const int &employee);
+    Restaurant(string T, string Name, int id, const Date &creation, const int &employee,int h=0);
 
     // have to check what it will return (to be done while testing)
     string getType() const;
@@ -92,7 +92,7 @@ void Restaurant::getMonthlyRatio(int month, int year) const
     Sales_and_Costs.Ratio(month, year, creationDate.getYear());
 }
 
-Restaurant::Restaurant(string T, string Name, int id, const Date &creation, const int &employee) : ID(id), name(Name), creationDate(creation), employee_num(employee), heightNode(0)
+Restaurant::Restaurant(string T, string Name, int id, const Date &creation, const int &employee,int h) : ID(id), name(Name), creationDate(creation), employee_num(employee), heightNode(h)
 {
     if (T == "owned")
     {

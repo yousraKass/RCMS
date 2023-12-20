@@ -17,7 +17,7 @@ private:
     void insert(const Restaurant R, Restaurant *&ROOT);
     void insert(Restaurant &&R, Restaurant *&ROOT);
     // search for x return true if found, else false
-    bool contains(const int &key, Restaurant *&ROOT) const;
+    bool contains(const int &key, Restaurant *ROOT) const;
     // show data of all restaurants
     void printHelper(Restaurant *ROOT) const;
     // utility function to find a restaurant with an ID, returns a pointer to the restaurant if found , else return nullptr
@@ -82,7 +82,7 @@ void RestaurantTree::insert(Restaurant &&R, Restaurant *&ROOT)
     // duplicates
 }
 
-bool RestaurantTree::contains(const int &key, Restaurant *&ROOT) const
+bool RestaurantTree::contains(const int &key, Restaurant *ROOT) const
 {
 
     if (ROOT == nullptr)
