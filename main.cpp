@@ -387,6 +387,7 @@ int main()
             string wilaya;
 
             cout << "enter the wilaya to get the report on sales of all restaurants in that wilaya" << endl;
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             getline(cin, wilaya, '\n');
             cout << wilaya;
             toLower(wilaya);
