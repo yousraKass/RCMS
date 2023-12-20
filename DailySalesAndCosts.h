@@ -2,6 +2,8 @@
 #define DAILY_SALESANDCOSTS_H
 #include <vector>
 #include <iostream>
+#include <iomanip>
+#include <sstream>
 using std::cout;
 using std::endl;
 using std::vector;
@@ -18,16 +20,20 @@ public:
     void Ratio(int month, int year, int startYear) const; 
     // Display restaurant ratio in a given period
     void Ratio(int month1, int year1, int month2, int year2, int startYear) const; 
-     // Display full report on sales of a restaurant in a given date
+    // Display full report on sales of a restaurant in a given date
     void reportOnsales(int day, int month, int year, int startYear) const;
     // Display full report on sales of a restaurant in a given month of a given year
     void reportOnsales(int month, int year, int startYear) const; 
-     // Display full report on sales of a restaurant in a given period
+    // Display full report on sales of a restaurant in a given period
     void reportOnsales(int day1, int month1, int year1, int day2, int month2, int year2, int startYear) const;
     // Add information about sales and costs of a restaurant to the system
-    void Add_SalesAndCosts(int year, int month, int day, float sA, float sS, float sC, float sI, float sE, float pub_Cost, float gen_Cost, int startYear);
+    void Add_SalesAndCosts(int year, int month, int day, float sA, float sS, float sC, float sI, float sE,float rent_cost,float emp_salary_cost,float elec_cost,float gas_cost,float veg_cost,float meat_cost,float other_cost, float pub_cost, int startYear);
     //
     void GetCumulativeSales(int month, int year, float &aA, float &aS, float &aC, float &aI, float &aE, int startYear) const;
+    float GetGeneralCosts(int day, int month, int year, int startYear)const;
+    float GetGeneralCosts(int day1, int month1, int year1, int day2, int month2, int year2, int startYear)const;
+    float GetPublicityCosts(int day, int month, int year, int startYear)const;
+    float GetPublicityCosts(int day1, int month1, int year1, int day2, int month2, int year2, int startYear)const;
     
 private:
     bool isLeapYear(int year)
@@ -50,9 +56,17 @@ private:
     struct SalesCosts
     {
         float sales[6];
+        float Cost_on_rent;
+        float Cost_on_employees_salary;
+        float Cost_on_elec;
+        float Cost_on_gas;
+        float Cost_on_vegetables;
+        float Cost_on_meat;
+        float Cost_on_other_ingrediants;
         float publicity_costs;
         float general_costs;
-        SalesCosts() : publicity_costs(0), general_costs(0)
+
+        SalesCosts() : publicity_costs(0), general_costs(0),Cost_on_rent(0),Cost_on_employees_salary(0),Cost_on_elec(0),Cost_on_gas(0),Cost_on_vegetables(0),Cost_on_meat(0),Cost_on_other_ingrediants(0)
         {
             for (int i = 0; i < 6; i++)
             {
@@ -78,7 +92,7 @@ private:
     {
         Days months[12];
     };
-    vector<Months> Years; 
+    vector<Months> Years;
     // Private data member represnets a vector called years each year has an array of size 12 to represents months, this array (months) is an array of struct called Days contains array (Montly sales)
     // stores the values of monthly sales of each cuisine + monthly sales of the restaurant in the last position (the sum), also, it stores an array of size 31 of days, each day stores the information of the restaurant found in the struct up
 };
@@ -101,16 +115,82 @@ void SalesAndCosts::reportOnsales(int day, int month, int year, int startYear) c
     else if((day > 31 || day <1 ))
         return;
 
-    cout<<"-----------------------Report on sales in : "<<day<<"/"<<month<<"/"<<year<<" : ------------------------------"<<endl;
-    cout<<"------------------------------------------------------------------------------------------------"<<endl;
-   
-    cout << "-Sales of the Algerian cuisine : " << Years[year - startYear].months[month - 1].days[day - 1].sales[0] << " DA " << endl;
-    cout << "-Sales of the Syrian cuisine : " << Years[year - startYear].months[month - 1].days[day - 1].sales[1] << " DA " << endl;
-    cout << "-Sales of the Chinese cuisine : " << Years[year - startYear].months[month - 1].days[day - 1].sales[2] << " DA " << endl;
-    cout << "-Sales of the Indian cuisine : " << Years[year - startYear].months[month - 1].days[day - 1].sales[3] << " DA " << endl;
-    cout << "-Sales of the Europian cuisine : " << Years[year - startYear].months[month - 1].days[day - 1].sales[4] << " DA " << endl;
-    cout << "Total : " << Years[year - startYear].months[month - 1].days[day - 1].sales[5] << " DA " << endl;
-    cout <<"------------------------------------------------------------------------------------------------"<<endl<<endl;
+    cout<<"---------------------------------------------------- Report on sales and costs in : "<<day<<"/"<<month<<"/"<<year<<" : -------------------------------------------------------------------------"<<endl;
+    cout<<"------------------------------------------------------------------------------------------------------------------------------------------------------------------------"<<endl;
+    cout<<endl;
+    cout<<"Sales : "<<endl;
+    cout<<"-------"<<endl;
+    std::ostringstream stream1, stream2, stream3, stream4, stream5, stream6;
+    stream1<< std::fixed <<setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].sales[0];
+    string s1 = stream1.str();
+    stream2<< std::fixed <<setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].sales[1];
+    string s2 = stream2.str();
+    stream3<< std::fixed <<setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].sales[2];
+    string s3 = stream3.str();
+    stream4<< std::fixed <<setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].sales[3];
+    string s4 = stream4.str();
+    stream5<< std::fixed <<setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].sales[4];
+    string s5 = stream5.str();
+    stream6<< std::fixed <<setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].sales[5];
+    string s6 = stream6.str();
+    cout<<std::setw(20)<<std::left<<"Algerian"
+        <<std::setw(20)<<std::left<<"Syrian"
+        <<std::setw(20)<<std::left<<"Chinese"
+        <<std::setw(20)<<std::left<<"Indian"
+        <<std::setw(20)<<std::left<<"Europian"
+        <<std::setw(20)<<std::left<<"Total"<<endl;
+
+    cout<<std::setw(20)<<std::left<<s1+" DA "
+        <<std::setw(20)<<std::left<<s2+" DA "
+        <<std::setw(20)<<std::left<<s3+" DA "
+        <<std::setw(20)<<std::left<<s4+" DA "
+        <<std::setw(20)<<std::left<<s5+" DA "
+        <<std::setw(20)<<std::left<<s6+" DA "<<endl;
+    cout<<endl;
+    cout<<"Costs : "<<endl;
+    cout<<"-------"<<endl;
+    cout<<std::setw(18)<<std::left<<"Rent"
+        <<std::setw(23)<<std::left<<"Employees salary"
+        <<std::setw(20)<<std::left<<"Electricity"
+        <<std::setw(18)<<std::left<<"Gas"
+        <<std::setw(18)<<std::left<<"Vegetables"
+        <<std::setw(18)<<std::left<<"Meat"
+        <<std::setw(23)<<std::left<<"Other ingrediants"
+        <<std::setw(16)<<std::left<<"Publicity"
+        <<std::setw(20)<<std::left<<"Total"<<endl;
+    
+    std::ostringstream Stream1, Stream2, Stream3, Stream4, Stream5,Stream6,Stream7,Stream8,Stream9;
+    Stream1<< std::fixed <<setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].Cost_on_rent;
+    string S1 = Stream1.str();
+    Stream2<< std::fixed <<setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].Cost_on_employees_salary;
+    string S2 = Stream2.str();
+    Stream3<< std::fixed <<setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].Cost_on_elec;
+    string S3 = Stream3.str();
+    Stream4<< std::fixed <<setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].Cost_on_gas;
+    string S4 = Stream4.str();
+    Stream5<< std::fixed <<setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].Cost_on_vegetables;
+    string S5 = Stream5.str();
+    Stream6<< std::fixed <<setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].Cost_on_meat;
+    string S6 = Stream6.str();
+    Stream7<< std::fixed <<setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].Cost_on_other_ingrediants;
+    string S7 = Stream7.str();
+    Stream8<< std::fixed <<setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].publicity_costs;
+    string S8 = Stream8.str();
+    Stream9<< std::fixed <<setprecision(2) << Years[year - startYear].months[month - 1].days[day - 1].general_costs;
+    string S9 = Stream9.str();
+
+    cout<<std::setw(18)<<std::left<<S1 + " DA "
+        <<std::setw(23)<<std::left<<S2 + " DA " 
+        <<std::setw(20)<<std::left<<S3 + " DA "
+        <<std::setw(18)<<std::left<<S4 + " DA "
+        <<std::setw(18)<<std::left<<S5 + " DA "
+        <<std::setw(18)<<std::left<<S6 + " DA "
+        <<std::setw(23)<<std::left<<S7 + " DA "
+        <<std::setw(16)<<std::left<<S8 + " DA "
+        <<std::setw(20)<<std::left<<S9 + " DA "<<endl;
+    float difference = Years[year - startYear].months[month - 1].days[day - 1].sales[5] - GetGeneralCosts(day,month,year,startYear);
+    cout <<"-The difference between sales and costs : " << difference << " DA "<<endl; 
+    cout <<"------------------------------------------------------------------------------------------------------------------------------------------------------------------------"<<endl<<endl;
 }
 
 void SalesAndCosts::reportOnsales(int month, int year, int startYear) const
@@ -132,6 +212,21 @@ void SalesAndCosts::reportOnsales(int month, int year, int startYear) const
             cout << "-Monthly sales of the Indian cuisine : " << I <<  " DA " << endl;
             cout << "-Monthly sales of the Europian cuisine : " << E <<  " DA " << endl;
             cout << "-Total : " << Years[year - startYear].months[month - 1].MonthlySales[5] << " DA " <<  endl;
+            if(month + 1 < 13)
+            {
+            cout << "-Publicity costs : " << GetPublicityCosts(1,month,year,1,month+1,year,startYear) - GetPublicityCosts(1,month+1,year,startYear) << " DA "<<endl;
+            cout << "-General costs : " << GetGeneralCosts(1,month,year,1,month+1,year,startYear) - GetGeneralCosts(1,month+1,year,startYear) << " DA "<<endl;
+            float difference = Years[year - startYear].months[month - 1].MonthlySales[5] - (GetGeneralCosts(1,month,year,1,month+1,year,startYear) - GetGeneralCosts(1,month+1,year,startYear));
+            cout << "-The difference between sales and costs : " << difference << " DA "<<endl; 
+            }
+            else if(month + 1 == 13 )
+            {
+            cout << "-Publicity costs : " << GetPublicityCosts(1,month,year,1,1,year+1,startYear) - GetPublicityCosts(1,1,year+1,startYear) << " DA "<<endl;
+            cout << "-General costs : " << GetGeneralCosts(1,month,year,1,1,year+1,startYear) - GetGeneralCosts(1,1,year+1,startYear) << " DA "<<endl;
+            float difference = Years[year - startYear].months[month - 1].MonthlySales[5] - (GetGeneralCosts(1,month,year,1,1,year+1,startYear) - GetGeneralCosts(1,1,year+1,startYear));
+            cout << "-The difference between sales and costs : " << difference << " DA "<<endl;
+            }
+
         }
     }
 }
@@ -204,8 +299,10 @@ void SalesAndCosts::Ratio(int month1, int year1, int month2, int year2, int star
         if (year1 == year2 && month1 == month2)
             Ratio(month1,year1,startYear);
         else{
-            while (month1<=month2 && year1<=year2)
+            while (true)
         {
+            if(month1 == month2 && year1 == year2)
+                break;
             Ratio(month1, year1, startYear);
             month1++;
             if (month1 == 13)
@@ -214,6 +311,7 @@ void SalesAndCosts::Ratio(int month1, int year1, int month2, int year2, int star
                     year1++;
                 }
         }
+        Ratio(month1,year1,startYear);
         }
     
 }
@@ -231,12 +329,12 @@ void SalesAndCosts::GetMonthlySales(int month, int year, float &A, float &S, flo
     E = Years[year - startYear].months[month - 1].MonthlySales[4];
 }
 
-void SalesAndCosts::Add_SalesAndCosts(int year, int month, int day, float sA, float sS, float sC, float sI, float sE, float pub_Cost, float gen_Cost, int startYear)
+void SalesAndCosts::Add_SalesAndCosts(int year, int month, int day, float sA, float sS, float sC, float sI, float sE,float rent_cost,float emp_salary_cost,float elec_cost,float gas_cost,float veg_cost,float meat_cost,float other_cost, float pub_cost, int startYear)
 {
     if(year -startYear >= Years.size())
         Years.resize(Years.size()*2);
     
-    if( sA < 0 || sS < 0 || sC < 0 || sI < 0 || sE < 0 || pub_Cost < 0 || gen_Cost < 0)
+    if( sA < 0 || sS < 0 || sC < 0 || sI < 0 || sE < 0 || pub_cost < 0 || rent_cost < 0 || emp_salary_cost < 0 || elec_cost < 0 || gas_cost < 0 || veg_cost < 0 || meat_cost < 0 || other_cost < 0)
     {
         cout<<"Invalid input."<<endl;
         return;
@@ -247,8 +345,15 @@ void SalesAndCosts::Add_SalesAndCosts(int year, int month, int day, float sA, fl
     Years[year - startYear].months[month - 1].days[day - 1].sales[3] = sI;
     Years[year - startYear].months[month - 1].days[day - 1].sales[4] = sE;
     Years[year - startYear].months[month - 1].days[day - 1].sales[5] = sA + sS + sC + sI + sE;
-    Years[year - startYear].months[month - 1].days[day - 1].publicity_costs = pub_Cost;
-    Years[year - startYear].months[month - 1].days[day - 1].general_costs = gen_Cost;
+    Years[year - startYear].months[month - 1].days[day - 1].publicity_costs = pub_cost;
+    Years[year - startYear].months[month - 1].days[day - 1].Cost_on_rent = rent_cost;
+    Years[year - startYear].months[month - 1].days[day - 1].Cost_on_employees_salary = emp_salary_cost;
+    Years[year - startYear].months[month - 1].days[day - 1].Cost_on_elec = elec_cost;
+    Years[year - startYear].months[month - 1].days[day - 1].Cost_on_gas = gas_cost;
+    Years[year - startYear].months[month - 1].days[day - 1].Cost_on_vegetables = veg_cost;
+    Years[year - startYear].months[month - 1].days[day - 1].Cost_on_meat = meat_cost;
+    Years[year - startYear].months[month - 1].days[day - 1].Cost_on_other_ingrediants = other_cost;
+    Years[year - startYear].months[month - 1].days[day - 1].general_costs = pub_cost + rent_cost + emp_salary_cost + elec_cost + gas_cost + veg_cost + meat_cost + other_cost;
     if ((month == 4 || month == 6 || month == 9 || month == 11) && day == 30)
     {
         float sum1 = 0, sum2 = 0, sum3 = 0, sum4 = 0, sum5 = 0;
@@ -352,6 +457,76 @@ void SalesAndCosts::GetCumulativeSales(int month, int year, float &aA, float &aS
     aC = Years[year - startYear].months[month - 1].CumulativeSales[2];
     aI = Years[year - startYear].months[month - 1].CumulativeSales[3];
     aE = Years[year - startYear].months[month - 1].CumulativeSales[4];
+}
+
+float SalesAndCosts::GetGeneralCosts(int day, int month, int year, int startYear)const
+{
+    return Years[year - startYear].months[month - 1].days[day-1].general_costs;
+}
+
+float SalesAndCosts::GetGeneralCosts(int day1, int month1, int year1, int day2, int month2, int year2, int startYear)const
+{
+    int g_costs = 0;
+    while (true)
+            {
+                if (year1 == year2 && month1 == month2 && day1 == day2)
+                {
+                    break;
+                }
+
+                else
+                {
+                    g_costs+=Years[year1 - startYear].months[month1 - 1].days[day1-1].general_costs;
+                    day1++;
+                    if (day1 == 32)
+                    {
+                        day1 = 1;
+                        month1++;
+                        if (month1 == 13)
+                        {
+                            month1 = 1;
+                            year1++;
+                        }
+                    }
+                }
+            }
+            g_costs+=Years[year1 - startYear].months[month1 - 1].days[day1-1].general_costs;
+            return g_costs;
+}
+
+float SalesAndCosts::GetPublicityCosts(int day, int month, int year, int startYear)const
+{
+    return Years[year - startYear].months[month - 1].days[day-1].publicity_costs;
+}
+
+float SalesAndCosts::GetPublicityCosts(int day1, int month1, int year1, int day2, int month2, int year2, int startYear)const
+{
+    int p_costs = 0;
+    while (true)
+            {
+                if (year1 == year2 && month1 == month2 && day1 == day2)
+                {
+                    break;
+                }
+
+                else
+                {
+                    p_costs+=Years[year1 - startYear].months[month1 - 1].days[day1-1].publicity_costs;
+                    day1++;
+                    if (day1 == 32)
+                    {
+                        day1 = 1;
+                        month1++;
+                        if (month1 == 13)
+                        {
+                            month1 = 1;
+                            year1++;
+                        }
+                    }
+                }
+            }
+            p_costs+=Years[year1 - startYear].months[month1 - 1].days[day1-1].general_costs;
+            return p_costs;
 }
 
 
