@@ -1,0 +1,48 @@
+calculate all the winners   414280 microseconds
+add a restaurant manually case 1   2153 microseconds
+
+Case 2
+printing all restaurants data case2   371247microseconds
+
+NOTE: periods are testing for one year
+
+Case 3
+testing getMonthlySalesOfRestaurant(month,year) case2 case1   25  microseconds
+testing reportOnSales(day, month) case 2 case 1  174  microseconds
+testing reportOnsales(period) case2 case2   60121  microseconds
+testing getRestaurant(ID)   10  microseconds
+
+Case 4
+getRestaurantsDistrict(wilaya, city, district)  20  microseconds
+
+Case 5
+getRestaurantsAllDistricts(wilaya, city)  44  microseconds
+getRestaurantsAllDistricts(wilaya, city)  51  microseconds
+getRestaurantsAllDistricts(wilaya, city)  38  microseconds
+getRestaurantsAllDistricts(wilaya, city)  42  microseconds
+
+
+Case 6
+getRestaurantsAllDistricts(wilaya, city)  294  microseconds
+getRestaurantsAllDistricts(wilaya, city)  55  microseconds
+getRestaurantsAllDistricts(wilaya, city)  122  microseconds
+getRestaurantsAllDistricts(wilaya, city)  400  microseconds
+
+
+Case 7
+
+getRestaurantsAllWilayas() 2515  microseconds
+getRestaurantsAllWilayas() 8906  microseconds
+getRestaurantsAllWilayas() 6954  microseconds
+getRestaurantsAllWilayas() 6088  microseconds
+
+Case 8
+getMonthlyRatio(month, year) 78  microseconds
+getMonthlyRatio(month, year) 58  microseconds
+getMonthlyRatioPeriod(period) 94  microseconds
+getMonthlyRatioPeriod(period) 255  microseconds
+getMonthlyRatioPeriod(period) 260  microseconds
+getMonthlyRatioPeriod(period) 300  microseconds
+
+
+Case 9

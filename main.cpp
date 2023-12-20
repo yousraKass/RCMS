@@ -4,8 +4,14 @@
 #include <chrono>
 #include <iomanip>
 
-using namespace std;
 using std::cin;
+using std::getline;
+using std::rand;
+using std::srand;
+using std::time;
+using std::chrono::duration_cast;
+using std::chrono::high_resolution_clock;
+using std::chrono::microseconds;
 
 #include "BSTRESTAURANT.h"
 #include "RESTAURANT.h"
@@ -26,11 +32,10 @@ int main()
 {
     cout << fixed << setprecision(2);
 
-
     RestaurantTree rcms;
     Country Algeria;
 
-    ofstream runningTimeAVL("runningTimeInsertAVL.txt", ios::app);
+    ofstream runningTime("runningTimeGeneral.txt", ios::app);
 
     // reading the files
     // the set of restaurants
@@ -48,10 +53,10 @@ int main()
     int i = 0;
 
     // reading lines until finishing with the file
-    std::chrono::duration<long long, std::micro> duration = std::chrono::milliseconds(0);
-    std::chrono::high_resolution_clock::time_point start;
-    std::chrono::high_resolution_clock::time_point end;
-    long long du = duration.count();
+    // std::chrono::duration<long long, std::micro> duration = std::chrono::microseconds(0);
+    // std::chrono::high_resolution_clock::time_point start;
+    // std::chrono::high_resolution_clock::time_point end;
+    // long long du = duration.count();
     while (getline(input, line))
     {
         i++;
@@ -65,26 +70,16 @@ int main()
         toLower(wilaya);
         toLower(city);
         toLower(district);
-        
+
         Restaurant restaurant(type, name, ID, d, employeeNum);
-        
-        
+
         fillSalesCosts(ID, restaurant);
         fillRating(ID, restaurant);
 
         // inserting the restaurants in our data structures
-        
         rcms.insert(restaurant);
-        start = chrono::high_resolution_clock::now();
         Algeria.addRestaurant(wilaya, city, district, ID);
-        end = chrono::high_resolution_clock::now();
-        du = du + chrono::duration_cast<chrono::milliseconds>(end - start).count();
-        // if (i == 1000)
-        //     runningTimeAVL << i << " " << du << endl;
-        
     }
-
-    cout << rcms.getTotalRestaurants() << endl;
 
     Prize_Winners winners(rcms, date);
 
@@ -148,8 +143,6 @@ int main()
             cout << "getting sales and costs..." << endl;
             cout << "getting ratings ..." << endl;
             Date d(year, month, day);
-
-            auto start = chrono::high_resolution_clock::now();
             Restaurant newRestaurant(type, name, ID, d, numEmployees);
             if (!rcms.contains(ID))
             {
@@ -168,8 +161,6 @@ int main()
             {
                 cout << "restaurant ID already excist" << endl;
             }
-            auto end = chrono::high_resolution_clock::now();
-            auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
             break;
         }
         case 2:
@@ -184,6 +175,7 @@ int main()
             int restaurant_ID;
             cin >> restaurant_ID;
             Restaurant *r = rcms.getRestaurant(restaurant_ID);
+
             cout << endl;
 
             cout << "do you want it for a period or a specific month: " << endl;
@@ -204,10 +196,12 @@ int main()
                 if (r != nullptr)
                 {
                     float amount = r->getMonthlySalesOfRestaurant(d.getMonth(), d.getYear());
+
                     if (amount == 0)
                         cout << "no sales in that month and year" << endl;
                     else
                     {
+
                         r->reportOnsales(d.getMonth(), d.getYear());
                     }
                 }
@@ -274,6 +268,7 @@ int main()
                 int month, year;
                 cin >> month >> year;
                 Date d(year, month);
+
                 for (int i = 0; i < restaurantIDs.size(); i++)
                 {
                     rcms.getRestaurant(restaurantIDs[i])->reportOnsales(d.getMonth(), d.getYear());
@@ -307,6 +302,7 @@ int main()
             }
             break;
         }
+
         case 5:
         {
             // Display the monthly sales report for all restaurants in a specific city
@@ -366,12 +362,15 @@ int main()
             }
             break;
         }
+
         case 6:
         {
             // Display the monthly sales report for all restaurants in a specific wilaya
-            cout << "enter the wilaya to get the report on sales of all restaurants in that wilaya" << endl;
             string wilaya;
+
+            cout << "enter the wilaya to get the report on sales of all restaurants in that wilaya" << endl;
             cin >> wilaya;
+            cout << wilaya;
             toLower(wilaya);
 
             vector<int> restaurantIDs = Algeria.getRestaurantsAllCities(wilaya);
@@ -428,9 +427,10 @@ int main()
         case 7:
         {
             // Display the monthly sales report for all restaurants in the country
+
             vector<int> restaurantIDs = Algeria.getRestaurantsAllWilayas();
 
-            cout << "do you want it for a period or a specific month: ";
+            cout << "do you want it for a period or a specific month: " << endl;
             cout << "1. specific month and year" << endl;
             cout << "2. specific period" << endl;
             int Case;
@@ -478,6 +478,7 @@ int main()
             }
             break;
         }
+
         case 8:
         {
             // Display the ratio of the monthly sales on the publicity cost for a specific restaurant
@@ -498,12 +499,13 @@ int main()
             {
             case 1:
             {
-                cout << "enter the month and the year respectively: ";
+                cout << "enter the month and the year respectively: " << endl;
                 int month, year;
                 cin >> month >> year;
                 Date d(year, month);
                 if (r != nullptr)
                 {
+
                     r->getMonthlyRatio(d.getMonth(), d.getYear());
                 }
                 else
@@ -528,7 +530,13 @@ int main()
 
                 if (r != nullptr)
                 {
+                    auto startTime = high_resolution_clock::now();
                     r->getMonthlyRatioPeriod(start.getMonth(), start.getYear(), end.getMonth(), end.getYear());
+
+                    auto endTime = high_resolution_clock::now();
+                    auto duration = duration_cast<microseconds>(endTime - startTime);
+                    runningTime << "getMonthlyRatioPeriod(period) " << duration.count() << "  microseconds" << endl;
+
                 }
                 else
                 {

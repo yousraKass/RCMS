@@ -76,9 +76,9 @@ void AVLRestaurantTree::insert(const Restaurant R, Restaurant *&ROOT)
     else
     {
         if (R.getId() < ROOT->getId())
-            insert(R, ROOT);
+            insert(R, ROOT->leftChild);
         else if (R.getId() > ROOT->getId())
-            insert(R, ROOT);
+            insert(R, ROOT->rightChild);
     }
     balance(ROOT);
 }
