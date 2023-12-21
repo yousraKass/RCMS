@@ -12,6 +12,7 @@ class City
 public:
     // get restaurants of the specified district in the current city
     vector<int> getRestaurantsDistrict(const string &district);
+    
     // get restaurants from all districts in the current city
     vector<int> getRestaurantsAllDistricts();
 

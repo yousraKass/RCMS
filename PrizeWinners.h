@@ -1,22 +1,23 @@
-#ifndef PRIZE_WINNERS_H
-#define PRIZE_WINNERS_H
-#include "date.h"
-#include "RESTAURANT.h"
-#include "BSTRESTAURANT.h"
-#include "AVLRESTAURANT.h"
+#ifndef PRIZEWINNERS_H
+#define PRIZEWINNERS_H
+#include "Date.h"
+#include "Restaurant.h"
+#include "BSTRestaurant.h"
+#include "AVLRestaurant.h"
+
 #include <iostream>
 #include <vector>
 #include <stdexcept>
 using namespace std;
 
-class Prize_Winners
+class PrizeWinners
 {
 private:
-    Date First_Creation_Date;
+    Date FirstCreationDate;
     vector<vector<Restaurant *>> winnersID;
 
 public:
-    void CalculateMonthlyPrizeWinner(Restaurant *root, int month, int year, Restaurant * &IdA, float &winnerA, Restaurant * &IdS, float &winnerS, Restaurant * &IdI, float &winnerI, Restaurant * &IdE, float &winnerE, Restaurant * &IdC, float &winnerC)
+    void CalculateMonthlyPrizeWinner(Restaurant *root, int month, int year, Restaurant *&IdA, float &winnerA, Restaurant *&IdS, float &winnerS, Restaurant *&IdI, float &winnerI, Restaurant *&IdE, float &winnerE, Restaurant *&IdC, float &winnerC)
     {
         if (root == nullptr)
             return;
@@ -51,18 +52,18 @@ public:
         CalculateMonthlyPrizeWinner(root->rightChild, month, year, IdA, winnerA, IdS, winnerS, IdI, winnerI, IdE, winnerE, IdC, winnerC);
     }
 
-    Prize_Winners(const RestaurantTree &rcms, const Date &firstDate)
+    PrizeWinners(const BSTRestaurantTree &rcms, const Date &firstDate)
     {
-        First_Creation_Date = firstDate;
+        FirstCreationDate = firstDate;
 
-        int year = First_Creation_Date.getYear();
-        int month = First_Creation_Date.getMonth();
+        int year = FirstCreationDate.getYear();
+        int month = FirstCreationDate.getMonth();
         float winnerA = 0, winnerS = 0, winnerC = 0, winnerI = 0, winnerE = 0;
-        Restaurant * IdA;
-        Restaurant * IdS;
-        Restaurant * IdI;
-        Restaurant * IdC;
-        Restaurant * IdE;
+        Restaurant *IdA;
+        Restaurant *IdS;
+        Restaurant *IdI;
+        Restaurant *IdC;
+        Restaurant *IdE;
         while (year != 2024)
         {
             CalculateMonthlyPrizeWinner(rcms.root, month, year, IdA, winnerA, IdS, winnerS, IdI, winnerI, IdE, winnerE, IdC, winnerC);
@@ -77,27 +78,30 @@ public:
         }
     }
 
-    // we have to test if the index is valid
-    // and throw an exception if there is an error
-    vector<Restaurant *> get_winners(int month, int year)
+    vector<Restaurant *> getWinners(int month, int year)
     {
-        int index = (year - First_Creation_Date.getYear()) * 12 + month - First_Creation_Date.getMonth();
+        int index = (year - FirstCreationDate.getYear()) * 12 + month - FirstCreationDate.getMonth();
         if (index < 0 || index >= winnersID.size())
-           throw out_of_range{"out of range index"};
+        {
+            {
+                cout << "invalid date" << endl;
+                exit(1);
+            }
+        }
         return winnersID[index];
     }
-    Prize_Winners(const AVLRestaurantTree &rcms, const Date &firstDate)
+    PrizeWinners(const AVLRestaurantTree &rcms, const Date &firstDate)
     {
-        First_Creation_Date = firstDate;
+        FirstCreationDate = firstDate;
 
-        int year = First_Creation_Date.getYear();
-        int month = First_Creation_Date.getMonth();
+        int year = FirstCreationDate.getYear();
+        int month = FirstCreationDate.getMonth();
         float winnerA = 0, winnerS = 0, winnerC = 0, winnerI = 0, winnerE = 0;
-        Restaurant * IdA;
-        Restaurant * IdS;
-        Restaurant * IdI;
-        Restaurant * IdC;
-        Restaurant * IdE;
+        Restaurant *IdA;
+        Restaurant *IdS;
+        Restaurant *IdI;
+        Restaurant *IdC;
+        Restaurant *IdE;
         while (year != 2024)
         {
             CalculateMonthlyPrizeWinner(rcms.root, month, year, IdA, winnerA, IdS, winnerS, IdI, winnerI, IdE, winnerE, IdC, winnerC);
@@ -112,19 +116,23 @@ public:
         }
     }
 
-    
-
-    vector<vector<Restaurant *>> get_winners(int startMonth, int startYear, int endMonth, int endYear)
+    vector<vector<Restaurant *>> getWinners(int startMonth, int startYear, int endMonth, int endYear)
     {
-        int startIndex = (startYear - First_Creation_Date.getYear()) * 12 + startMonth - First_Creation_Date.getMonth();
-        int endIndex = (endYear - First_Creation_Date.getYear()) * 12 + endMonth - First_Creation_Date.getMonth();
+        int startIndex = (startYear - FirstCreationDate.getYear()) * 12 + startMonth - FirstCreationDate.getMonth();
+        int endIndex = (endYear - FirstCreationDate.getYear()) * 12 + endMonth - FirstCreationDate.getMonth();
         vector<vector<Restaurant *>> result;
 
         if (startIndex > endIndex)
-            swap(startIndex, endIndex);
+        {
+            cout << "invalid period" << endl;
+            exit(1);
+        }
 
         if (startIndex < 0 || endIndex > winnersID.size())
-            throw out_of_range{"out of range index"};
+        {
+            cout << "invalid period" << endl;
+            exit(1);
+        }
 
         for (; startIndex <= endIndex; startIndex++)
             result.push_back(winnersID[startIndex]);

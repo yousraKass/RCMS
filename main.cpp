@@ -10,16 +10,14 @@ using std::getline;
 using std::rand;
 using std::srand;
 using std::time;
-using std::chrono::duration_cast;
-using std::chrono::high_resolution_clock;
-using std::chrono::microseconds;
-using namespace std;
 
-#include "BSTRESTAURANT.h"
-#include "AVLRESTAURANT.h"
+#include "BSTRestaurant.h"
+#include "AVLRestaurant.h"
 #include "Country.h"
-#include "date.h"
-#include "Prize_Winners.h"
+#include "Date.h"
+#include "PrizeWinners.h"
+#include "appendices/generateSalesCosts.h"
+
 
 void extractTokensRestaurant(const string &line, int &ID, string &name, string &type, int &year, int &month, int &day, int &employeeNum, string &wilaya, string &city, string &district);
 void extractTokensSalesCosts(string &line, int &year, int &month, int &day, float &sales1, float &sales2, float &sales3, float &sales4, float &sales5, float &rent, float &employeePayment, float &electricity, float &gaz, float &vegetables, float &meats, float &otherIngredients, float &publicity);
@@ -29,22 +27,20 @@ void fillRating(int ID, Restaurant &r);
 void printWinners(vector<Restaurant *> v);
 void toLower(string &str);
 
-// chrono::duration<long long, std::micro> duration = std::chrono::microseconds(0);
-// chrono::high_resolution_clock::time_point startTime;
-// chrono::high_resolution_clock::time_point endTime;
-// long long du = duration.count();
-// long long du2 = duration.count();
-
 int main()
 {
-
+    #define BST
     cout << fixed << setprecision(2);
 
+    #ifndef AVL
     AVLRestaurantTree rcms;
+    #endif
+
+    #ifndef BST
+    BSTRestaurantTree rcms;
+    #endif
 
     Country Algeria;
-
-    ofstream runningTime("runningTimeGeneral.txt", ios::app);
 
     // reading the files
     // the set of restaurants
@@ -59,20 +55,14 @@ int main()
     string name, type, wilaya, city, district;
     int ID, year, month, day, employeeNum;
     Date date(2024, 12, 31);
-    int i = 0;
 
     // reading lines until finishing with the file
-    // std::chrono::duration<long long, std::micro> duration = std::chrono::microseconds(0);
-    // std::chrono::high_resolution_clock::time_point startTime;
-    // std::chrono::high_resolution_clock::time_point endTime;
-    // long long du = duration.count();
     while (getline(input, line))
     {
-        i++;
         // reading the data in that line
         extractTokensRestaurant(line, ID, name, type, year, month, day, employeeNum, wilaya, city, district);
 
-        // create the needed insttances
+        // create the needed instances
         Date d(year, month, day);
         if (d < date)
             date = d;
@@ -85,19 +75,15 @@ int main()
         fillSalesCosts(ID, restaurant);
         fillRating(ID, restaurant);
 
-        // runningTime << "fillSalesCosts for 1 restaurant " << du2 << endl;
-        // runningTime << "fillRating for 1 restaurant " << du << endl;
-
         // inserting the restaurants in our data structures
-
         rcms.insert(restaurant);
-
         Algeria.addRestaurant(wilaya, city, district, ID);
-        // if (i == 25)
-        //     break;
+    
     }
 
-    Prize_Winners winners(rcms, date);
+    // calculate the winners
+    PrizeWinners winners(rcms, date);
+
     // display the menu
     int choice;
     do
@@ -122,6 +108,7 @@ int main()
         cout << "Enter your choice: ";
 
         cin >> choice;
+        cout << endl;
 
         switch (choice)
         {
@@ -166,13 +153,12 @@ int main()
             cout << "getting ratings ..." << endl;
             Date d(year, month, day);
 
-            auto start = high_resolution_clock::now();
-
             Restaurant newRestaurant(type, name, ID, d, numEmployees);
             if (!rcms.contains(ID))
             {
+                generateSalesCosts(d.getYear(), d.getMonth(), d.getDay(), ID);
 
-                // fillRating(ID, newRestaurant);
+                fillRating(ID, newRestaurant);
                 fillSalesCosts(ID, newRestaurant);
                 rcms.insert(newRestaurant);
                 Algeria.addRestaurant(wilaya, city, district, ID);
@@ -186,10 +172,6 @@ int main()
             {
                 cout << "restaurant ID already excist" << endl;
             }
-            auto end = high_resolution_clock::now();
-            auto duration = duration_cast<microseconds>(end - start).count();
-            runningTime << duration << endl;
-
             break;
         }
         case 2:

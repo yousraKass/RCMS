@@ -14,9 +14,6 @@ using std::vector;
 class District
 {
 public:
-    District() = default;
-    ~District() = default;
-
     vector<int> getRestaurantsDistrict() const;
 
     // add a restaurant

@@ -25,18 +25,17 @@ int main()
     // generate restaurant IDs
 
     srand(time(0));
-    /*
+   
     ofstream outputID("IDS.csv");
 
     for(int i = 0; i<7000; i++){
         unsigned id = rand() % 10000000000;
-        // int k = rand() % 10 + 1;
         if(id < 1000000000){
             id = (id + 1000000000)% 10000000000;
         }
         outputID << id << endl;
     }
-    */
+    
 
     ifstream inputID("IDS.csv");
     ifstream inputLocation("algeria_cities.csv");

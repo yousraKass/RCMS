@@ -1,57 +1,73 @@
 #ifndef BSTRESTAURANT_H
 #define BSTRESTAURANT_H
-#include <iostream>
-#include "RESTAURANT.h"
-using namespace std;
-class Prize_Winners;
 
-class RestaurantTree
+#include "Restaurant.h"
+
+#include <iostream>
+using namespace std;
+
+class PrizeWinners;
+
+class BSTRestaurantTree
 {
-    friend class Prize_Winners;
+    friend class PrizeWinners;
 
 private:
     Restaurant *root;
     int totalRestaurants;
+
     //************Utility functions************
     // Insert x with two version
     void insert(const Restaurant R, Restaurant *&ROOT);
     void insert(Restaurant &&R, Restaurant *&ROOT);
+
     // search for x return true if found, else false
     bool contains(const int &key, Restaurant *ROOT) const;
+
     // show data of all restaurants
     void printHelper(Restaurant *ROOT) const;
+
     // utility function to find a restaurant with an ID, returns a pointer to the restaurant if found , else return nullptr
     Restaurant *getRestauranthelper(const int &key, Restaurant *ROOT) const;
+
     // destroy the the BST
     void makeEmpty(Restaurant *&ROOT);
 
 public:
     // default constructor
-    RestaurantTree();
+    BSTRestaurantTree();
+
     // return true if empty,false otherwise
     bool IsEmpty() const;
+
     // return true if restaurant with Id =key is found
     bool contains(const int &key);
+
     // insert restaurant
     void insert(const Restaurant &R);
+
     // return the total number of restaurants
     int getTotalRestaurants() const;
+
     // show data of all restaurant in the BST
     void printRestaurantsData() const;
+
     // return a pointer to the restaurant with Id=key
     Restaurant *getRestaurant(const int &key) const;
+
     // Remove all restaurants start with left tree, right tree then the root
     void makeEmpty();
+    
     // destructor that will call makeEmpty
-    ~RestaurantTree();
+    ~BSTRestaurantTree();
 };
 
 // default constructor
-RestaurantTree::RestaurantTree() : root(nullptr)
+BSTRestaurantTree::BSTRestaurantTree() : root(nullptr)
 {
     totalRestaurants = 0;
 }
-void RestaurantTree::insert(const Restaurant R, Restaurant *&ROOT)
+void BSTRestaurantTree::insert(const Restaurant R, Restaurant *&ROOT)
 {
     if (ROOT == nullptr)
     {
@@ -64,7 +80,7 @@ void RestaurantTree::insert(const Restaurant R, Restaurant *&ROOT)
     else if (R.getId() > ROOT->getId())
         insert(R, ROOT->rightChild);
 }
-void RestaurantTree::insert(Restaurant &&R, Restaurant *&ROOT)
+void BSTRestaurantTree::insert(Restaurant &&R, Restaurant *&ROOT)
 {
     if (ROOT == nullptr)
     {
@@ -82,7 +98,7 @@ void RestaurantTree::insert(Restaurant &&R, Restaurant *&ROOT)
     // duplicates
 }
 
-bool RestaurantTree::contains(const int &key, Restaurant *ROOT) const
+bool BSTRestaurantTree::contains(const int &key, Restaurant *ROOT) const
 {
 
     if (ROOT == nullptr)
@@ -98,7 +114,7 @@ bool RestaurantTree::contains(const int &key, Restaurant *ROOT) const
 }
 
 // show data of all restaurants
-void RestaurantTree::printHelper(Restaurant *ROOT) const
+void BSTRestaurantTree::printHelper(Restaurant *ROOT) const
 {
     if (ROOT != nullptr)
     {
@@ -110,7 +126,7 @@ void RestaurantTree::printHelper(Restaurant *ROOT) const
     }
 }
 // utility function to find a restaurant with an ID
-Restaurant *RestaurantTree::getRestauranthelper(const int &key, Restaurant *ROOT) const
+Restaurant *BSTRestaurantTree::getRestauranthelper(const int &key, Restaurant *ROOT) const
 {
     if (ROOT == nullptr)
         return nullptr;
@@ -121,7 +137,7 @@ Restaurant *RestaurantTree::getRestauranthelper(const int &key, Restaurant *ROOT
     else
         return getRestauranthelper(key, ROOT->rightChild);
 }
-void RestaurantTree::makeEmpty(Restaurant *&ROOT)
+void BSTRestaurantTree::makeEmpty(Restaurant *&ROOT)
 {
     if (ROOT != nullptr)
     {
@@ -133,41 +149,41 @@ void RestaurantTree::makeEmpty(Restaurant *&ROOT)
     }
 }
 
-bool RestaurantTree::IsEmpty() const
+bool BSTRestaurantTree::IsEmpty() const
 {
     return (root == nullptr);
 }
 
-bool RestaurantTree::contains(const int &key)
+bool BSTRestaurantTree::contains(const int &key)
 {
     return contains(key, root);
 }
 
-void RestaurantTree::insert(const Restaurant &R)
+void BSTRestaurantTree::insert(const Restaurant &R)
 {
 
     insert(R, root);
 }
-int RestaurantTree::getTotalRestaurants() const
+int BSTRestaurantTree::getTotalRestaurants() const
 {
     return totalRestaurants;
 }
-void RestaurantTree::printRestaurantsData() const
+void BSTRestaurantTree::printRestaurantsData() const
 {
     cout << "Total number of restaurants is: " << getTotalRestaurants() << endl;
     printHelper(root);
 }
-Restaurant *RestaurantTree::getRestaurant(const int &key) const
+Restaurant *BSTRestaurantTree::getRestaurant(const int &key) const
 {
     return getRestauranthelper(key, root);
 }
 
 //--> Remove all restaurants
-void RestaurantTree::makeEmpty()
+void BSTRestaurantTree::makeEmpty()
 {
     makeEmpty(root);
 }
-RestaurantTree::~RestaurantTree()
+BSTRestaurantTree::~BSTRestaurantTree()
 {
     makeEmpty();
 }
