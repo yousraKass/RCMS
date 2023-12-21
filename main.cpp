@@ -18,7 +18,6 @@ using std::time;
 #include "PrizeWinners.h"
 #include "appendices/generateSalesCosts.h"
 
-
 void extractTokensRestaurant(const string &line, int &ID, string &name, string &type, int &year, int &month, int &day, int &employeeNum, string &wilaya, string &city, string &district);
 void extractTokensSalesCosts(string &line, int &year, int &month, int &day, float &sales1, float &sales2, float &sales3, float &sales4, float &sales5, float &rent, float &employeePayment, float &electricity, float &gaz, float &vegetables, float &meats, float &otherIngredients, float &publicity);
 void extractTokensRatings(string &lineRatings, float &r1, float &r2, float &r3, float &r4, float &r5, int &month_R, int &year_R);
@@ -29,16 +28,16 @@ void toLower(string &str);
 
 int main()
 {
-    #define BST
+#define BST
     cout << fixed << setprecision(2);
 
-    #ifndef AVL
+#ifndef AVL
     AVLRestaurantTree rcms;
-    #endif
+#endif
 
-    #ifndef BST
+#ifndef BST
     BSTRestaurantTree rcms;
-    #endif
+#endif
 
     Country Algeria;
 
@@ -56,9 +55,12 @@ int main()
     int ID, year, month, day, employeeNum;
     Date date(2024, 12, 31);
 
+    int i = 0;
+
     // reading lines until finishing with the file
     while (getline(input, line))
     {
+        i++;
         // reading the data in that line
         extractTokensRestaurant(line, ID, name, type, year, month, day, employeeNum, wilaya, city, district);
 
@@ -78,7 +80,7 @@ int main()
         // inserting the restaurants in our data structures
         rcms.insert(restaurant);
         Algeria.addRestaurant(wilaya, city, district, ID);
-    
+        if (i == 100) break;
     }
 
     // calculate the winners
@@ -124,9 +126,7 @@ int main()
             cout << "enter the restaurant location: wilaya, city, district: ";
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             getline(cin, wilaya, '\n');
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             getline(cin, city, '\n');
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             getline(cin, district, '\n');
 
             toLower(wilaya);
@@ -257,19 +257,19 @@ int main()
         case 4:
         {
             // Display the monthly sales report for all restaurants in a specific district
-            cout << "enter the wilaya, city, district to get the report on sales of all restaurants in that district" << endl;
             string wilaya, city, district;
+            cout << "enter the wilaya, city, district to get the report on sales of all restaurants in that district" << endl;
+
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             getline(cin, wilaya, '\n');
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             getline(cin, city, '\n');
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             getline(cin, district, '\n');
+
+            cout << "wilaya: " << wilaya << "  city: " << city << "  district: " << district << endl;
 
             toLower(wilaya);
             toLower(city);
             toLower(district);
-            cout << wilaya << endl;
 
             vector<int> restaurantIDs = Algeria.getRestaurantsDistrict(wilaya, city, district);
 
@@ -330,7 +330,6 @@ int main()
             string wilaya, city;
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             getline(cin, wilaya, '\n');
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             getline(cin, city, '\n');
             toLower(wilaya);
             toLower(city);
@@ -575,9 +574,7 @@ int main()
             string wilaya, city, district;
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             getline(cin, wilaya, '\n');
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             getline(cin, city, '\n');
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             getline(cin, district, '\n');
 
             toLower(wilaya);
@@ -643,7 +640,6 @@ int main()
             string wilaya, city;
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             getline(cin, wilaya, '\n');
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             getline(cin, city, '\n');
 
             toLower(wilaya);
@@ -833,7 +829,7 @@ int main()
                 cout << "enter the month and year respectively: ";
                 cin >> month_p >> year_p;
                 Date date_p(year_p, month_p);
-                vector<Restaurant *> winner = winners.get_winners(date_p.getMonth(), date_p.getYear());
+                vector<Restaurant *> winner = winners.getWinners(date_p.getMonth(), date_p.getYear());
                 printWinners(winner);
 
                 break;
@@ -850,7 +846,7 @@ int main()
                 cout << "enter the end month then year: ";
                 cin >> end_month_p >> end_year_p;
                 Date Edate_p(end_year_p, end_month_p);
-                vector<vector<Restaurant *>> winner = winners.get_winners(Sdate_p.getMonth(), Sdate_p.getYear(), Edate_p.getMonth(), Edate_p.getYear());
+                vector<vector<Restaurant *>> winner = winners.getWinners(Sdate_p.getMonth(), Sdate_p.getYear(), Edate_p.getMonth(), Edate_p.getYear());
 
                 // this should be modified
                 // our code is not consistent
