@@ -120,7 +120,6 @@ void Restaurant::getMonthlySales(int month, int year, float &A, float &S, float 
 
 float Restaurant::getMonthlySalesOfRestaurant(int month, int year) const
 {
-    cout << "entered" << endl;
     int sYear = creationDate.getYear();
     return Sales_and_Costs.GetMonthlySalesOfRestaurant(month,year,sYear);
 }

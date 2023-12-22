@@ -113,8 +113,8 @@ void SalesAndCosts::reportOnsales(int month, int year, int startYear) const
     else
     {
           
-        cout << "--------------------------- Monthly report on sales and costs in : " << month << "/" << year << " : -----------------------------------------" << endl;
-        cout << "------------------------------------------------------------------------------" << endl;
+        cout << "--------------------------- Monthly report on sales and costs in  " << month << "/" << year << " : --------------------------------------" << endl;
+        cout << "------------------------------------------------------------------------------------------------------------------" << endl;
         cout << endl;
         cout << "Sales : " << endl;
         cout << "-------" << endl;
