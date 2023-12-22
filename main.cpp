@@ -1,3 +1,7 @@
+#define BST
+// #define AVL
+// define AVL to work with BST and vice versa
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -16,7 +20,9 @@ using std::time;
 #include "Country.h"
 #include "Date.h"
 #include "PrizeWinners.h"
-#include "appendices/generateSalesCosts.h"
+#include "appendices/sales and costs and ratings  generation/generateSalesCosts.h"
+#include "appendices/sales and costs and ratings  generation/generateRating.h"
+
 
 void extractTokensRestaurant(const string &line, int &ID, string &name, string &type, int &year, int &month, int &day, int &employeeNum, string &wilaya, string &city, string &district);
 void extractTokensSalesCosts(string &line, int &year, int &month, int &day, float &sales1, float &sales2, float &sales3, float &sales4, float &sales5, float &rent, float &employeePayment, float &electricity, float &gaz, float &vegetables, float &meats, float &otherIngredients, float &publicity);
@@ -28,7 +34,6 @@ void toLower(string &str);
 
 int main()
 {
-#define BST
     cout << fixed << setprecision(2);
 
 #ifndef AVL
@@ -157,6 +162,7 @@ int main()
             if (!rcms.contains(ID))
             {
                 generateSalesCosts(d.getYear(), d.getMonth(), d.getDay(), ID);
+                generateRatings(ID,d.getYear(), d.getMonth());
 
                 fillRating(ID, newRestaurant);
                 fillSalesCosts(ID, newRestaurant);
