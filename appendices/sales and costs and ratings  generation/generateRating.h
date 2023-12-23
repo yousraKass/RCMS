@@ -9,7 +9,8 @@ using namespace std;
 
 void generateRatings(int & ID, int startYear, int startMonth)
 {
-    string fileName = to_string(ID) + "ratings.csv";
+    //string fileName = to_string(ID) + "ratings.csv";
+    string fileName = "Data/Ratings/"+to_string(ID) + "ratings.csv";
     ofstream csvFile(fileName);
 
     // Write header

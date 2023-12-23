@@ -12,15 +12,14 @@ private:
     int day;
 
 public:
-    Date(int y=0, int m = 0, int d = 0)
+    Date(int y=1, int m = 1, int d = 1)
         
     {
-        //if(isValidDate(y,m,d)){
+        if(isValidDate(y,m,d)){
             year=y;
             month=m;
             day=d;
-        //}
-       
+        }
     }
     
     bool isValidDate(int y, int m, int d) const
@@ -31,7 +30,7 @@ public:
         }
 
         // verifying days in each month
-        if (day > daysInMonth(y, m))
+        if (d > daysInMonth(y, m))
         {
             return false;
         }
@@ -47,17 +46,19 @@ public:
         int daysInThisMonth = days[m];
 
         //  leap year in February
-        if (month == 2 && isLeapYear(year))
+        if (m == 2 && isLeapYear(y))
         {
             daysInThisMonth = 29;
         }
 
         return daysInThisMonth;
     }
+    
     bool isLeapYear(int year) const
     {
         return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
     }
+
 
     void DisplayDate() const
     {
