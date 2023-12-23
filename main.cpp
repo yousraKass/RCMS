@@ -64,8 +64,10 @@ int main()
     Date date(2024, 12, 31);
 
     // reading lines until finishing all restaurants
+    int i = 0;
     while (getline(input, line))
     {
+        i++;
         // reading the data in that line
         extractTokensRestaurant(line, ID, name, type, year, month, day, employeeNum, wilaya, city, district);
 
@@ -88,6 +90,8 @@ int main()
         // inserting the restaurants in our data structures
         rcms.insert(restaurant);
         Algeria.addRestaurant(wilaya, city, district, ID);
+        if (i == 500)
+            break;
     }
 
     // calculate the winners
@@ -939,6 +943,7 @@ int main()
                 cout << "enter the month and year respectively: ";
                 cin >> month_p >> year_p;
                 Date date_p(year_p, month_p);
+                cout << date_p.getMonth() << " " << date_p.getYear() << endl;
                 vector<Restaurant *> winner = winners.getWinners(date_p.getMonth(), date_p.getYear());
                 printWinners(winner);
 
@@ -983,7 +988,10 @@ int main()
             break;
         }
         default:
+        {
+            cout << "enter a valid option" << endl;
             break;
+        }
         }
     } while (choice != 14);
 }
