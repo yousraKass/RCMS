@@ -23,7 +23,6 @@ using std::time;
 #include "appendices/sales and costs and ratings  generation/generateSalesCosts.h"
 #include "appendices/sales and costs and ratings  generation/generateRating.h"
 
-
 void extractTokensRestaurant(const string &line, int &ID, string &name, string &type, int &year, int &month, int &day, int &employeeNum, string &wilaya, string &city, string &district);
 void extractTokensSalesCosts(string &line, int &year, int &month, int &day, float &sales1, float &sales2, float &sales3, float &sales4, float &sales5, float &rent, float &employeePayment, float &electricity, float &gaz, float &vegetables, float &meats, float &otherIngredients, float &publicity);
 void extractTokensRatings(string &lineRatings, float &r1, float &r2, float &r3, float &r4, float &r5, int &month_R, int &year_R);
@@ -54,38 +53,41 @@ int main()
     // variable to store each line each time
     string line;
 
-    // skipping the first line
-    getline(input, line);
+    // variables needed to read restaurants data
     string name, type, wilaya, city, district;
     int ID, year, month, day, employeeNum;
+
+    // skipping the first line
+    getline(input, line);
+
+    // used to keep track of the first restaurant created in the chain
     Date date(2024, 12, 31);
 
-    int i = 0;
-
-    // reading lines until finishing with the file
+    // reading lines until finishing all restaurants
     while (getline(input, line))
     {
-        i++;
         // reading the data in that line
         extractTokensRestaurant(line, ID, name, type, year, month, day, employeeNum, wilaya, city, district);
 
-        // create the needed instances
+        // update the first restaurant creation date in the chain
         Date d(year, month, day);
         if (d < date)
             date = d;
+
+        // save the location in lower cases
         toLower(wilaya);
         toLower(city);
         toLower(district);
 
         Restaurant restaurant(type, name, ID, d, employeeNum);
 
+        // reading the sales, costs and ratings
         fillSalesCosts(ID, restaurant);
         fillRating(ID, restaurant);
 
         // inserting the restaurants in our data structures
         rcms.insert(restaurant);
         Algeria.addRestaurant(wilaya, city, district, ID);
-        if (i == 100) break;
     }
 
     // calculate the winners
@@ -116,6 +118,7 @@ int main()
 
         cin >> choice;
         cout << endl;
+        cout << endl;
 
         switch (choice)
         {
@@ -128,7 +131,7 @@ int main()
             string type;
             int numEmployees, ID, day, month, year;
 
-            cout << "enter the restaurant location: wilaya, city, district: ";
+            cout << "enter the restaurant location: wilaya, city, district: " << endl;
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             getline(cin, wilaya, '\n');
             getline(cin, city, '\n');
@@ -139,7 +142,6 @@ int main()
             toLower(district);
 
             cout << "Enter the name of the restaurant: ";
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             getline(cin, name, '\n');
             toLower(name);
 
@@ -157,20 +159,22 @@ int main()
             cout << "getting sales and costs..." << endl;
             cout << "getting ratings ..." << endl;
             Date d(year, month, day);
+            cout << endl;
 
             Restaurant newRestaurant(type, name, ID, d, numEmployees);
             if (!rcms.contains(ID))
             {
                 generateSalesCosts(d.getYear(), d.getMonth(), d.getDay(), ID);
-                generateRatings(ID,d.getYear(), d.getMonth());
+                generateRatings(ID, d.getYear(), d.getMonth());
 
                 fillRating(ID, newRestaurant);
                 fillSalesCosts(ID, newRestaurant);
+
                 rcms.insert(newRestaurant);
                 Algeria.addRestaurant(wilaya, city, district, ID);
-                // ID,Name,Type,Creation date,employee number,wilaya,city,district
                 string date = to_string(year) + "-" + to_string(month) + "-" + to_string(day);
                 output << endl;
+                // ID,Name,Type,Creation date,employee number,wilaya,city,district
                 output << ID << "," << name << "," << date << "," << numEmployees << "," << wilaya << "," << city << "," << district;
                 cout << "restaurant added successfuly" << endl;
             }
@@ -178,12 +182,16 @@ int main()
             {
                 cout << "restaurant ID already excist" << endl;
             }
+            cout << endl;
+            cout << endl;
             break;
         }
         case 2:
         {
 
             rcms.printRestaurantsData();
+            cout << endl;
+            cout << endl;
             break;
         }
         case 3:
@@ -195,71 +203,67 @@ int main()
             Restaurant *r = rcms.getRestaurant(restaurant_ID);
 
             cout << endl;
-
-            cout << "do you want it for a period or a specific month: " << endl;
-            cout << "1. specific month and year" << endl;
-            cout << "2. specific period" << endl;
-            int Case;
-            cin >> Case;
-            cout << endl;
-
-            switch (Case)
+            if (r != nullptr)
             {
-            case 1:
-            {
-                cout << "enter the month and the year respectively: ";
-                int month, year;
-                cin >> month >> year;
-                cout << "month: " << month << "year: " << year << endl;
-                Date d(year, month);
-                cout << "month: " << d.getMonth() << "year: " << d.getYear() << endl;
-                if (r != nullptr)
+                cout << "restaurant found" << endl;
+                cout << "do you want the sales report for a period or a specific month: " << endl;
+                cout << "1. specific month and year" << endl;
+                cout << "2. specific period" << endl;
+                int Case;
+                cin >> Case;
+                cout << endl;
+
+                switch (Case)
                 {
+                case 1:
+                {
+                    cout << "enter the month and the year respectively: ";
+                    int month, year;
+                    cin >> month >> year;
+                    Date d(year, month);
                     float amount = r->getMonthlySalesOfRestaurant(d.getMonth(), d.getYear());
 
                     if (amount == 0)
                         cout << "no sales in that month and year" << endl;
                     else
                     {
-
                         r->reportOnsales(d.getMonth(), d.getYear());
                     }
-                }
-                else
-                {
-                    cout << "this restaurant does not exist" << endl;
+                    break;
                 }
 
-                break;
-            }
-
-            case 2:
-            {
-                int day1, month1, year1;
-                int day2, month2, year2;
-                cout << "enter the starting date(day, month, year): ";
-                cin >> day1 >> month1 >> year1;
-                cout << "enter the ending date(day, month, year): ";
-                cin >> day2 >> month2 >> year2;
-
-                Date start(year1, month1, day1);
-                Date end(year2, month2, day2);
-
-                if (r != nullptr)
+                case 2:
                 {
+                    int day1, month1, year1;
+                    int day2, month2, year2;
+                    cout << "enter the starting date(day, month, year): ";
+                    cin >> day1 >> month1 >> year1;
+                    cout << "enter the ending date(day, month, year): ";
+                    cin >> day2 >> month2 >> year2;
+
+                    Date start(year1, month1, day1);
+                    Date end(year2, month2, day2);
+
                     r->reportOnsales(start.getDay(), start.getMonth(), start.getYear(), end.getDay(), end.getMonth(), end.getYear());
-                }
-                else
-                {
-                    cout << "this restaurant does not exist" << endl;
-                }
 
-                break;
+                    break;
+                }
+                default:
+                {
+                    cout << "enter a valid option" << endl;
+                    break;
+                }
+                    cout << endl;
+                }
             }
+            else
+            {
+                cout << "restaurant not found" << endl;
             }
+            cout << endl;
+            cout << endl;
             break;
         }
-
         case 4:
         {
             // Display the monthly sales report for all restaurants in a specific district
@@ -271,61 +275,73 @@ int main()
             getline(cin, city, '\n');
             getline(cin, district, '\n');
 
-            cout << "wilaya: " << wilaya << "  city: " << city << "  district: " << district << endl;
-
             toLower(wilaya);
             toLower(city);
             toLower(district);
 
             vector<int> restaurantIDs = Algeria.getRestaurantsDistrict(wilaya, city, district);
+            if (restaurantIDs.size() == 0)
+            {
+                cout << "no restaurants in that area" << endl;
+            }
+            else
+            {
+                cout << "do you want it for a period or a specific month: " << endl;
+                cout << "1. specific month and year" << endl;
+                cout << "2. specific period" << endl;
+                int Case;
+                cin >> Case;
+                cout << endl;
 
-            cout << "do you want it for a period or a specific month: ";
-            cout << "1. specific month and year" << endl;
-            cout << "2. specific period" << endl;
-            int Case;
-            cin >> Case;
+                switch (Case)
+                {
+                case 1:
+                {
+                    cout << "enter the month and the year respectively: ";
+                    int month, year;
+                    cin >> month >> year;
+                    Date d(year, month);
+
+                    for (int i = 0; i < restaurantIDs.size(); i++)
+                    {
+                        rcms.getRestaurant(restaurantIDs[i])->reportOnsales(d.getMonth(), d.getYear());
+                        cout << "-------------------------------------------------" << endl;
+                        cout << "-------------------------------------------------" << endl;
+                    }
+
+                    break;
+                }
+
+                case 2:
+                {
+                    int day1, month1, year1;
+                    int day2, month2, year2;
+                    cout << "enter the starting date(day, month, year): ";
+                    cin >> day1 >> month1 >> year1;
+                    cout << "enter the ending date(day, month, year): ";
+                    cin >> day2 >> month2 >> year2;
+
+                    Date start(year1, month1, day1);
+                    Date end(year2, month2, day2);
+
+                    for (int i = 0; i < restaurantIDs.size(); i++)
+                    {
+                        rcms.getRestaurant(restaurantIDs[i])->reportOnsales(start.getDay(), start.getMonth(), start.getYear(), end.getDay(), end.getMonth(), end.getYear());
+                        cout << "-------------------------------------------------" << endl;
+                        cout << "-------------------------------------------------" << endl;
+                    }
+                    break;
+                }
+                default:
+                {
+                    cout << "enter a valid option " << endl;
+                    break;
+                }
+                }
+            }
+
             cout << endl;
-
-            switch (Case)
-            {
-            case 1:
-            {
-                cout << "enter the month and the year respectively: ";
-                int month, year;
-                cin >> month >> year;
-                Date d(year, month);
-
-                for (int i = 0; i < restaurantIDs.size(); i++)
-                {
-                    rcms.getRestaurant(restaurantIDs[i])->reportOnsales(d.getMonth(), d.getYear());
-                    cout << "-------------------------------------------------" << endl;
-                    cout << "-------------------------------------------------" << endl;
-                }
-
-                break;
-            }
-
-            case 2:
-            {
-                int day1, month1, year1;
-                int day2, month2, year2;
-                cout << "enter the starting date(day, month, year): ";
-                cin >> day1 >> month1 >> year1;
-                cout << "enter the ending date(day, month, year): ";
-                cin >> day2 >> month2 >> year2;
-
-                Date start(year1, month1, day1);
-                Date end(year2, month2, day2);
-
-                for (int i = 0; i < restaurantIDs.size(); i++)
-                {
-                    rcms.getRestaurant(restaurantIDs[i])->reportOnsales(start.getDay(), start.getMonth(), start.getYear(), end.getDay(), end.getMonth(), end.getYear());
-                    cout << "-------------------------------------------------" << endl;
-                    cout << "-------------------------------------------------" << endl;
-                }
-                break;
-            }
-            }
+            cout << endl;
             break;
         }
 
@@ -341,53 +357,65 @@ int main()
             toLower(city);
 
             vector<int> restaurantIDs = Algeria.getRestaurantsAllDistricts(wilaya, city);
+            if (restaurantIDs.size() == 0)
+                cout << "no restaurants in that area" << endl;
+            else
+            {
+                cout << "do you want it for a period or a specific month: " << endl;
+                cout << "1. specific month and year" << endl;
+                cout << "2. specific period" << endl;
+                int Case;
+                cin >> Case;
+                cout << endl;
 
-            cout << "do you want it for a period or a specific month: ";
-            cout << "1. specific month and year" << endl;
-            cout << "2. specific period" << endl;
-            int Case;
-            cin >> Case;
+                switch (Case)
+                {
+                case 1:
+                {
+                    cout << "enter the month and the year respectively: ";
+                    int month, year;
+                    cin >> month >> year;
+                    Date d(year, month);
+                    for (int i = 0; i < restaurantIDs.size(); i++)
+                    {
+                        rcms.getRestaurant(restaurantIDs[i])->reportOnsales(d.getMonth(), d.getYear());
+                        cout << "-------------------------------------------------" << endl;
+                        cout << "-------------------------------------------------" << endl;
+                    }
+
+                    break;
+                }
+
+                case 2:
+                {
+                    int day1, month1, year1;
+                    int day2, month2, year2;
+                    cout << "enter the starting date(day, month, year): ";
+                    cin >> day1 >> month1 >> year1;
+                    cout << "enter the ending date(day, month, year): ";
+                    cin >> day2 >> month2 >> year2;
+
+                    Date start(year1, month1, day1);
+                    Date end(year2, month2, day2);
+
+                    for (int i = 0; i < restaurantIDs.size(); i++)
+                    {
+                        rcms.getRestaurant(restaurantIDs[i])->reportOnsales(start.getDay(), start.getMonth(), start.getYear(), end.getDay(), end.getMonth(), end.getYear());
+                        cout << "-------------------------------------------------" << endl;
+                        cout << "-------------------------------------------------" << endl;
+                    }
+                    break;
+                }
+                default:
+                {
+                    cout << "enter a valid option " << endl;
+                    break;
+                }
+                }
+            }
+
             cout << endl;
-
-            switch (Case)
-            {
-            case 1:
-            {
-                cout << "enter the month and the year respectively: ";
-                int month, year;
-                cin >> month >> year;
-                Date d(year, month);
-                for (int i = 0; i < restaurantIDs.size(); i++)
-                {
-                    rcms.getRestaurant(restaurantIDs[i])->reportOnsales(d.getMonth(), d.getYear());
-                    cout << "-------------------------------------------------" << endl;
-                    cout << "-------------------------------------------------" << endl;
-                }
-
-                break;
-            }
-
-            case 2:
-            {
-                int day1, month1, year1;
-                int day2, month2, year2;
-                cout << "enter the starting date(day, month, year): ";
-                cin >> day1 >> month1 >> year1;
-                cout << "enter the ending date(day, month, year): ";
-                cin >> day2 >> month2 >> year2;
-
-                Date start(year1, month1, day1);
-                Date end(year2, month2, day2);
-
-                for (int i = 0; i < restaurantIDs.size(); i++)
-                {
-                    rcms.getRestaurant(restaurantIDs[i])->reportOnsales(start.getDay(), start.getMonth(), start.getYear(), end.getDay(), end.getMonth(), end.getYear());
-                    cout << "-------------------------------------------------" << endl;
-                    cout << "-------------------------------------------------" << endl;
-                }
-                break;
-            }
-            }
+            cout << endl;
             break;
         }
 
@@ -402,53 +430,65 @@ int main()
             toLower(wilaya);
 
             vector<int> restaurantIDs = Algeria.getRestaurantsAllCities(wilaya);
+            if (restaurantIDs.size() == 0)
+                cout << "no restaurants in that area" << endl;
+            else
+            {
+                cout << "do you want it for a period or a specific month: " << endl;
+                cout << "1. specific month and year" << endl;
+                cout << "2. specific period" << endl;
+                int Case;
+                cin >> Case;
+                cout << endl;
 
-            cout << "do you want it for a period or a specific month: ";
-            cout << "1. specific month and year" << endl;
-            cout << "2. specific period" << endl;
-            int Case;
-            cin >> Case;
+                switch (Case)
+                {
+                case 1:
+                {
+                    cout << "enter the month and the year respectively: ";
+                    int month, year;
+                    cin >> month >> year;
+                    Date d(year, month);
+                    for (int i = 0; i < restaurantIDs.size(); i++)
+                    {
+                        rcms.getRestaurant(restaurantIDs[i])->reportOnsales(d.getMonth(), d.getYear());
+                        cout << "-------------------------------------------------" << endl;
+                        cout << "-------------------------------------------------" << endl;
+                    }
+
+                    break;
+                }
+
+                case 2:
+                {
+                    int day1, month1, year1;
+                    int day2, month2, year2;
+                    cout << "enter the starting date(day, month, year): ";
+                    cin >> day1 >> month1 >> year1;
+                    cout << "enter the ending date(day, month, year): ";
+                    cin >> day2 >> month2 >> year2;
+
+                    Date start(year1, month1, day1);
+                    Date end(year2, month2, day2);
+
+                    for (int i = 0; i < restaurantIDs.size(); i++)
+                    {
+                        rcms.getRestaurant(restaurantIDs[i])->reportOnsales(start.getDay(), start.getMonth(), start.getYear(), end.getDay(), end.getMonth(), end.getYear());
+                        cout << "-------------------------------------------------" << endl;
+                        cout << "-------------------------------------------------" << endl;
+                    }
+                    break;
+                }
+                default:
+                {
+                    cout << "enter a valid option " << endl;
+                    break;
+                }
+                }
+            }
+
             cout << endl;
-
-            switch (Case)
-            {
-            case 1:
-            {
-                cout << "enter the month and the year respectively: ";
-                int month, year;
-                cin >> month >> year;
-                Date d(year, month);
-                for (int i = 0; i < restaurantIDs.size(); i++)
-                {
-                    rcms.getRestaurant(restaurantIDs[i])->reportOnsales(d.getMonth(), d.getYear());
-                    cout << "-------------------------------------------------" << endl;
-                    cout << "-------------------------------------------------" << endl;
-                }
-
-                break;
-            }
-
-            case 2:
-            {
-                int day1, month1, year1;
-                int day2, month2, year2;
-                cout << "enter the starting date(day, month, year): ";
-                cin >> day1 >> month1 >> year1;
-                cout << "enter the ending date(day, month, year): ";
-                cin >> day2 >> month2 >> year2;
-
-                Date start(year1, month1, day1);
-                Date end(year2, month2, day2);
-
-                for (int i = 0; i < restaurantIDs.size(); i++)
-                {
-                    rcms.getRestaurant(restaurantIDs[i])->reportOnsales(start.getDay(), start.getMonth(), start.getYear(), end.getDay(), end.getMonth(), end.getYear());
-                    cout << "-------------------------------------------------" << endl;
-                    cout << "-------------------------------------------------" << endl;
-                }
-                break;
-            }
-            }
+            cout << endl;
             break;
         }
 
@@ -457,53 +497,65 @@ int main()
             // Display the monthly sales report for all restaurants in the country
 
             vector<int> restaurantIDs = Algeria.getRestaurantsAllWilayas();
+            if (restaurantIDs.size() == 0)
+                cout << "no restaurants in the chain yet" << endl;
+            else
+            {
+                cout << "do you want it for a period or a specific month: " << endl;
+                cout << "1. specific month and year" << endl;
+                cout << "2. specific period" << endl;
+                int Case;
+                cin >> Case;
+                cout << endl;
 
-            cout << "do you want it for a period or a specific month: " << endl;
-            cout << "1. specific month and year" << endl;
-            cout << "2. specific period" << endl;
-            int Case;
-            cin >> Case;
+                switch (Case)
+                {
+                case 1:
+                {
+                    cout << "enter the month and the year respectively: ";
+                    int month, year;
+                    cin >> month >> year;
+                    Date d(year, month);
+                    for (int i = 0; i < restaurantIDs.size(); i++)
+                    {
+                        rcms.getRestaurant(restaurantIDs[i])->reportOnsales(d.getMonth(), d.getYear());
+                        cout << "-------------------------------------------------" << endl;
+                        cout << "-------------------------------------------------" << endl;
+                    }
+
+                    break;
+                }
+
+                case 2:
+                {
+                    int day1, month1, year1;
+                    int day2, month2, year2;
+                    cout << "enter the starting date(day, month, year): ";
+                    cin >> day1 >> month1 >> year1;
+                    cout << "enter the ending date(day, month, year): ";
+                    cin >> day2 >> month2 >> year2;
+
+                    Date start(year1, month1, day1);
+                    Date end(year2, month2, day2);
+
+                    for (int i = 0; i < restaurantIDs.size(); i++)
+                    {
+                        rcms.getRestaurant(restaurantIDs[i])->reportOnsales(start.getDay(), start.getMonth(), start.getYear(), end.getDay(), end.getMonth(), end.getYear());
+                        cout << "-------------------------------------------------" << endl;
+                        cout << "-------------------------------------------------" << endl;
+                    }
+                    break;
+                }
+                default:
+                {
+                    cout << "enter a valid option " << endl;
+                    break;
+                }
+                }
+            }
+
             cout << endl;
-
-            switch (Case)
-            {
-            case 1:
-            {
-                cout << "enter the month and the year respectively: ";
-                int month, year;
-                cin >> month >> year;
-                Date d(year, month);
-                for (int i = 0; i < restaurantIDs.size(); i++)
-                {
-                    rcms.getRestaurant(restaurantIDs[i])->reportOnsales(d.getMonth(), d.getYear());
-                    cout << "-------------------------------------------------" << endl;
-                    cout << "-------------------------------------------------" << endl;
-                }
-
-                break;
-            }
-
-            case 2:
-            {
-                int day1, month1, year1;
-                int day2, month2, year2;
-                cout << "enter the starting date(day, month, year): ";
-                cin >> day1 >> month1 >> year1;
-                cout << "enter the ending date(day, month, year): ";
-                cin >> day2 >> month2 >> year2;
-
-                Date start(year1, month1, day1);
-                Date end(year2, month2, day2);
-
-                for (int i = 0; i < restaurantIDs.size(); i++)
-                {
-                    rcms.getRestaurant(restaurantIDs[i])->reportOnsales(start.getDay(), start.getMonth(), start.getYear(), end.getDay(), end.getMonth(), end.getYear());
-                    cout << "-------------------------------------------------" << endl;
-                    cout << "-------------------------------------------------" << endl;
-                }
-                break;
-            }
-            }
+            cout << endl;
             break;
         }
 
@@ -516,60 +568,58 @@ int main()
             Restaurant *r = rcms.getRestaurant(restaurant_ID);
             cout << endl;
 
-            cout << "do you want it for a period or a specific month: ";
-            cout << "1. specific month and year" << endl;
-            cout << "2. specific period" << endl;
-            int Case;
-            cin >> Case;
-            cout << endl;
+            if (r != nullptr)
+            {
+                cout << "restaurant found" << endl;
+                cout << "do you want it for a period or a specific month: " << endl;
+                cout << "1. specific month and year" << endl;
+                cout << "2. specific period" << endl;
+                int Case;
+                cin >> Case;
+                cout << endl;
 
-            switch (Case)
-            {
-            case 1:
-            {
-                cout << "enter the month and the year respectively: " << endl;
-                int month, year;
-                cin >> month >> year;
-                Date d(year, month);
-                if (r != nullptr)
+                switch (Case)
                 {
+                case 1:
+                {
+                    cout << "enter the month and the year respectively: ";
+                    int month, year;
+                    cin >> month >> year;
+                    Date d(year, month);
 
                     r->getMonthlyRatio(d.getMonth(), d.getYear());
-                }
-                else
-                {
-                    cout << "this restaurant does not exist" << endl;
+                    break;
                 }
 
-                break;
-            }
-
-            case 2:
-            {
-                int month1, year1;
-                int month2, year2;
-                cout << "enter the starting date(month, year): ";
-                cin >> month1 >> year1;
-                cout << "enter the ending date(month, year): ";
-                cin >> month2 >> year2;
-
-                Date start(year1, month1);
-                Date end(year2, month2);
-
-                if (r != nullptr)
+                case 2:
                 {
+                    int month1, year1;
+                    int month2, year2;
+                    cout << "enter the starting date(month, year): ";
+                    cin >> month1 >> year1;
+                    cout << "enter the ending date(month, year): ";
+                    cin >> month2 >> year2;
+
+                    Date start(year1, month1);
+                    Date end(year2, month2);
 
                     r->getMonthlyRatioPeriod(start.getMonth(), start.getYear(), end.getMonth(), end.getYear());
+                    break;
                 }
-                else
+                default:
                 {
-                    cout << "this restaurant does not exist" << endl;
+                    cout << "enter a valid option" << endl;
+                    break;
                 }
-
-                break;
+                }
             }
+            else
+            {
+                cout << "restaurant not found" << endl;
             }
 
+            cout << endl;
+            cout << endl;
             break;
         }
 
@@ -588,54 +638,67 @@ int main()
             toLower(district);
 
             vector<int> restaurantIDs = Algeria.getRestaurantsDistrict(wilaya, city, district);
+            if (restaurantIDs.size() == 0)
+            {
+                cout << "no restaurants in that area" << endl;
+            }
+            else
+            {
+                cout << "do you want it for a period or a specific month: " << endl;
+                cout << "1. specific month and year" << endl;
+                cout << "2. specific period" << endl;
+                int Case;
+                cin >> Case;
+                cout << endl;
 
-            cout << "do you want it for a period or a specific month: ";
-            cout << "1. specific month and year" << endl;
-            cout << "2. specific period" << endl;
-            int Case;
-            cin >> Case;
+                switch (Case)
+                {
+                case 1:
+                {
+                    cout << "enter the month and the year respectively: ";
+                    int month, year;
+                    cin >> month >> year;
+                    Date d(year, month);
+                    for (int i = 0; i < restaurantIDs.size(); i++)
+                    {
+                        rcms.getRestaurant(restaurantIDs[i])->getMonthlyRatio(d.getMonth(), d.getYear());
+                        cout << "-------------------------------------------------" << endl;
+                        cout << "-------------------------------------------------" << endl;
+                    }
+
+                    break;
+                }
+
+                case 2:
+                {
+                    int month1, year1;
+                    int month2, year2;
+                    cout << "enter the starting date(month, year): ";
+                    cin >> month1 >> year1;
+                    cout << "enter the ending date(month, year): ";
+                    cin >> month2 >> year2;
+
+                    Date start(year1, month1);
+                    Date end(year2, month2);
+
+                    for (int i = 0; i < restaurantIDs.size(); i++)
+                    {
+                        rcms.getRestaurant(restaurantIDs[i])->getMonthlyRatioPeriod(start.getMonth(), start.getYear(), end.getMonth(), end.getYear());
+                        cout << "-------------------------------------------------" << endl;
+                        cout << "-------------------------------------------------" << endl;
+                    }
+                    break;
+                }
+                default:
+                {
+                    cout << "enter a valid option" << endl;
+                    break;
+                }
+                }
+            }
+
             cout << endl;
-
-            switch (Case)
-            {
-            case 1:
-            {
-                cout << "enter the month and the year respectively: ";
-                int month, year;
-                cin >> month >> year;
-                Date d(year, month);
-                for (int i = 0; i < restaurantIDs.size(); i++)
-                {
-                    rcms.getRestaurant(restaurantIDs[i])->getMonthlyRatio(d.getMonth(), d.getYear());
-                    cout << "-------------------------------------------------" << endl;
-                    cout << "-------------------------------------------------" << endl;
-                }
-
-                break;
-            }
-
-            case 2:
-            {
-                int month1, year1;
-                int month2, year2;
-                cout << "enter the starting date(month, year): ";
-                cin >> month1 >> year1;
-                cout << "enter the ending date(month, year): ";
-                cin >> month2 >> year2;
-
-                Date start(year1, month1);
-                Date end(year2, month2);
-
-                for (int i = 0; i < restaurantIDs.size(); i++)
-                {
-                    rcms.getRestaurant(restaurantIDs[i])->getMonthlyRatioPeriod(start.getMonth(), start.getYear(), end.getMonth(), end.getYear());
-                    cout << "-------------------------------------------------" << endl;
-                    cout << "-------------------------------------------------" << endl;
-                }
-                break;
-            }
-            }
-
+            cout << endl;
             break;
         }
 
@@ -652,54 +715,67 @@ int main()
             toLower(city);
 
             vector<int> restaurantIDs = Algeria.getRestaurantsAllDistricts(wilaya, city);
+            if (restaurantIDs.size() == 0)
+            {
+                cout << "no restaurants in that area" << endl;
+            }
+            else
+            {
+                cout << "do you want it for a period or a specific month: " << endl;
+                cout << "1. specific month and year" << endl;
+                cout << "2. specific period" << endl;
+                int Case;
+                cin >> Case;
+                cout << endl;
 
-            cout << "do you want it for a period or a specific month: ";
-            cout << "1. specific month and year" << endl;
-            cout << "2. specific period" << endl;
-            int Case;
-            cin >> Case;
+                switch (Case)
+                {
+                case 1:
+                {
+                    cout << "enter the month and the year respectively: ";
+                    int month, year;
+                    cin >> month >> year;
+                    Date d(year, month);
+                    for (int i = 0; i < restaurantIDs.size(); i++)
+                    {
+                        rcms.getRestaurant(restaurantIDs[i])->getMonthlyRatio(d.getMonth(), d.getYear());
+                        cout << "-------------------------------------------------" << endl;
+                        cout << "-------------------------------------------------" << endl;
+                    }
+
+                    break;
+                }
+
+                case 2:
+                {
+                    int month1, year1;
+                    int month2, year2;
+                    cout << "enter the starting date(month, year): ";
+                    cin >> month1 >> year1;
+                    cout << "enter the ending date(month, year): ";
+                    cin >> month2 >> year2;
+
+                    Date start(year1, month1);
+                    Date end(year2, month2);
+
+                    for (int i = 0; i < restaurantIDs.size(); i++)
+                    {
+                        rcms.getRestaurant(restaurantIDs[i])->getMonthlyRatioPeriod(start.getMonth(), start.getYear(), end.getMonth(), end.getYear());
+                        cout << "-------------------------------------------------" << endl;
+                        cout << "-------------------------------------------------" << endl;
+                    }
+                    break;
+                }
+                default:
+                {
+                    cout << "enter a valid option" << endl;
+                    break;
+                }
+                }
+            }
+
             cout << endl;
-
-            switch (Case)
-            {
-            case 1:
-            {
-                cout << "enter the month and the year respectively: ";
-                int month, year;
-                cin >> month >> year;
-                Date d(year, month);
-                for (int i = 0; i < restaurantIDs.size(); i++)
-                {
-                    rcms.getRestaurant(restaurantIDs[i])->getMonthlyRatio(d.getMonth(), d.getYear());
-                    cout << "-------------------------------------------------" << endl;
-                    cout << "-------------------------------------------------" << endl;
-                }
-
-                break;
-            }
-
-            case 2:
-            {
-                int month1, year1;
-                int month2, year2;
-                cout << "enter the starting date(month, year): ";
-                cin >> month1 >> year1;
-                cout << "enter the ending date(month, year): ";
-                cin >> month2 >> year2;
-
-                Date start(year1, month1);
-                Date end(year2, month2);
-
-                for (int i = 0; i < restaurantIDs.size(); i++)
-                {
-                    rcms.getRestaurant(restaurantIDs[i])->getMonthlyRatioPeriod(start.getMonth(), start.getYear(), end.getMonth(), end.getYear());
-                    cout << "-------------------------------------------------" << endl;
-                    cout << "-------------------------------------------------" << endl;
-                }
-                break;
-            }
-            }
-
+            cout << endl;
             break;
         }
 
@@ -713,53 +789,67 @@ int main()
             toLower(wilaya);
 
             vector<int> restaurantIDs = Algeria.getRestaurantsAllCities(wilaya);
+            if (restaurantIDs.size() == 0)
+            {
+                cout << "no restaurants in that area" << endl;
+            }
+            else
+            {
+                cout << "do you want it for a period or a specific month: " << endl;
+                cout << "1. specific month and year" << endl;
+                cout << "2. specific period" << endl;
+                int Case;
+                cin >> Case;
+                cout << endl;
 
-            cout << "do you want it for a period or a specific month: ";
-            cout << "1. specific month and year" << endl;
-            cout << "2. specific period" << endl;
-            int Case;
-            cin >> Case;
+                switch (Case)
+                {
+                case 1:
+                {
+                    cout << "enter the month and the year respectively: ";
+                    int month, year;
+                    cin >> month >> year;
+                    Date d(year, month);
+                    for (int i = 0; i < restaurantIDs.size(); i++)
+                    {
+                        rcms.getRestaurant(restaurantIDs[i])->getMonthlyRatio(d.getMonth(), d.getYear());
+                        cout << "-------------------------------------------------" << endl;
+                        cout << "-------------------------------------------------" << endl;
+                    }
+
+                    break;
+                }
+
+                case 2:
+                {
+                    int month1, year1;
+                    int month2, year2;
+                    cout << "enter the starting date(month, year): ";
+                    cin >> month1 >> year1;
+                    cout << "enter the ending date(month, year): ";
+                    cin >> month2 >> year2;
+
+                    Date start(year1, month1);
+                    Date end(year2, month2);
+
+                    for (int i = 0; i < restaurantIDs.size(); i++)
+                    {
+                        rcms.getRestaurant(restaurantIDs[i])->getMonthlyRatioPeriod(start.getMonth(), start.getYear(), end.getMonth(), end.getYear());
+                        cout << "-------------------------------------------------" << endl;
+                        cout << "-------------------------------------------------" << endl;
+                    }
+                    break;
+                }
+                default:
+                {
+                    cout << "enter a valid option" << endl;
+                    break;
+                }
+                }
+            }
+
             cout << endl;
-
-            switch (Case)
-            {
-            case 1:
-            {
-                cout << "enter the month and the year respectively: ";
-                int month, year;
-                cin >> month >> year;
-                Date d(year, month);
-                for (int i = 0; i < restaurantIDs.size(); i++)
-                {
-                    rcms.getRestaurant(restaurantIDs[i])->getMonthlyRatio(d.getMonth(), d.getYear());
-                    cout << "-------------------------------------------------" << endl;
-                    cout << "-------------------------------------------------" << endl;
-                }
-
-                break;
-            }
-
-            case 2:
-            {
-                int month1, year1;
-                int month2, year2;
-                cout << "enter the starting date(month, year): ";
-                cin >> month1 >> year1;
-                cout << "enter the ending date(month, year): ";
-                cin >> month2 >> year2;
-
-                Date start(year1, month1);
-                Date end(year2, month2);
-
-                for (int i = 0; i < restaurantIDs.size(); i++)
-                {
-                    rcms.getRestaurant(restaurantIDs[i])->getMonthlyRatioPeriod(start.getMonth(), start.getYear(), end.getMonth(), end.getYear());
-                    cout << "-------------------------------------------------" << endl;
-                    cout << "-------------------------------------------------" << endl;
-                }
-                break;
-            }
-            }
+            cout << endl;
             break;
         }
 
@@ -767,53 +857,67 @@ int main()
         {
             // Display the ratio of the monthly sales on the publicity cost for all restaurants in the country
             vector<int> restaurantIDs = Algeria.getRestaurantsAllWilayas();
+            if (restaurantIDs.size() == 0)
+            {
+                cout << "no restaurants in that area" << endl;
+            }
+            else
+            {
+                cout << "do you want it for a period or a specific month: " << endl;
+                cout << "1. specific month and year" << endl;
+                cout << "2. specific period" << endl;
+                int Case;
+                cin >> Case;
+                cout << endl;
 
-            cout << "do you want it for a period or a specific month: ";
-            cout << "1. specific month and year" << endl;
-            cout << "2. specific period" << endl;
-            int Case;
-            cin >> Case;
+                switch (Case)
+                {
+                case 1:
+                {
+                    cout << "enter the month and the year respectively: ";
+                    int month, year;
+                    cin >> month >> year;
+                    Date d(year, month);
+                    for (int i = 0; i < restaurantIDs.size(); i++)
+                    {
+                        rcms.getRestaurant(restaurantIDs[i])->getMonthlyRatio(d.getMonth(), d.getYear());
+                        cout << "-------------------------------------------------" << endl;
+                        cout << "-------------------------------------------------" << endl;
+                    }
+
+                    break;
+                }
+
+                case 2:
+                {
+                    int month1, year1;
+                    int month2, year2;
+                    cout << "enter the starting date(month, year): ";
+                    cin >> month1 >> year1;
+                    cout << "enter the ending date(month, year): ";
+                    cin >> month2 >> year2;
+
+                    Date start(year1, month1);
+                    Date end(year2, month2);
+
+                    for (int i = 0; i < restaurantIDs.size(); i++)
+                    {
+                        rcms.getRestaurant(restaurantIDs[i])->getMonthlyRatioPeriod(start.getMonth(), start.getYear(), end.getMonth(), end.getYear());
+                        cout << "-------------------------------------------------" << endl;
+                        cout << "-------------------------------------------------" << endl;
+                    }
+                    break;
+                }
+                default:
+                {
+                    cout << "enter a valid option" << endl;
+                    break;
+                }
+                }
+            }
+
             cout << endl;
-
-            switch (Case)
-            {
-            case 1:
-            {
-                cout << "enter the month and the year respectively: ";
-                int month, year;
-                cin >> month >> year;
-                Date d(year, month);
-                for (int i = 0; i < restaurantIDs.size(); i++)
-                {
-                    rcms.getRestaurant(restaurantIDs[i])->getMonthlyRatio(d.getMonth(), d.getYear());
-                    cout << "-------------------------------------------------" << endl;
-                    cout << "-------------------------------------------------" << endl;
-                }
-
-                break;
-            }
-
-            case 2:
-            {
-                int month1, year1;
-                int month2, year2;
-                cout << "enter the starting date(month, year): ";
-                cin >> month1 >> year1;
-                cout << "enter the ending date(month, year): ";
-                cin >> month2 >> year2;
-
-                Date start(year1, month1);
-                Date end(year2, month2);
-
-                for (int i = 0; i < restaurantIDs.size(); i++)
-                {
-                    rcms.getRestaurant(restaurantIDs[i])->getMonthlyRatioPeriod(start.getMonth(), start.getYear(), end.getMonth(), end.getYear());
-                    cout << "-------------------------------------------------" << endl;
-                    cout << "-------------------------------------------------" << endl;
-                }
-                break;
-            }
-            }
+            cout << endl;
             break;
         }
 
@@ -868,17 +972,23 @@ int main()
                 }
                 break;
             }
+            default:
+            {
+                cout << "enter a valid option" << endl;
+                break;
             }
-
+            }
+            cout << endl;
+            cout << endl;
             break;
         }
         default:
             break;
         }
-
     } while (choice != 14);
 }
 
+// the definition of the needed functions
 void extractTokensRestaurant(const string &line, int &ID, string &name, string &type, int &year, int &month, int &day, int &employeeNum, string &wilaya, string &city, string &district)
 {
     // ID,Name,Type,Creation date,employee number,wilaya,city,district

@@ -31,7 +31,9 @@ int getDaysInMonth(int year, int month)
 
 void generateSalesCosts(int startYear, int startMonth, int startDay, int ID)
 {
-    string filePath = to_string(ID) + "salesCosts.csv";
+    // string filePath = to_string(ID) + "salesCosts.csv";
+    string filePath = "Data/salesCosts/" + to_string(ID) + "salesCosts.csv";
+    
     ofstream outputFile(filePath);
     outputFile << "year,month,day,sales1,sales2,sales3,sales4,sales5,rent, employeePayment, electricity, gaz, vegetables, meats, otherIngredients, publicity" << endl;
 
